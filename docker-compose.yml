@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+    flutter:
+        build: .
+            # context: ./deploy/flutter
+            # target: dev
+        restart: always
+        # tty: true
+        # volumes: 
+        #     - .:/app
+        ports:
+            - "8080:9080"
+        # command: ["flutter", "pub", "get", "&&", "flutter", "run", "-d", "chrome"]
+        # command: >
+        #     sh -c "flutter pub get && flutter run -d web-server --web-port 3000 --web-hostname 0.0.0.0"
+    
+    # nginx:
+    #     build:
+    #         context: ./deploy/nginx
+    #         target: dev
+    #     ports: 
+    #         - "443:443"
+    #     depends_on: 
+    #         - flutter
+  
