@@ -70112,7 +70112,7 @@ S.lq.prototype={}
 B.EV.prototype={
 e1:function(){var s=this
 s.fx=!0
-s.gqT().b="http://inclus-mapi.tihub.net"
+s.gqT().b="https://inclus-mapi.tihub.net"
 s.gqT().ch.a.push(t.x9.a(new B.VE()))
 s.gqT().ch.b.push(t.LF.a(new B.VF()))}}
 B.VE.prototype={
