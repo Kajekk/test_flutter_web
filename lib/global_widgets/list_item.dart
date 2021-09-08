@@ -6,155 +6,96 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_flutter_web/constants/app_constants.dart';
 import 'package:data_table_2/data_table_2.dart';
+import 'package:test_flutter_web/data/barrel.dart';
 import 'package:test_flutter_web/global_widgets/barrel.dart';
 import 'package:test_flutter_web/global_widgets/responsive.dart';
-import 'package:test_flutter_web/models/account.dart';
+import '../data/models/account.dart';
 
 class ListItem extends StatelessWidget {
-  final String tag;
+  // final String tag;
+  final SubTabController controller;
   final DataTableSource dataTableSource;
-  ListItem({Key? key, required this.tag, required this.dataTableSource}) : super(key: key);
+  final isLoading;
+  ListItem({Key? key, required this.controller, required this.dataTableSource, this.isLoading = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final CategoryController categoryController = Get.find(tag: tag);
-    final ListItemController listItemController = Get.find(tag: tag);
-    return Container(
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
-        color: secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Obx(() {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    // final CategoryController categoryController = Get.find(tag: tag);
+    final ListItemController listItemController = Get.find();
+
+    return Stack(
+      children: [
+        Container(
+          padding: EdgeInsets.all(defaultPadding),
+          decoration: BoxDecoration(
+            color: secondaryColor,
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+          ),
+          child: Obx(() {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  categoryController.currentCategory,
-                  style: Theme.of(context).textTheme.subtitle1,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      // categoryController.currentCategory,
+                      controller.categoryModel.title!,
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                    TextButton.icon(
+                      style: TextButton.styleFrom(
+                        primary: Colors.deepPurpleAccent,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: defaultPadding,
+                            vertical: defaultPadding /
+                                (Responsive.isMobile(context) ? 1.5 : 1.2)),
+                      ),
+                      onPressed: () {},
+                      icon: Icon(Icons.add),
+                      label: Text("Add New"),
+                    )
+                  ],
                 ),
-                TextButton.icon(
-                  style: TextButton.styleFrom(
-                    primary: Colors.deepPurpleAccent,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: defaultPadding,
-                        vertical: defaultPadding /
-                            (Responsive.isMobile(context) ? 1.5 : 1.2)),
+                SizedBox(
+                  height: defaultPadding / 2,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: PaginatedDataTable(
+                    columns: List.generate(
+                      // categoryController.dataColumn.length,
+                        controller.categoryModel.dataColumn!.length,
+                            (index) => DataColumn(
+                            label: Text(controller.categoryModel.dataColumn![index]))),
+                    onRowsPerPageChanged: (value) {
+                      listItemController.changeRowsPerPage(value);
+                    },
+                    onPageChanged: (rowIndex) {
+                      print("onPageChanged");
+                      print(rowIndex);
+                    },
+                    showCheckboxColumn: false,
+                    showFirstLastButtons: true,
+                    rowsPerPage: listItemController.rowsPerPage,
+                    // onSelectAll: _data.se,
+                    source: dataTableSource,
                   ),
-                  onPressed: () {},
-                  icon: Icon(Icons.add),
-                  label: Text("Add New"),
-                )
+                ),
               ],
-            ),
-            SizedBox(
-              height: defaultPadding / 2,
-            ),
-            // Obx(() {
-            //   return DataTable2(
-            //     columnSpacing: defaultPadding,
-            //     minWidth: 600,
-            //     columns: List.generate(categoryController.dataColumn.length,
-            //             (index) => DataColumn(label: Text(categoryController.dataColumn[index]))),
-            //     rows: List.generate(
-            //         mockupData.length, (index) => (dataRow(mockupData[index]))),
-            //   );
-            // }),
-            SizedBox(
-              width: double.infinity,
-              child: PaginatedDataTable(
-                columnSpacing: defaultPadding,
-                columns: List.generate(
-                    categoryController.dataColumn.length,
-                    (index) => DataColumn(
-                        label: Text(categoryController.dataColumn[index]))),
-                onRowsPerPageChanged: (value) {
-                  listItemController.changeRowsPerPage(value);
-                },
-                onPageChanged: (rowIndex) {
-                  print("onPageChanged");
-                  print(rowIndex);
-                },
-                showCheckboxColumn: false,
-                showFirstLastButtons: true,
-                rowsPerPage: listItemController.rowsPerPage,
-                // onSelectAll: _data.se,
-                source: dataTableSource,
-              ),
-            ),
-          ],
-        );
-      }),
+            );
+          }),
+        ),
+        Visibility(
+          visible: isLoading,
+          child: Positioned.fill(
+            child: Container(decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                color: Colors.grey.withOpacity(0.8)
+            ),),
+          ),
+        ),
+      ],
     );
   }
 }
-
-DataRow dataRow(Account account) {
-  return DataRow(cells: [
-    DataCell(Text(account.accountName!)),
-    DataCell(Text(account.organization!)),
-    DataCell(Text(account.role!)),
-    DataCell(Text(account.type!)),
-  ]);
-}
-
-// List mockupData = [
-//   Account(
-//     accountName: "qweqe",
-//     organization: "individual",
-//     role: "admin",
-//     type: "123",
-//   ),
-//   Account(
-//     accountName: "qweqe",
-//     organization: "individual",
-//     role: "admin",
-//     type: "123",
-//   ),
-//   Account(
-//     accountName: "qweqe",
-//     organization: "individual",
-//     role: "admin",
-//     type: "123",
-//   ),
-//   Account(
-//     accountName: "qweqe",
-//     organization: "individual",
-//     role: "admin",
-//     type: "123",
-//   ),
-//   Account(
-//     accountName: "qweqe",
-//     organization: "individual",
-//     role: "admin",
-//     type: "123",
-//   ),
-//   Account(
-//     accountName: "qweqe",
-//     organization: "individual",
-//     role: "admin",
-//     type: "123",
-//   ),
-//   Account(
-//     accountName: "qweqe",
-//     organization: "individual",
-//     role: "admin",
-//     type: "123",
-//   ),
-//   Account(
-//     accountName: "qweqe",
-//     organization: "individual",
-//     role: "admin",
-//     type: "123",
-//   ),
-//   Account(
-//     accountName: "qweqe",
-//     organization: "individual",
-//     role: "admin",
-//     type: "123",
-//   ),
-// ];
-

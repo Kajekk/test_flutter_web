@@ -7,10 +7,10 @@ import 'controllers/barrel.dart';
 
 class Category extends StatelessWidget {
   // final List<CategoryCardModel> subPageList;
-  // final CategoryController controller;
-  final String tag;
-  const Category({Key? key, required this.tag
-    // required this.controller}
+  final List<SubTabController> listController;
+  // final String tag;
+  const Category({Key? key,
+    required this.listController
   }) : super(key: key);
 
   @override
@@ -23,42 +23,53 @@ class Category extends StatelessWidget {
             mobile: CategoryCard(
               crossAxisCount: _size.width < 650 ? 2 : 4,
               childAspectRatio: _size.width < 650 ? 10/5 : 10/9,
+                listController: listController,
               // listData: subPageList,
-              tag: tag,
             ),
-            tablet: CategoryCard(tag: tag,),
+            tablet: CategoryCard(listController: listController,),
             desktop: CategoryCard(
               childAspectRatio: _size.width < 1400 ? 10/7 : 10/6,
+              listController: listController,
               // listData: subPageList,
-              tag: tag,
             ))
       ],
     );
   }
 }
 
+// class MyInherited extends InheritedWidget {
+//
+//   static MyInherited of(BuildContext context) {
+//     return context.dependOnInheritedWidgetOfExactType<MyInherited>();
+//   }
+//
+//   @override
+//   bool updateShouldNotify(covariant InheritedWidget oldWidget) {
+//     // TODO: implement updateShouldNotify
+//     throw UnimplementedError();
+//   }
+//
+// }
+
 class CategoryCard extends StatelessWidget {
   const CategoryCard({
     Key? key,
     this.crossAxisCount = 5,
     this.childAspectRatio = 10/8,
-    // required this.listData,
-    required this.tag,
+    required this.listController,
   }) : super(key: key);
 
+  final List<SubTabController> listController;
   final int crossAxisCount;
   final double childAspectRatio;
   // final List<CategoryCardModel> listData;
-  final String tag;
 
   @override
   Widget build(BuildContext context) {
-    CategoryController categoryController = Get.find(tag: tag);
-
     return GridView.builder(
         physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        itemCount: categoryController.mapCategoryCard.length,
+        itemCount: listController.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: crossAxisCount,
           crossAxisSpacing: defaultPadding,
@@ -67,8 +78,7 @@ class CategoryCard extends StatelessWidget {
         ),
         itemBuilder: (context, index) => CategoryInfoCard(
               // info: listData[index],
-              info: categoryController.mapCategoryCard.values.elementAt(index),
-              tag: tag,
+              controller: listController[index],
             ));
   }
 }

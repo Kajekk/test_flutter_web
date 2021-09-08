@@ -37,7 +37,7 @@ class SupportManagementPage extends StatelessWidget {
                           SizedBox(
                             height: defaultPadding,
                           ),
-                          Category(tag: 'support-management',),
+                          // Category(tag: 'support-management',),
                           SizedBox(
                             height: defaultPadding,
                           ),
@@ -49,7 +49,7 @@ class SupportManagementPage extends StatelessWidget {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.stretch,
                                     children: [
-                                      ListItem(tag: 'support-management', dataTableSource: MyData(),),
+                                      // ListItem(tag: 'support-management', dataTableSource: MyData(),),
                                       if (Responsive.isMobile(context))
                                         SizedBox(
                                           height: defaultPadding,

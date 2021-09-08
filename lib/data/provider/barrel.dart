@@ -1,0 +1,1 @@
+export 'emotional_provider.dart';

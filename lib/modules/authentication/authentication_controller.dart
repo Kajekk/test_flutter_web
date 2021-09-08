@@ -1,35 +1,50 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/list_notifier.dart';
+import 'package:test_flutter_web/data/models/user.dart';
+import 'package:test_flutter_web/routes/barrel.dart';
 import 'authentication.dart';
 
 import 'authentication_service.dart';
 
 class AuthenticationController extends GetxController {
-  final AuthenticationService _authenticationService;
+  final IAuthenticationService authenticationService;
   final _authenticationStateStream = AuthenticationState().obs;
 
   AuthenticationState get state => _authenticationStateStream.value;
-  AuthenticationController(this._authenticationService);
+  AuthenticationController({required this.authenticationService});
 
   @override
   void onInit() {
-    _getAuthenticatedUser();
     super.onInit();
+
+    ever(_authenticationStateStream, (state) {
+      if (state is Authenticated) {
+        Get.offAllNamed(Routes.DASHBOARD);
+      }
+      if (state is UnAuthenticated) {
+        Get.offAllNamed(Routes.LOGIN_PAGE);
+      }
+    });
+    _getAuthenticatedUser();
   }
 
   Future<void> signIn(String email, String password) async {
-    final user = await _authenticationService.signInWithEmailAndPassword(email, password);
-    _authenticationStateStream.value = Authenticated(user: user);
+      final user = await authenticationService.signInWithEmailAndPassword(email, password);
+      if (user != null) {
+        _authenticationStateStream.value = Authenticated(user: user);
+      }
   }
 
   void signOut() async {
-    await _authenticationService.signOut();
+    await authenticationService.signOut();
     _authenticationStateStream.value = UnAuthenticated();
   }
 
   void _getAuthenticatedUser() async {
     _authenticationStateStream.value = AuthenticationLoading();
 
-    final user = await _authenticationService.getCurrentUser();
+    final user = await authenticationService.getCurrentUser();
 
     if (user == null) {
       _authenticationStateStream.value = UnAuthenticated();

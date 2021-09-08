@@ -1,19 +1,19 @@
 import 'package:test_flutter_web/global_widgets/category_info_card.dart';
 import 'package:test_flutter_web/routes/app_pages.dart';
 
-List<CategoryCardModel> categoryData = [
-  CategoryCardModel(
-      title: "ASDASD", svgSource: "assets/icons/menu_dashboard.svg", route: Routes.ENTITY_TYPE),
-  CategoryCardModel(
-      title: "QWEQWEQWEQWE",
-      svgSource: "assets/icons/menu_dashboard.svg", route: Routes.USER_PERMISSIONS),
-  CategoryCardModel(
-      title: "123123123213", svgSource: "assets/icons/menu_dashboard.svg", route: Routes.USER_ROLES),
+// List<CategoryCardModel> categoryData = [
+//   CategoryCardModel(
+//       title: "ASDASD", svgSource: "assets/icons/menu_dashboard.svg", route: Routes.ENTITY_TYPE),
+//   CategoryCardModel(
+//       title: "QWEQWEQWEQWE",
+//       svgSource: "assets/icons/menu_dashboard.svg", route: Routes.USER_PERMISSIONS),
+//   CategoryCardModel(
+//       title: "123123123213", svgSource: "assets/icons/menu_dashboard.svg", route: Routes.USER_ROLES),
   // CategoryCardModel(
   //     title: "Account", svgSource: "assets/icons/menu_dashboard.svg"),
   // CategoryCardModel(
   //     title: "Account", svgSource: "assets/icons/menu_dashboard.svg"),
-];
+// ];
 
 Map<String, Map<String, dynamic>> categoryMap = {
   "ASDASD": {

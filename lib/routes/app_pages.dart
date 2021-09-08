@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_flutter_web/modules/authentication/login/login.dart';
+import 'package:test_flutter_web/modules/dashboard/barrel.dart';
 import 'package:test_flutter_web/modules/support_management/binding.dart';
 import 'package:test_flutter_web/modules/support_management/support_management_page.dart';
 import 'package:test_flutter_web/modules/user_access_management/barrel.dart';
@@ -11,6 +12,11 @@ part 'app_routes.dart';
 
 class AppPages {
   static final pages = [
+    GetPage(
+      name: Routes.DASHBOARD,
+      page: () => Dashboard(),
+      middlewares: [AuthMiddleware()],
+    ),
     GetPage(
         name: Routes.LOGIN_PAGE,
         page: () => LoginPage(),

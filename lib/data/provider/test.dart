@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:test_flutter_web/data/model/test.dart';
+import 'package:test_flutter_web/data/models/test.dart';
 
 const baseUrl = 'https://jsonplaceholder.typicode.com/posts/';
 

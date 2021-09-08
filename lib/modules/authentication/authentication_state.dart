@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:test_flutter_web/models/user.dart';
+import '../../data/models/user.dart';
 
 class AuthenticationState extends Equatable {
   const AuthenticationState();

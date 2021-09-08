@@ -3,27 +3,24 @@ import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:test_flutter_web/constants/app_constants.dart';
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:test_flutter_web/global_widgets/barrel.dart';
 import 'package:test_flutter_web/routes/app_pages.dart';
 
 class CategoryInfoCard extends StatelessWidget {
   const CategoryInfoCard({
     Key? key,
-    required this.info, required this.tag
+    required this.controller
   }) : super(key: key);
 
-  final Map<String, dynamic> info;
-  final String tag;
+  final SubTabController controller;
+
   @override
   Widget build(BuildContext context) {
-    final CategoryController categoryController = Get.find(tag: tag);
+
+    // final CategoryController categoryController = Get.find(tag: tag);
     return InkWell(
       onTap: () {
-        // Get.toNamed(info.route!, arguments: {
-        //   'id': '123'
-        // });
-        categoryController.changeCategory(info["title"]!);
+        controller.changeSubTab();
       },
       child: Container(
         padding: EdgeInsets.only(left: defaultPadding, right: defaultPadding, top: defaultPadding / 2),
@@ -36,12 +33,12 @@ class CategoryInfoCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             SvgPicture.asset(
-              info["svgSource"]!,
+              controller.categoryModel.svgSource!,
               color: Colors.white54,
               height: 24,
             ),
-            AutoSizeText(
-              info["title"],
+            Text(
+              controller.categoryModel.title!,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.subtitle2,
@@ -53,8 +50,3 @@ class CategoryInfoCard extends StatelessWidget {
   }
 }
 
-class CategoryCardModel {
-  String? title, svgSource, route;
-  List<String>? dataColumn;
-  CategoryCardModel({this.title, this.svgSource, this.route, this.dataColumn});
-}

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,7 @@ class SideMenu extends StatelessWidget {
               minWidth: double.infinity
             ),
             color: Color(0xFF242430),
+            margin: EdgeInsets.only(bottom: defaultPadding / 2),
             child: DrawerHeader(child: Column(
               children: [
                 Spacer(flex: 2),
@@ -45,10 +47,41 @@ class SideMenu extends StatelessWidget {
             )),
           ),
           DrawerListTile(
+            title: "Dashboard",
+            svgSrc: "assets/icons/menu_dashboard.svg",
+            press: () {
+              Get.toNamed(Routes.DASHBOARD);
+            },
+          ),
+          DrawerListTile(
             title: "User Access Management",
             svgSrc: "assets/icons/menu_dashboard.svg",
             press: () {
               Get.toNamed(Routes.USER_ACCESS_MANAGEMENT);
+            },
+          ),
+          DrawerListTile(
+            title: "Account Management",
+            svgSrc: "assets/icons/menu_dashboard.svg",
+            press: () {
+              Get.toNamed(Routes.SUPPORT_MANAGEMENT);
+            },
+          ),
+          DrawerListTile(
+            title: "Home Management",
+            svgSrc: "assets/icons/menu_dashboard.svg",
+            press: () {},
+          ),
+          DrawerListTile(
+            title: "Goal Management",
+            svgSrc: "assets/icons/menu_dashboard.svg",
+            press: () {},
+          ),
+          DrawerListTile(
+            title: "Employment Management",
+            svgSrc: "assets/icons/menu_dashboard.svg",
+            press: () {
+              Get.toNamed(Routes.SUPPORT_MANAGEMENT);
             },
           ),
           DrawerListTile(
@@ -60,16 +93,6 @@ class SideMenu extends StatelessWidget {
           ),
           DrawerListTile(
             title: "Emotional Management",
-            svgSrc: "assets/icons/menu_dashboard.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Home Management",
-            svgSrc: "assets/icons/menu_dashboard.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Goal Management",
             svgSrc: "assets/icons/menu_dashboard.svg",
             press: () {},
           ),

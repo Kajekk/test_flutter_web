@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:test_flutter_web/constants/app_constants.dart';
 import 'package:test_flutter_web/modules/authentication/authentication.dart';
+import 'package:test_flutter_web/modules/authentication/authentication_provider.dart';
 import 'package:test_flutter_web/modules/authentication/login/login.dart';
 import 'package:test_flutter_web/routes/app_pages.dart';
 import 'package:test_flutter_web/modules/user_access_management/barrel.dart';
@@ -10,7 +11,6 @@ import 'package:get/get.dart';
 import 'global_widgets/controllers/category_controller.dart';
 import 'modules/dashboard/barrel.dart';
 import 'modules/splash/splash.dart';
-import 'modules/user_access_management/common.dart';
 
 void main() {
   initialize();
@@ -18,12 +18,15 @@ void main() {
 }
 
 void initialize() {
+  Get.lazyPut<IAuthenticationProvider>(() => AuthenticationProvider());
+  Get.lazyPut<IAuthenticationService>(
+      () => AuthenticationService(provider: Get.find()));
   Get.lazyPut(
-    () => AuthenticationController(Get.put(FakeAuthenticationService())),
+    () => AuthenticationController(authenticationService: Get.find()),
   );
 }
 
-class MyApp extends GetWidget<AuthenticationController> {
+class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -54,21 +57,22 @@ class MyApp extends GetWidget<AuthenticationController> {
         onGenerateRoute: (settings) {
           print('123123');
         },
-        home: Obx(() {
-          if (controller.state is UnAuthenticated) {
-            return LoginPage();
-          }
-          if (controller.state is Authenticated) {
-            return Dashboard();
-            // return GetBuilder(
-            //     tag: 'user-access-management',
-            //     init: CategoryController(
-            //         listCategoryCard: categoryData.obs,
-            //         mapCategoryCard: categoryMap.obs),
-            //     builder: (_) => UserAccessManagementPage());
-          }
-          return SplashScreen();
-        }));
+        home: AppView());
+    // home: Obx(() {
+    //   if (controller.state is UnAuthenticated) {
+    //     return LoginPage();
+    //   }
+    //   if (controller.state is Authenticated) {
+    //     return Dashboard();
+    //     // return GetBuilder(
+    //     //     tag: 'user-access-management',
+    //     //     init: CategoryController(
+    //     //         listCategoryCard: categoryData.obs,
+    //     //         mapCategoryCard: categoryMap.obs),
+    //     //     builder: (_) => UserAccessManagementPage());
+    //   }
+    //   return SplashScreen();
+    // }));
     // return MultiProvider(
     //   providers: [
     //     ChangeNotifierProvider(create: (context) => MenuController())
@@ -94,5 +98,16 @@ class MyApp extends GetWidget<AuthenticationController> {
     //     // home: MainScreen(contentPage: AllRoutes.accountManagement,),
     //   ),
     // );
+  }
+}
+
+class AppView extends GetWidget<AuthenticationController> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
   }
 }

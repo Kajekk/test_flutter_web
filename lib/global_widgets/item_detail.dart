@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_flutter_web/constants/app_constants.dart';
-import 'package:test_flutter_web/models/account.dart';
+import '../data/models/account.dart';
 
 class ItemDetail extends StatelessWidget {
   const ItemDetail({Key? key}) : super(key: key);

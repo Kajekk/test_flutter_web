@@ -30,12 +30,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^2.1.0
   flutter_svg: ^0.22.0
-  get: ^4.1.4
+  get: ^4.3.8
   data_table_2: ^2.0.4
-  auto_size_text: ^2.1.0
   provider: ^5.0.0
   json_annotation: ^4.0.1
   equatable: ^2.0.3
+  flutter_secure_storage: ^4.2.1
 
 dev_dependencies:
   flutter_test:

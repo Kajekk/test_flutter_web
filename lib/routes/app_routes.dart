@@ -1,6 +1,6 @@
 part of 'app_pages.dart';
 abstract class Routes {
-  static const INITIAL = '/';
+  static const DASHBOARD = '/dashboard';
   static const LOGIN_PAGE = '/login-page';
   static const USER_PERMISSIONS = '/user-permissions';
   static const ENTITY_TYPE = '/entity-type';

@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:test_flutter_web/data/barrel.dart';
+import 'package:test_flutter_web/data/models/categoryModel.dart';
 
 import '../category_info_card.dart';
 
@@ -28,5 +30,36 @@ class CategoryController extends GetxController {
   void changeCategory(val) {
     _currentCategory.value = val;
     _dataColumn.value = mapCategoryCard[val]!["dataColumn"];
+
+    //fetch
+    mapCategoryCard[val]!["fetchData"]();
   }
+}
+
+abstract class SubTabController extends GetxController {
+  final _isCurrent = false.obs;
+  final _itemPerPage = 10.obs;
+  CategoryModel categoryModel = CategoryModel();
+
+  bool get isCurrent => _isCurrent.value;
+
+  set isCurrent(value) {
+    _isCurrent.value = value;
+  }
+
+  int get itemPerPage => _itemPerPage.value;
+
+  set itemPerPage(value) {
+    _itemPerPage.value = value;
+  }
+
+  void fetchListItems(int offset, limit);
+  void countItems();
+  void changeSubTab();
+}
+
+class SubTabItem {
+  final String? title;
+  final String? svgSource;
+  SubTabItem({this.title, this.svgSource});
 }
