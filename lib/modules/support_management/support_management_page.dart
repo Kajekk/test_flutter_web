@@ -1,16 +1,17 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:test_flutter_web/constants/app_constants.dart';
-import 'package:test_flutter_web/global_widgets/barrel.dart';
-import 'package:test_flutter_web/routes/app_pages.dart';
+import 'package:intl/intl.dart';
 import 'package:get/get.dart';
-
-import 'common.dart';
+import 'package:test_flutter_web/constants/barrel.dart';
+import 'package:test_flutter_web/data/barrel.dart';
+import 'package:test_flutter_web/global_widgets/barrel.dart';
+import 'package:test_flutter_web/utils/barrel.dart';
+import 'barrel.dart';
+import 'controllers.dart';
 
 class SupportManagementPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  // final CategoryController categoryController = Get.find();
+  final AttendanceController atController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -33,42 +34,52 @@ class SupportManagementPage extends StatelessWidget {
                       padding: EdgeInsets.all(defaultPadding),
                       child: Column(
                         children: [
-                          Header(scaffoldKey: _scaffoldKey, title: 'Support Management',),
+                          Header(
+                            scaffoldKey: _scaffoldKey,
+                            title: 'Support Management',
+                          ),
                           SizedBox(
                             height: defaultPadding,
                           ),
-                          // Category(tag: 'support-management',),
+                          SubTabs(
+                            listController: [atController],
+                          ),
                           SizedBox(
                             height: defaultPadding,
                           ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(
-                                  flex: 5,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                                    children: [
-                                      // ListItem(tag: 'support-management', dataTableSource: MyData(),),
-                                      if (Responsive.isMobile(context))
-                                        SizedBox(
-                                          height: defaultPadding,
-                                        ),
-                                      if (Responsive.isMobile(context))
-                                        ItemDetail(),
-                                    ],
-                                  )),
-                              if (!Responsive.isMobile(context))
-                                SizedBox(
-                                  width: defaultPadding,
-                                ),
-                              if (!Responsive.isMobile(context))
+                          Obx(() {
+                            return Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
                                 Expanded(
-                                  flex: 2,
-                                  child: ItemDetail(),
-                                )
-                            ],
-                          )
+                                    flex: 5,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                      children: [
+                                        buildListItem([
+                                          atController,
+                                        ]),
+                                        if (Responsive.isMobile(context))
+                                          SizedBox(
+                                            height: defaultPadding,
+                                          ),
+                                        if (Responsive.isMobile(context))
+                                          buildItemDetail([atController])
+                                      ],
+                                    )),
+                                if (!Responsive.isMobile(context))
+                                  SizedBox(
+                                    width: defaultPadding,
+                                  ),
+                                if (!Responsive.isMobile(context))
+                                  Expanded(
+                                    flex: 2,
+                                    child: buildItemDetail([atController])
+                                  )
+                              ],
+                            );
+                          }),
                         ],
                       ),
                     )))
@@ -77,55 +88,46 @@ class SupportManagementPage extends StatelessWidget {
       ),
     );
   }
-}
 
-List<String> dataColumn = [
-  "Organization",
-  "Type",
-  "Role",
-  "Account Name",
-];
-
-class MyData extends DataTableSource {
-  // Generate some made-up data
-  final List<Map<String, dynamic>> _data = List.generate(
-      5,
-          (index) => {
-        "id": index,
-        "title": "Item $index",
-        "price": Random().nextInt(10000),
-        "4": "123213123",
-      });
-
-  bool get isRowCountApproximate => false;
-  int get rowCount => _data.length;
-  int get selectedRowCount => 0;
-
-  DataRow? getRow(int index) {
-    if (index >= _data.length) {
-      return null;
+  Widget buildListItem(List<SubTabController> listController) {
+    for (var controller in listController) {
+      if (controller.isCurrent &&
+          controller.subTabInfoModel.title == SubTabInfo.checkInOut.title) {
+        var state = atController.attendanceState;
+        if (state is AttendanceLoaded) {
+          return ListItem(
+            controller: controller,
+            dataTableSource: AttendanceDataSource(context: _scaffoldKey.currentContext!, controller: atController),
+            customDialog: null,
+          );
+        }
+        if (state is AttendanceLoading) {
+          return ListItem(
+            controller: controller,
+            dataTableSource: AttendanceDataSource(context: _scaffoldKey.currentContext!, controller: atController),
+            customDialog: null,
+            isLoading: true,
+          );
+        }
+      }
     }
-
-    return DataRow.byIndex(
-        index: index,
-        cells: [
-          DataCell(Text(_data[index]['id'].toString())),
-          DataCell(Text(_data[index]["title"])),
-          DataCell(Text(_data[index]["price"].toString())),
-          DataCell(Text(_data[index]["4"])),
-        ],
-        onSelectChanged: (bool? selected) {
-          if (selected!) {
-            print('selected $index');
-          }
-        });
+    return Container();
   }
 
-// void selectAll(bool? checked) {
-//   for (final dessert in desserts) {
-//     dessert.selected = checked ?? false;
-//   }
-//   _selectedCount = (checked ?? false) ? desserts.length : 0;
-//   notifyListeners();
-// }
+  Widget buildItemDetail(List<SubTabController> listController) {
+    for (var controller in listController) {
+      if (controller.isCurrent &&
+          controller.subTabInfoModel.title == SubTabInfo.checkInOut.title) {
+        // var state = empController.emotionalLogState;
+        return ItemDetail(
+          controller: controller,
+          itemDetailInfo: AttendanceItemDetailInfo(),
+        );
+      }
+    }
+    return Container();
+  }
 }
+
+
+
