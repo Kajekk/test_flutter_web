@@ -57,14 +57,14 @@ class SideMenu extends StatelessWidget {
             title: "User Access Management",
             svgSrc: "assets/icons/menu_dashboard.svg",
             press: () {
-              Get.toNamed(Routes.USER_ACCESS_MANAGEMENT);
+              // Get.toNamed(Routes.USER_ACCESS_MANAGEMENT);
             },
           ),
           DrawerListTile(
             title: "Account Management",
             svgSrc: "assets/icons/menu_dashboard.svg",
             press: () {
-              Get.toNamed(Routes.SUPPORT_MANAGEMENT);
+              // Get.toNamed(Routes.SUPPORT_MANAGEMENT);
             },
           ),
           DrawerListTile(
@@ -81,20 +81,22 @@ class SideMenu extends StatelessWidget {
             title: "Employment Management",
             svgSrc: "assets/icons/menu_dashboard.svg",
             press: () {
-              Get.toNamed(Routes.SUPPORT_MANAGEMENT);
+              // Get.toNamed(Routes.SUPPORT_MANAGEMENT);
             },
           ),
           DrawerListTile(
             title: "Support Management",
             svgSrc: "assets/icons/menu_dashboard.svg",
             press: () {
-              Get.toNamed(Routes.SUPPORT_MANAGEMENT);
+              // Get.toNamed(Routes.SUPPORT_MANAGEMENT);
             },
           ),
           DrawerListTile(
             title: "Emotional Management",
             svgSrc: "assets/icons/menu_dashboard.svg",
-            press: () {},
+            press: () {
+              Get.toNamed(Routes.EMOTIONAL_MANAGEMENT);
+            },
           ),
         ],
       ),

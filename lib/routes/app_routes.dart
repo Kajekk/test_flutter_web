@@ -6,5 +6,7 @@ abstract class Routes {
   static const ENTITY_TYPE = '/entity-type';
   static const USER_ROLES = '/user-roles';
   static const USER_ACCESS_MANAGEMENT = '/user-access-management';
+  static const EMOTIONAL_MANAGEMENT = '/emotional-management';
+  static const EMPLOYMENT_MANAGEMENT = '/employment-management';
   static const SUPPORT_MANAGEMENT = '/support-management';
 }

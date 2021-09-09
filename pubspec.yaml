@@ -31,11 +31,11 @@ dependencies:
   google_fonts: ^2.1.0
   flutter_svg: ^0.22.0
   get: ^4.3.8
-  data_table_2: ^2.0.4
+#  data_table_2: ^2.0.4
   provider: ^5.0.0
   json_annotation: ^4.0.1
   equatable: ^2.0.3
-  flutter_secure_storage: ^4.2.1
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

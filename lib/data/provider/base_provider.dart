@@ -1,6 +1,6 @@
+import 'dart:html';
 import 'package:get/get.dart';
 import 'package:test_flutter_web/constants/api_path.dart';
-import 'package:test_flutter_web/modules/authentication/authentication.dart';
 
 class BaseProvider extends GetConnect {
   @override
@@ -15,8 +15,8 @@ class BaseProvider extends GetConnect {
     withCredentials = true;
     httpClient.baseUrl = ApiPath.BaseUrl;
     httpClient.addRequestModifier<void>((request) async {
-      // String? token = await Get.find<AuthenticationController>().secureStorage.read(key: 'access_token');
-      // request.headers['Authorization'] = token ?? '';
+      var accessToken = window.localStorage.containsKey("access_token") ? window.localStorage["access_token"] : "";
+      request.headers['Authorization'] = "Bearer " + (accessToken ?? "");
       return request;
     });
 

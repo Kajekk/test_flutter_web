@@ -1,13 +1,17 @@
 import 'package:get/get.dart';
-import 'package:test_flutter_web/global_widgets/barrel.dart';
-
-import 'common.dart';
+import 'package:test_flutter_web/data/barrel.dart';
+import 'package:test_flutter_web/data/provider/support_provider.dart';
+import 'barrel.dart';
 
 class SupportManagementBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put<CategoryController>(
-        CategoryController(mapCategoryCard: categoryMap),
-        tag: 'support-management');
+    Get.lazyPut<ISupportProvider>(() => SupportProvider());
+    Get.lazyPut<ISupportRepository>(
+            () => SupportRepository(provider: Get.find()));
+    Get.lazyPut(
+          () => AttendanceController(supportRepository: Get.find(), info: SubTabInfo.checkInOut),
+    );
+    Get.lazyPut(() => AddNewAttendanceController());
   }
 }

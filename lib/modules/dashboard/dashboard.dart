@@ -75,9 +75,9 @@ class Dashboard extends StatelessWidget {
                               spacing: defaultPadding,
                               // runAlignment: WrapAlignment.center,
                               children: [
-                                RouteButton(title: "User Access Management",route: Routes.USER_ACCESS_MANAGEMENT),
-                                RouteButton(title: "Account Management",route: Routes.USER_ACCESS_MANAGEMENT),
-                                RouteButton(title: "Home Management",route: Routes.USER_ACCESS_MANAGEMENT),
+                                // RouteButton(title: "User Access Management", route: Routes.USER_ACCESS_MANAGEMENT),
+                                // RouteButton(title: "Account Management", route: Routes.USER_ACCESS_MANAGEMENT),
+                                // RouteButton(title: "Home Management", route: Routes.USER_ACCESS_MANAGEMENT),
                               ],
                             ),
                             SizedBox(
@@ -87,9 +87,9 @@ class Dashboard extends StatelessWidget {
                               spacing: defaultPadding,
                               // runAlignment: WrapAlignment.center,
                               children: [
-                                RouteButton(title: "Goal Management",route: Routes.USER_ACCESS_MANAGEMENT),
-                                RouteButton(title: "Employment Management",route: Routes.USER_ACCESS_MANAGEMENT),
-                                RouteButton(title: "Support Management",route: Routes.USER_ACCESS_MANAGEMENT),
+                                // RouteButton(title: "Goal Management", route: Routes.USER_ACCESS_MANAGEMENT),
+                                RouteButton(title: "Employment Management", route: Routes.EMPLOYMENT_MANAGEMENT),
+                                RouteButton(title: "Support Management", route: Routes.SUPPORT_MANAGEMENT),
                               ],
                             ),
                             SizedBox(
@@ -99,7 +99,7 @@ class Dashboard extends StatelessWidget {
                               spacing: defaultPadding,
                               // runAlignment: WrapAlignment.center,
                               children: [
-                                RouteButton(title: "Emotional Management",route: Routes.USER_ACCESS_MANAGEMENT),
+                                RouteButton(title: "Emotional Management", route: Routes.EMOTIONAL_MANAGEMENT),
                               ],
                             ),
                           ],

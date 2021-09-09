@@ -5,7 +5,7 @@ import '../../data/models/user.dart';
 
 abstract class IAuthenticationService extends GetxService {
   Future<User?> getCurrentUser();
-  Future<User?> signInWithEmailAndPassword(String email, String password);
+  Future<UserLoginResponse?> signInWithEmailAndPassword(String email, String password);
   Future<void> signOut();
 }
 
@@ -15,28 +15,24 @@ class AuthenticationService extends IAuthenticationService {
 
   @override
   Future<User?> getCurrentUser() async {
-    // simulated delay
-    await Future.delayed(Duration(seconds: 2));
-    return null;
+    // await Future.delayed(Duration(seconds: 2));
+    final res = await provider.getCurrentUser();
+    if (res.status != ApiStatus.Ok) {
+      print(res.status);
+      throw AuthenticationException(message: res.message ?? 'Unknown error occurred. ');
+    }
+    return res.data!.first;
   }
 
   @override
-  Future<User?> signInWithEmailAndPassword(String email, String password) async {
+  Future<UserLoginResponse?> signInWithEmailAndPassword(String email, String password) async {
     final res = await provider.signInWithEmailAndPassword(email, password);
-    // if (res.status != ApiStatus.Ok) {
-    //   print(res.status);
-    //   throw AuthenticationException(message: res.message ?? 'Unknown error occurred. ');
-    // }
-    // return res.data!.first.user;
+    if (res.status != ApiStatus.Ok) {
+      print(res.status);
+      throw AuthenticationException(message: res.message ?? 'Unknown error occurred. ');
+    }
+    return res.data!.first;
     return null;
-
-    // await Future.delayed(Duration(seconds: 2));
-    //
-    // if (email.toLowerCase() != '123' || password != '123') {
-    //   throw AuthenticationException(message: 'Wrong username or password, use test:test for testing purpose');
-    // }
-    //
-    // return User(name: 'Test User', email: email);
   }
 
   @override

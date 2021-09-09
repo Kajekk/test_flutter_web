@@ -1,18 +1,21 @@
-import 'package:get/get.dart';
 import 'package:test_flutter_web/constants/barrel.dart';
 import 'package:test_flutter_web/data/models/base_response.dart';
 import 'package:test_flutter_web/data/models/emotional_log.dart';
+import 'package:test_flutter_web/data/models/query_models.dart';
 import 'package:test_flutter_web/data/provider/base_provider.dart';
-import 'package:test_flutter_web/modules/authentication/authentication_controller.dart';
+import 'package:test_flutter_web/utils/helpers.dart';
 
-class EmotionalApiProvider extends BaseProvider {
-  Future<BaseResponse<EmotionalLog>?> getEmotionalLogs(int offset, limit) async {
-    var query = {
-      "offset": offset,
-      "limit": limit,
-    };
-    var rs = await get<BaseResponse<EmotionalLog>>('/admin/v1/emotion-log/list', query: query);
-    await Future.delayed(Duration(seconds: 5));
-    return null;
+abstract class IEmotionalApiProvider {
+  Future<BaseResponse<EmotionalLog>> getEmotionalLogs(QueryModel queryModel);
+}
+
+class EmotionalApiProvider extends BaseProvider with IEmotionalApiProvider {
+  Future<BaseResponse<EmotionalLog>> getEmotionalLogs(QueryModel queryModel) async {
+    var query = parsedQuery(queryModel.toJson())!;
+    var rs = await get(ApiPath.GetEmotionalLogs, query: query);
+    BaseResponse<EmotionalLog> baseResponse = BaseResponse.fromJson(
+        rs.body,
+            (json) => EmotionalLog.fromJson(json as Map<String, dynamic>));
+    return baseResponse;
   }
 }

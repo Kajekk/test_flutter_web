@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:test_flutter_web/constants/app_constants.dart';
+import 'package:test_flutter_web/global_widgets/barrel.dart';
 import '../data/models/account.dart';
 
 class ItemDetail extends StatelessWidget {
-  const ItemDetail({Key? key}) : super(key: key);
+  const ItemDetail({Key? key, required this.controller, required this.itemDetailInfo}) : super(key: key);
+  final SubTabController controller;
+  final Widget itemDetailInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +19,7 @@ class ItemDetail extends StatelessWidget {
           color: secondaryColor,
           borderRadius: const BorderRadius.all(Radius.circular(10))),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -24,11 +29,11 @@ class ItemDetail extends StatelessWidget {
                 style: Theme.of(context).textTheme.subtitle1,
               ),
               TextButton(
-                  // style: TextButton.styleFrom(
-                  //     padding: EdgeInsets.symmetric(
-                  //         horizontal: defaultPadding,
-                  //         vertical: defaultPadding / 1.8
-                  //     )),
+                // style: TextButton.styleFrom(
+                //     padding: EdgeInsets.symmetric(
+                //         horizontal: defaultPadding,
+                //         vertical: defaultPadding / 1.8
+                //     )),
                   style: TextButton.styleFrom(
                     primary: Colors.deepPurpleAccent,
                   ),
@@ -39,15 +44,29 @@ class ItemDetail extends StatelessWidget {
           SizedBox(
             height: defaultPadding,
           ),
-          Text(
-            "Select 1 item to view detail",
-            style: Theme.of(context).textTheme.bodyText2,
-          ),
+          itemDetailInfo,
+          // Column(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: controller.itemDetail!.toJson().entries.map((e) {
+          //     // print(e.key);
+          //     String value = e.value.toString();
+          //     if (e.key == "created_time" || e.key == "last_updated_time") {
+          //       var localTime = DateTime.parse(e.value).toLocal();
+          //       value = DateFormat.yMd().add_jm().format(localTime);
+          //     }
+          //     return Padding(
+          //       padding: const EdgeInsets.symmetric(vertical: 8),
+          //       child: Text.rich(TextSpan(
+          //           children: [
+          //             TextSpan(text: e.key + ": \n", style: Theme.of(context).textTheme.subtitle1),
+          //             TextSpan(text: value),
+          //           ]
+          //       )),
+          //     );
+          //   }).toList(),
+          // ),
         ],
       ),
     );
   }
 }
-
-var mockData = Account(
-    type: "qweqw", role: "123", organization: "qweqwe", accountName: "qweqwe");

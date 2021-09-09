@@ -1,10 +1,9 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/list_notifier.dart';
 import 'package:test_flutter_web/data/models/user.dart';
 import 'package:test_flutter_web/routes/barrel.dart';
 import 'authentication.dart';
-
+import 'dart:html';
 import 'authentication_service.dart';
 
 class AuthenticationController extends GetxController {
@@ -30,9 +29,16 @@ class AuthenticationController extends GetxController {
   }
 
   Future<void> signIn(String email, String password) async {
-      final user = await authenticationService.signInWithEmailAndPassword(email, password);
-      if (user != null) {
-        _authenticationStateStream.value = Authenticated(user: user);
+      final res = await authenticationService.signInWithEmailAndPassword(email, password);
+      if (res != null) {
+        if (res.token != null) {
+          window.localStorage["access_token"] = res.token!.accessToken ?? "";
+        }
+        if (res.user != null) {
+          _authenticationStateStream.value = Authenticated(user: res.user!);
+        }
+      } else {
+        _authenticationStateStream.value = AuthenticationFailure(message: "Something went wrong, please try again later");
       }
   }
 
@@ -42,14 +48,18 @@ class AuthenticationController extends GetxController {
   }
 
   void _getAuthenticatedUser() async {
-    _authenticationStateStream.value = AuthenticationLoading();
+   try {
+     _authenticationStateStream.value = AuthenticationLoading();
 
-    final user = await authenticationService.getCurrentUser();
+     final user = await authenticationService.getCurrentUser();
 
-    if (user == null) {
-      _authenticationStateStream.value = UnAuthenticated();
-    } else {
-      _authenticationStateStream.value = Authenticated(user: user);
-    }
+     if (user == null) {
+       _authenticationStateStream.value = UnAuthenticated();
+     } else {
+       _authenticationStateStream.value = Authenticated(user: user);
+     }
+   } on AuthenticationException catch(e){
+     _authenticationStateStream.value = UnAuthenticated();
+   }
   }
 }

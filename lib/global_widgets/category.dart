@@ -5,11 +5,11 @@ import 'package:test_flutter_web/global_widgets/responsive.dart';
 import 'category_info_card.dart';
 import 'controllers/barrel.dart';
 
-class Category extends StatelessWidget {
+class SubTabs extends StatelessWidget {
   // final List<CategoryCardModel> subPageList;
   final List<SubTabController> listController;
   // final String tag;
-  const Category({Key? key,
+  const SubTabs({Key? key,
     required this.listController
   }) : super(key: key);
 

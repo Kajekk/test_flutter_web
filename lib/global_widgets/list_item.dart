@@ -1,12 +1,11 @@
 import 'dart:math';
 
-import 'package:data_table_2/paginated_data_table_2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_flutter_web/constants/app_constants.dart';
-import 'package:data_table_2/data_table_2.dart';
 import 'package:test_flutter_web/data/barrel.dart';
+import 'package:test_flutter_web/data/models/query_models.dart';
 import 'package:test_flutter_web/global_widgets/barrel.dart';
 import 'package:test_flutter_web/global_widgets/responsive.dart';
 import '../data/models/account.dart';
@@ -16,12 +15,28 @@ class ListItem extends StatelessWidget {
   final SubTabController controller;
   final DataTableSource dataTableSource;
   final isLoading;
-  ListItem({Key? key, required this.controller, required this.dataTableSource, this.isLoading = false}) : super(key: key);
+  final Widget? customDialog;
+  ListItem(
+      {Key? key,
+      required this.controller,
+      required this.dataTableSource,
+      required this.customDialog,
+      this.isLoading = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // final CategoryController categoryController = Get.find(tag: tag);
-    final ListItemController listItemController = Get.find();
+    // final ListItemController listItemController = Get.find();
+    void onAddNewPressed() {
+      if (customDialog != null) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return customDialog!;
+            });
+      }
+    }
 
     return Stack(
       children: [
@@ -40,7 +55,7 @@ class ListItem extends StatelessWidget {
                   children: [
                     Text(
                       // categoryController.currentCategory,
-                      controller.categoryModel.title!,
+                      controller.subTabInfoModel.title!,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     TextButton.icon(
@@ -51,7 +66,7 @@ class ListItem extends StatelessWidget {
                             vertical: defaultPadding /
                                 (Responsive.isMobile(context) ? 1.5 : 1.2)),
                       ),
-                      onPressed: () {},
+                      onPressed: onAddNewPressed,
                       icon: Icon(Icons.add),
                       label: Text("Add New"),
                     )
@@ -64,20 +79,39 @@ class ListItem extends StatelessWidget {
                   width: double.infinity,
                   child: PaginatedDataTable(
                     columns: List.generate(
-                      // categoryController.dataColumn.length,
-                        controller.categoryModel.dataColumn!.length,
-                            (index) => DataColumn(
-                            label: Text(controller.categoryModel.dataColumn![index]))),
+                        // categoryController.dataColumn.length,
+                        controller.subTabInfoModel.dataColumn!.length,
+                        (index) => DataColumn(
+                            label: Text(controller
+                                .subTabInfoModel.dataColumn![index]))),
                     onRowsPerPageChanged: (value) {
-                      listItemController.changeRowsPerPage(value);
+                      controller.rowsPerPage = value;
+                      controller.firstRowIndex = 0;
+                      controller.fetchListItems(QueryModel(
+                          offset: 0,
+                          limit: controller.rowsPerPage,
+                          total: true,
+                          reverse: true,
+                      ));
                     },
                     onPageChanged: (rowIndex) {
-                      print("onPageChanged");
-                      print(rowIndex);
+                      controller.firstRowIndex = rowIndex;
+                      // if (dataTableSource.rowCount - rowIndex < controller.itemPerPage) {
+                      //   controller.itemPerPage = dataTableSource.rowCount - rowIndex;
+                      // } else
+                      //   controller.itemPerPage = 10;
+                      controller.fetchListItems(QueryModel(
+                          offset: rowIndex,
+                          limit: controller.rowsPerPage,
+                          total: true,
+                          reverse: true,
+                      ));
                     },
+                    initialFirstRowIndex: controller.firstRowIndex,
+                    availableRowsPerPage: [10, 20, 50],
                     showCheckboxColumn: false,
                     showFirstLastButtons: true,
-                    rowsPerPage: listItemController.rowsPerPage,
+                    rowsPerPage: controller.rowsPerPage,
                     // onSelectAll: _data.se,
                     source: dataTableSource,
                   ),
@@ -89,10 +123,9 @@ class ListItem extends StatelessWidget {
         Visibility(
           visible: isLoading,
           child: Positioned.fill(
-            child: Container(decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: Colors.grey.withOpacity(0.8)
-            ),),
+            child: DotWaveLoader(
+              dotColor: Colors.white,
+            ),
           ),
         ),
       ],

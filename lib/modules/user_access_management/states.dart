@@ -27,3 +27,4 @@ class EmotionalFailure extends EmotionalLogState {
   @override
   List<Object> get props => [message];
 }
+

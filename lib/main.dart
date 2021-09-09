@@ -8,6 +8,7 @@ import 'package:test_flutter_web/routes/app_pages.dart';
 import 'package:test_flutter_web/modules/user_access_management/barrel.dart';
 import 'package:get/get.dart';
 
+import 'global_widgets/barrel.dart';
 import 'global_widgets/controllers/category_controller.dart';
 import 'modules/dashboard/barrel.dart';
 import 'modules/splash/splash.dart';
@@ -106,7 +107,9 @@ class AppView extends GetWidget<AuthenticationController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: CircularProgressIndicator(),
+        child: DotWaveLoader(
+          dotColor: Colors.white,
+        ),
       ),
     );
   }

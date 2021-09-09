@@ -50,17 +50,23 @@ class Token extends Equatable {
   const Token(
       {this.accessToken,
       this.refreshToken,
+      this.csrfToken,
       this.accessUuid,
       this.refreshUuid,
+      this.csrfUuid,
       this.atExpires,
-      this.rtExpires});
+      this.rtExpires,
+      this.ctExpires});
 
   final String? accessToken;
   final String? refreshToken;
+  final String? csrfToken;
   final String? accessUuid;
   final String? refreshUuid;
+  final String? csrfUuid;
   final int? atExpires;
   final int? rtExpires;
+  final int? ctExpires;
 
   factory Token.fromJson(Map<String, dynamic> json) => _$TokenFromJson(json);
   Map<String, dynamic> toJson() => _$TokenToJson(this);

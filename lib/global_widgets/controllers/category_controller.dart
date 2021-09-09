@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:test_flutter_web/data/barrel.dart';
+import 'package:test_flutter_web/data/models/base_model.dart';
 import 'package:test_flutter_web/data/models/categoryModel.dart';
+import 'package:test_flutter_web/data/models/query_models.dart';
 
 import '../category_info_card.dart';
 
@@ -38,8 +40,12 @@ class CategoryController extends GetxController {
 
 abstract class SubTabController extends GetxController {
   final _isCurrent = false.obs;
-  final _itemPerPage = 10.obs;
-  CategoryModel categoryModel = CategoryModel();
+  final _rowsPerPage = 10.obs;
+  final _totalRows = 0.obs;
+  final _firstRowIndex = 0.obs;
+  // final _itemDetail = BaseModel().obs;
+
+  SubTabInfoModel subTabInfoModel = SubTabInfoModel();
 
   bool get isCurrent => _isCurrent.value;
 
@@ -47,19 +53,42 @@ abstract class SubTabController extends GetxController {
     _isCurrent.value = value;
   }
 
-  int get itemPerPage => _itemPerPage.value;
+  int get rowsPerPage => _rowsPerPage.value;
 
-  set itemPerPage(value) {
-    _itemPerPage.value = value;
+  set rowsPerPage(value) {
+    _rowsPerPage.value = value;
   }
 
-  void fetchListItems(int offset, limit);
+  int get totalRows => _totalRows.value;
+
+  set totalRows(value) {
+    _totalRows.value = value;
+  }
+
+  int get firstRowIndex => _firstRowIndex.value;
+
+  set firstRowIndex(value) {
+    _firstRowIndex.value = value;
+  }
+
+  // BaseModel? get itemDetail => _itemDetail.value;
+  //
+  // set itemDetail(value) {
+  //   _itemDetail.value = value;
+  // }
+
+  void fetchListItems(QueryModel queryModel);
   void countItems();
   void changeSubTab();
+  void selectItemDetail(BaseModel? item);
 }
 
 class SubTabItem {
   final String? title;
   final String? svgSource;
   SubTabItem({this.title, this.svgSource});
+}
+
+abstract class AddNewItemController extends GetxController {
+  void addNewItem(dynamic data);
 }
