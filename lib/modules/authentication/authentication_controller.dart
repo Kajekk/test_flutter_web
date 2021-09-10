@@ -19,10 +19,15 @@ class AuthenticationController extends GetxController {
 
     ever(_authenticationStateStream, (state) {
       if (state is Authenticated) {
+        print('Authenticated');
         Get.offAllNamed(Routes.DASHBOARD);
       }
       if (state is UnAuthenticated) {
+        print('UnAuthenticated');
         Get.offAllNamed(Routes.LOGIN_PAGE);
+      }
+      if (state is AuthenticationLoading) {
+        print('Loading');
       }
     });
     _getAuthenticatedUser();

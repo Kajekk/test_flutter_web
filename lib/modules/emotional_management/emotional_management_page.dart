@@ -10,7 +10,7 @@ import 'controllers.dart';
 
 class EmotionalManagementPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final EmotionalLogController controller1 = Get.find();
+  final EmotionalLogController emoController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class EmotionalManagementPage extends StatelessWidget {
                             height: defaultPadding,
                           ),
                           SubTabs(
-                            listController: [controller1],
+                            listController: [emoController],
                           ),
                           SizedBox(
                             height: defaultPadding,
@@ -57,7 +57,7 @@ class EmotionalManagementPage extends StatelessWidget {
                                       CrossAxisAlignment.stretch,
                                       children: [
                                         buildListItem([
-                                          controller1,
+                                          emoController,
                                           // controller2,
                                           // controller3
                                         ]),
@@ -66,7 +66,7 @@ class EmotionalManagementPage extends StatelessWidget {
                                             height: defaultPadding,
                                           ),
                                         if (Responsive.isMobile(context))
-                                          buildItemDetail([controller1])
+                                          buildItemDetail([emoController])
                                       ],
                                     )),
                                 if (!Responsive.isMobile(context))
@@ -76,7 +76,7 @@ class EmotionalManagementPage extends StatelessWidget {
                                 if (!Responsive.isMobile(context))
                                   Expanded(
                                     flex: 2,
-                                    child: buildItemDetail([controller1])
+                                    child: buildItemDetail([emoController])
                                   )
                               ],
                             );
@@ -94,18 +94,18 @@ class EmotionalManagementPage extends StatelessWidget {
     for (var controller in listController) {
       if (controller.isCurrent &&
           controller.subTabInfoModel.title == SubTabInfo.emotionalLog.title) {
-        var state = controller1.emotionalLogState;
+        var state = emoController.emotionalLogState;
         if (state is EmotionalLogLoaded) {
           return ListItem(
             controller: controller,
-            dataTableSource: EmotionalLogData(controller: controller1),
+            dataTableSource: EmotionalLogData(controller: emoController),
             customDialog: CustomDialog(),
           );
         }
         if (state is EmotionalLogLoading) {
           return ListItem(
             controller: controller,
-            dataTableSource: EmotionalLogData(controller: controller1),
+            dataTableSource: LoadingDataSource(numCol: emoController.info.dataColumn!.length),
             customDialog: CustomDialog(),
             isLoading: true,
           );
@@ -136,7 +136,7 @@ class EmotionalManagementPage extends StatelessWidget {
     for (var controller in listController) {
       if (controller.isCurrent &&
           controller.subTabInfoModel.title == SubTabInfo.emotionalLog.title) {
-        // var state = controller1.emotionalLogState;
+        // var state = emoController.emotionalLogState;
         return ItemDetail(
           controller: controller,
           itemDetailInfo: EmotionalLogItemDetailInfo(),

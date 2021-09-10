@@ -104,7 +104,7 @@ class SupportManagementPage extends StatelessWidget {
         if (state is AttendanceLoading) {
           return ListItem(
             controller: controller,
-            dataTableSource: AttendanceDataSource(context: _scaffoldKey.currentContext!, controller: atController),
+            dataTableSource: LoadingDataSource(numCol: atController.info.dataColumn!.length),
             customDialog: null,
             isLoading: true,
           );
@@ -128,6 +128,3 @@ class SupportManagementPage extends StatelessWidget {
     return Container();
   }
 }
-
-
-

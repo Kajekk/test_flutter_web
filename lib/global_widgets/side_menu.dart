@@ -48,52 +48,64 @@ class SideMenu extends StatelessWidget {
           ),
           DrawerListTile(
             title: "Dashboard",
-            svgSrc: "assets/icons/menu_dashboard.svg",
+            icon: Icon(
+              Icons.home_outlined,
+              color: bodyTextColor,
+            ),
             press: () {
               Get.toNamed(Routes.DASHBOARD);
             },
           ),
-          DrawerListTile(
-            title: "User Access Management",
-            svgSrc: "assets/icons/menu_dashboard.svg",
-            press: () {
-              // Get.toNamed(Routes.USER_ACCESS_MANAGEMENT);
-            },
-          ),
-          DrawerListTile(
-            title: "Account Management",
-            svgSrc: "assets/icons/menu_dashboard.svg",
-            press: () {
-              // Get.toNamed(Routes.SUPPORT_MANAGEMENT);
-            },
-          ),
-          DrawerListTile(
-            title: "Home Management",
-            svgSrc: "assets/icons/menu_dashboard.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Goal Management",
-            svgSrc: "assets/icons/menu_dashboard.svg",
-            press: () {},
-          ),
+          // DrawerListTile(
+          //   title: "User Access Management",
+          //   svgSrc: "assets/icons/menu_dashboard.svg",
+          //   press: () {
+          //     // Get.toNamed(Routes.USER_ACCESS_MANAGEMENT);
+          //   },
+          // ),
+          // DrawerListTile(
+          //   title: "Account Management",
+          //   svgSrc: "assets/icons/menu_dashboard.svg",
+          //   press: () {
+          //     // Get.toNamed(Routes.SUPPORT_MANAGEMENT);
+          //   },
+          // ),
+          // DrawerListTile(
+          //   title: "Home Management",
+          //   svgSrc: "assets/icons/menu_dashboard.svg",
+          //   press: () {},
+          // ),
+          // DrawerListTile(
+          //   title: "Goal Management",
+          //   svgSrc: "assets/icons/menu_dashboard.svg",
+          //   press: () {},
+          // ),
           DrawerListTile(
             title: "Employment Management",
-            svgSrc: "assets/icons/menu_dashboard.svg",
+            icon: Icon(
+              Icons.work_outlined,
+              color: bodyTextColor,
+            ),
             press: () {
-              // Get.toNamed(Routes.SUPPORT_MANAGEMENT);
+              Get.toNamed(Routes.EMPLOYMENT_MANAGEMENT);
             },
           ),
           DrawerListTile(
             title: "Support Management",
-            svgSrc: "assets/icons/menu_dashboard.svg",
+            icon: Icon(
+              Icons.support_outlined,
+              color: bodyTextColor,
+            ),
             press: () {
-              // Get.toNamed(Routes.SUPPORT_MANAGEMENT);
+              Get.toNamed(Routes.SUPPORT_MANAGEMENT);
             },
           ),
           DrawerListTile(
             title: "Emotional Management",
-            svgSrc: "assets/icons/menu_dashboard.svg",
+            icon: Icon(
+              Icons.mood_outlined,
+              color: bodyTextColor,
+            ),
             press: () {
               Get.toNamed(Routes.EMOTIONAL_MANAGEMENT);
             },
@@ -109,11 +121,12 @@ class DrawerListTile extends StatelessWidget {
     Key? key,
     // For selecting those three line once press "Command+D"
     required this.title,
-    required this.svgSrc,
+    required this.icon,
     required this.press,
   }) : super(key: key);
 
-  final String title, svgSrc;
+  final String title;
+  final Icon icon;
   final VoidCallback press;
 
   @override
@@ -121,11 +134,7 @@ class DrawerListTile extends StatelessWidget {
     return ListTile(
       onTap: press,
       horizontalTitleGap: 0.0,
-      leading: SvgPicture.asset(
-        svgSrc,
-        color: Colors.white54,
-        height: 16,
-      ),
+      leading: icon,
       title: Text(
         title,
         style: TextStyle(color: Colors.white54),

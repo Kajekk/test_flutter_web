@@ -32,16 +32,16 @@ class CategoryInfoCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            SvgPicture.asset(
-              controller.subTabInfoModel.svgSource!,
-              color: Colors.white54,
-              height: 24,
-            ),
+            // SvgPicture.asset(
+            //   controller.subTabInfoModel.svgSource!,
+            //   color: Colors.white54,
+            //   height: 24,
+            // ),
             Text(
               controller.subTabInfoModel.title!,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.subtitle2,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
           ],
         ),

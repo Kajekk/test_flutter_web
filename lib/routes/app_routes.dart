@@ -1,5 +1,6 @@
 part of 'app_pages.dart';
 abstract class Routes {
+  static const SPLASH = '/splash';
   static const DASHBOARD = '/dashboard';
   static const LOGIN_PAGE = '/login-page';
   static const USER_PERMISSIONS = '/user-permissions';

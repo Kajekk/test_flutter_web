@@ -17,7 +17,8 @@ class AuthMiddleware extends GetMiddleware {
       } else {
         return null;
       }
-    } else {
+    } else if (authenticationController.state is UnAuthenticated) {
+        // return RouteSettings(name: Routes.SPLASH);
       if (route == Routes.LOGIN_PAGE) {
         return null;
       }

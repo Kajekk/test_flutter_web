@@ -102,7 +102,7 @@ class EmploymentManagementPage extends StatelessWidget {
         if (state is EmploymentDetailLoading) {
           return ListItem(
             controller: controller,
-            dataTableSource: EmploymentDetailData(context: _scaffoldKey.currentContext!, controller: empController),
+            dataTableSource: LoadingDataSource(numCol: empController.info.dataColumn!.length),
             customDialog: null,
             isLoading: true,
           );

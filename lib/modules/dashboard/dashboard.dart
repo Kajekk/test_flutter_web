@@ -88,8 +88,12 @@ class Dashboard extends StatelessWidget {
                               // runAlignment: WrapAlignment.center,
                               children: [
                                 // RouteButton(title: "Goal Management", route: Routes.USER_ACCESS_MANAGEMENT),
-                                RouteButton(title: "Employment Management", route: Routes.EMPLOYMENT_MANAGEMENT),
-                                RouteButton(title: "Support Management", route: Routes.SUPPORT_MANAGEMENT),
+                                RouteButton(title: "Employment Management", route: Routes.EMPLOYMENT_MANAGEMENT, icon: Icon(
+                                  Icons.work_outlined,
+                                ),),
+                                RouteButton(title: "Support Management", route: Routes.SUPPORT_MANAGEMENT, icon: Icon(
+                                  Icons.support_outlined,
+                                ),),
                               ],
                             ),
                             SizedBox(
@@ -99,7 +103,9 @@ class Dashboard extends StatelessWidget {
                               spacing: defaultPadding,
                               // runAlignment: WrapAlignment.center,
                               children: [
-                                RouteButton(title: "Emotional Management", route: Routes.EMOTIONAL_MANAGEMENT),
+                                RouteButton(title: "Emotional Management", route: Routes.EMOTIONAL_MANAGEMENT, icon: Icon(
+                                  Icons.mood_outlined,
+                                ),),
                               ],
                             ),
                           ],
@@ -116,9 +122,10 @@ class Dashboard extends StatelessWidget {
 }
 
 class RouteButton extends StatelessWidget {
-  RouteButton({required this.route, required this.title});
+  RouteButton({required this.route, required this.title, required this.icon});
   final String route;
   final String title;
+  final Icon icon;
 
   @override
   Widget build(BuildContext context) {
@@ -136,11 +143,7 @@ class RouteButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            SvgPicture.asset(
-              "assets/icons/menu_dashboard.svg",
-              color: Colors.white54,
-              height: 24,
-            ),
+            icon,
             SizedBox(height: defaultPadding,),
             Text(
               title,

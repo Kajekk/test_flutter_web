@@ -55,10 +55,7 @@ class MyApp extends StatelessWidget {
         // initialRoute: Routes.LOGIN_PAGE,
         // initialBinding: MainScreenBinding(),
         getPages: AppPages.pages,
-        onGenerateRoute: (settings) {
-          print('123123');
-        },
-        home: AppView());
+        home: Splash());
     // home: Obx(() {
     //   if (controller.state is UnAuthenticated) {
     //     return LoginPage();
@@ -102,7 +99,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class AppView extends GetWidget<AuthenticationController> {
+class Splash extends GetWidget<AuthenticationController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
