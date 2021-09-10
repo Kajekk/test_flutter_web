@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:test_flutter_web/main.dart';
 import 'package:test_flutter_web/modules/authentication/login/login.dart';
 import 'package:test_flutter_web/modules/dashboard/barrel.dart';
 import 'package:test_flutter_web/modules/emotional_management/barrel.dart';
@@ -13,6 +14,7 @@ part 'app_routes.dart';
 
 class AppPages {
   static final pages = [
+    GetPage(name: Routes.SPLASH, page: () => Splash()),
     GetPage(
       name: Routes.DASHBOARD,
       page: () => Dashboard(),
