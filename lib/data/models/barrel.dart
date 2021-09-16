@@ -8,3 +8,5 @@ export 'base_response.dart';
 export 'base_model.dart';
 export 'employment.dart';
 export 'attendance_model.dart';
+export 'emotion_type.dart';
+export 'workplace_detail.dart';

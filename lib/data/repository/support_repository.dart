@@ -3,6 +3,8 @@ import 'package:test_flutter_web/data/provider/support_provider.dart';
 
 abstract class ISupportRepository {
   Future<BaseResponse<AttendanceModel>> getAttendanceList(QueryModel queryModel);
+  Future<BaseResponse> createAttendance(AttendanceModel data);
+  Future<BaseResponse> updateAttendance(AttendanceModel data);
 }
 
 class SupportRepository implements ISupportRepository {
@@ -10,4 +12,6 @@ class SupportRepository implements ISupportRepository {
   final ISupportProvider provider;
 
   Future<BaseResponse<AttendanceModel>> getAttendanceList(QueryModel queryModel) => provider.getAttendanceList(queryModel);
+  Future<BaseResponse> createAttendance(AttendanceModel data) => provider.createAttendance(data);
+  Future<BaseResponse> updateAttendance(AttendanceModel data) => provider.updateAttendance(data);
 }

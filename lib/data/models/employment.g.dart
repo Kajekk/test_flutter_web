@@ -8,15 +8,17 @@ part of 'employment.dart';
 
 Employment _$EmploymentFromJson(Map<String, dynamic> json) {
   return Employment(
-    workingDay:
-        (json['working_day'] as List<dynamic>?)?.map((e) => e as int).toList(),
+    id: json['id'] as String?,
+    workingDays:
+        (json['working_days'] as List<dynamic>?)?.map((e) => e as int).toList(),
     workplaceId: json['workplace_id'] as String?,
+    workplaceName: json['workplace_name'] as String?,
     workingTimeFrom: json['working_time_from'] as int?,
     workingTimeTo: json['working_time_to'] as int?,
     lunchTimeFrom: json['lunch_time_from'] as int?,
     lunchTimeTo: json['lunch_time_to'] as int?,
     timeToWork: json['time_to_work'] as int?,
-    scope: (json['scope'] as List<dynamic>?)
+    scopeList: (json['scope_list'] as List<dynamic>?)
         ?.map((e) => Scope.fromJson(e as Map<String, dynamic>))
         .toList(),
     coachList: (json['coach_list'] as List<dynamic>?)
@@ -35,9 +37,11 @@ Employment _$EmploymentFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$EmploymentToJson(Employment instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'uid': instance.uid,
       'email': instance.email,
       'workplace_id': instance.workplaceId,
+      'workplace_name': instance.workplaceName,
       'created_time': instance.createdTime?.toIso8601String(),
       'last_updated_time': instance.lastUpdatedTime?.toIso8601String(),
       'working_time_from': instance.workingTimeFrom,
@@ -45,9 +49,9 @@ Map<String, dynamic> _$EmploymentToJson(Employment instance) =>
       'lunch_time_from': instance.lunchTimeFrom,
       'lunch_time_to': instance.lunchTimeTo,
       'time_to_work': instance.timeToWork,
-      'scope': instance.scope?.map((e) => e.toJson()).toList(),
+      'scope_list': instance.scopeList?.map((e) => e.toJson()).toList(),
       'coach_list': instance.coachList?.map((e) => e.toJson()).toList(),
-      'working_day': instance.workingDay,
+      'working_days': instance.workingDays,
     };
 
 Scope _$ScopeFromJson(Map<String, dynamic> json) {

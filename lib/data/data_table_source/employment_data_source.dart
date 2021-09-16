@@ -24,15 +24,17 @@ class EmploymentDetailData extends DataTableSource {
     var startingTime = toTimeString(context, _data.workingTimeFrom!);
     var finishingTime = toTimeString(context, _data.workingTimeTo!);
     var workingDays = "";
-    for (var day in _data.workingDay!) {
-      if (day == 0) continue;
-      workingDays += getWeekDayString(day);
-      if (day != _data.workingDay!.last)
-        workingDays += ", ";
+    if (_data.workingDays!.length != 0) {
+      for (var day in _data.workingDays!) {
+        if (day == 0) continue;
+        workingDays += getWeekDayString(day);
+        if (day != _data.workingDays!.last)
+          workingDays += ", ";
+      }
+      if (_data.workingDays!.first == 0)
+        workingDays +=
+            ", " + getWeekDayString(_data.workingDays!.first);
     }
-    if (_data.workingDay!.first == 0)
-      workingDays +=
-          ", " + getWeekDayString(_data.workingDay!.first);
 
     return DataRow.byIndex(
         index: index,
@@ -42,6 +44,11 @@ class EmploymentDetailData extends DataTableSource {
                 maxWidth: 200,
               ),
               child: Text('${_data.email}'))),
+          DataCell(Container(
+              constraints: BoxConstraints(
+                maxWidth: 200,
+              ),
+              child: Text('${_data.workplaceName}'))),
           DataCell(Container(
               constraints: BoxConstraints(
                 maxWidth: 200,

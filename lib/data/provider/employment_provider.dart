@@ -4,6 +4,11 @@ import 'package:test_flutter_web/utils/helpers.dart';
 
 abstract class IEmploymentProvider {
   Future<BaseResponse<Employment>> getEmploymentLists(QueryModel queryModel);
+  Future<BaseResponse> createEmployment(Employment data);
+  Future<BaseResponse> updateEmployment(Employment data);
+  Future<BaseResponse<WorkplaceDetail>> getWorkplaceDetailLists(QueryModel queryModel);
+  Future<BaseResponse> createWorkplace(WorkplaceDetail data);
+  Future<BaseResponse> updateWorkplace(WorkplaceDetail data);
 }
 
 class EmploymentProvider extends BaseProvider with IEmploymentProvider {
@@ -13,6 +18,45 @@ class EmploymentProvider extends BaseProvider with IEmploymentProvider {
     BaseResponse<Employment> baseResponse = BaseResponse.fromJson(
         rs.body,
             (json) => Employment.fromJson(json as Map<String, dynamic>));
+    return baseResponse;
+  }
+
+  Future<BaseResponse> createEmployment(Employment data) async {
+    var rs = await post(ApiPath.CreateEmployment, data.toJson());
+    BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
+    return baseResponse;
+  }
+
+  Future<BaseResponse> updateEmployment(Employment data) async {
+    var query = {
+      "id": data.id,
+    };
+    var rs = await put(ApiPath.UpdateEmployment, data.toJson(), query: query);
+    BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
+    return baseResponse;
+  }
+
+  Future<BaseResponse<WorkplaceDetail>> getWorkplaceDetailLists(QueryModel queryModel) async {
+    var query = parsedQuery(queryModel.toJson())!;
+    var rs = await get(ApiPath.GetWorkplaceDetailLists, query: query);
+    BaseResponse<WorkplaceDetail> baseResponse = BaseResponse.fromJson(
+        rs.body,
+            (json) => WorkplaceDetail.fromJson(json as Map<String, dynamic>));
+    return baseResponse;
+  }
+
+  Future<BaseResponse> createWorkplace(WorkplaceDetail data) async {
+    var rs = await post(ApiPath.CreateWorkplace, data.toJson());
+    BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
+    return baseResponse;
+  }
+
+  Future<BaseResponse> updateWorkplace(WorkplaceDetail data) async {
+    var query = {
+      "id": data.id,
+    };
+    var rs = await put(ApiPath.UpdateWorkplace, data.toJson(), query: query);
+    BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
     return baseResponse;
   }
 }

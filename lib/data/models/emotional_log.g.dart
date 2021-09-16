@@ -8,6 +8,7 @@ part of 'emotional_log.dart';
 
 EmotionalLog _$EmotionalLogFromJson(Map<String, dynamic> json) {
   return EmotionalLog(
+    id: json['id'] as String?,
     uid: json['uid'] as String?,
     email: json['email'] as String?,
     type: json['type'] as String?,
@@ -23,6 +24,7 @@ EmotionalLog _$EmotionalLogFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$EmotionalLogToJson(EmotionalLog instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'uid': instance.uid,
       'email': instance.email,
       'type': instance.type,

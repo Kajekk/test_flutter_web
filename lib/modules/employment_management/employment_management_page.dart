@@ -4,11 +4,11 @@ import 'package:test_flutter_web/constants/barrel.dart';
 import 'package:test_flutter_web/data/barrel.dart';
 import 'package:test_flutter_web/global_widgets/barrel.dart';
 import 'barrel.dart';
-import 'controllers.dart';
 
 class EmploymentManagementPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final EmploymentDetailController empController = Get.find();
+  final WorkplaceDetailController wpdController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class EmploymentManagementPage extends StatelessWidget {
                             height: defaultPadding,
                           ),
                           SubTabs(
-                            listController: [empController],
+                            listController: [empController, wpdController],
                           ),
                           SizedBox(
                             height: defaultPadding,
@@ -56,14 +56,14 @@ class EmploymentManagementPage extends StatelessWidget {
                                       children: [
                                         buildListItem([
                                           empController,
-
+                                          wpdController
                                         ]),
                                         if (Responsive.isMobile(context))
                                           SizedBox(
                                             height: defaultPadding,
                                           ),
                                         if (Responsive.isMobile(context))
-                                          buildItemDetail([empController])
+                                          buildItemDetail([empController, wpdController])
                                       ],
                                     )),
                                 if (!Responsive.isMobile(context))
@@ -73,7 +73,7 @@ class EmploymentManagementPage extends StatelessWidget {
                                 if (!Responsive.isMobile(context))
                                   Expanded(
                                     flex: 2,
-                                    child: buildItemDetail([empController])
+                                    child: buildItemDetail([empController, wpdController])
                                   )
                               ],
                             );
@@ -96,35 +96,31 @@ class EmploymentManagementPage extends StatelessWidget {
           return ListItem(
             controller: controller,
             dataTableSource: EmploymentDetailData(context: _scaffoldKey.currentContext!, controller: empController),
-            customDialog: null,
+            customDialog: EmploymentDetailDialog(),
           );
         }
-        if (state is EmploymentDetailLoading) {
+        return ListItem(
+          controller: controller,
+          dataTableSource: LoadingDataSource(numCol: empController.info.dataColumn!.length),
+          isLoading: (state is EmploymentDetailLoading) ? true : false,
+        );
+      }
+      if (controller.isCurrent &&
+          controller.subTabInfoModel.title == SubTabInfo.workplaceDetail.title) {
+        var state = wpdController.state;
+        if (state is WorkplaceDetailLoaded) {
           return ListItem(
             controller: controller,
-            dataTableSource: LoadingDataSource(numCol: empController.info.dataColumn!.length),
-            customDialog: null,
-            isLoading: true,
+            dataTableSource: WorkplaceDetailData(context: _scaffoldKey.currentContext!, controller: wpdController),
+            customDialog: WorkplaceDetailDialog(),
           );
         }
-        // return ListItem(
-        //   controller: controller,
-        //   dataTableSource: MyData(),
-        //   isLoading: ((controller as EntityTypeController).emotionalLogState
-        //           is EmotionalLoading)
-        //       ? true
-        //       : false,
-        // );
+        return ListItem(
+          controller: controller,
+          dataTableSource: LoadingDataSource(numCol: wpdController.info.dataColumn!.length),
+          isLoading: (state is WorkplaceDetailLoading) ? true : false,
+        );
       }
-      // if (controller.isCurrent &&
-      //     controller.subTabInfoModel.title ==
-      //         SubTabInfo.userPermissions.title) {
-      //   return ListItem(controller: controller, dataTableSource: MyData());
-      // }
-      // if (controller.isCurrent &&
-      //     controller.subTabInfoModel.title == SubTabInfo.userRoles.title) {
-      //   return ListItem(controller: controller, dataTableSource: MyData());
-      // }
     }
     return Container();
   }
@@ -133,10 +129,18 @@ class EmploymentManagementPage extends StatelessWidget {
     for (var controller in listController) {
       if (controller.isCurrent &&
           controller.subTabInfoModel.title == SubTabInfo.employmentDetail.title) {
-        // var state = empController.emotionalLogState;
+        var editController = Get.find<EditEmploymentController>();
         return ItemDetail(
-          controller: controller,
           itemDetailInfo: EmploymentItemDetailInfo(),
+          customDialog: editController.itemDetail == null ? null : EditEmploymentDetailDialog(),
+        );
+      }
+      if (controller.isCurrent &&
+          controller.subTabInfoModel.title == SubTabInfo.workplaceDetail.title) {
+        var editController = Get.find<EditWorkplaceController>();
+        return ItemDetail(
+          itemDetailInfo: WorkplaceItemDetailInfo(),
+          customDialog: editController.itemDetail == null ? null : EditWorkplaceDetailDialog(),
         );
       }
     }

@@ -12,6 +12,19 @@ String toTimeString(BuildContext context, int time) {
   return TimeOfDay(hour: hour, minute: minute).format(context);
 }
 
+String toTimeStringC(int time) {
+  var hour = time ~/ 60;
+  var minute = time % 60;
+  var timeString = "";
+  if (hour > 12) {
+    hour -= 12;
+    timeString = hour.toString().padLeft(2, '0') + ":" + minute.toString().padLeft(2, '0') + " PM";
+  } else {
+    timeString = hour.toString().padLeft(2, '0') + ":" + minute.toString().padLeft(2, '0') + " AM";
+  }
+  return timeString;
+}
+
 String getWeekDayString(weekday) {
   switch (weekday) {
     case 0:
@@ -23,7 +36,7 @@ String getWeekDayString(weekday) {
     case 3:
       return 'Wed';
     case 4:
-      return 'Thur';
+      return 'Thu';
     case 5:
       return 'Fri';
     case 6:

@@ -6,7 +6,7 @@ import 'package:test_flutter_web/constants/barrel.dart';
 import 'package:test_flutter_web/data/barrel.dart';
 import 'package:test_flutter_web/global_widgets/barrel.dart';
 import 'barrel.dart';
-import 'controllers.dart';
+import 'components/barrel.dart';
 
 class EmotionalManagementPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -99,25 +99,16 @@ class EmotionalManagementPage extends StatelessWidget {
           return ListItem(
             controller: controller,
             dataTableSource: EmotionalLogData(controller: emoController),
-            customDialog: CustomDialog(),
+            customDialog: EmotionalLogDialog(),
           );
         }
         if (state is EmotionalLogLoading) {
           return ListItem(
             controller: controller,
             dataTableSource: LoadingDataSource(numCol: emoController.info.dataColumn!.length),
-            customDialog: CustomDialog(),
             isLoading: true,
           );
         }
-        // return ListItem(
-        //   controller: controller,
-        //   dataTableSource: MyData(),
-        //   isLoading: ((controller as EntityTypeController).emotionalLogState
-        //           is EmotionalLoading)
-        //       ? true
-        //       : false,
-        // );
       }
       // if (controller.isCurrent &&
       //     controller.subTabInfoModel.title ==
@@ -136,11 +127,11 @@ class EmotionalManagementPage extends StatelessWidget {
     for (var controller in listController) {
       if (controller.isCurrent &&
           controller.subTabInfoModel.title == SubTabInfo.emotionalLog.title) {
-        // var state = emoController.emotionalLogState;
-        return ItemDetail(
-          controller: controller,
-          itemDetailInfo: EmotionalLogItemDetailInfo(),
-        );
+        var editController = Get.find<EditEmotionalLogController>();
+          return ItemDetail(
+            itemDetailInfo: EmotionalLogItemDetailInfo(),
+            customDialog: editController.itemDetail == null ? null : EditEmotionalLogDialog(),
+          );
       }
     }
     return Container();

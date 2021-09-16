@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
             iconTheme: IconThemeData(
               color: Colors.white,
             ),
+            unselectedWidgetColor: Colors.white,
             textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
                 .apply(bodyColor: Colors.white)
                 .copyWith(

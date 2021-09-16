@@ -8,6 +8,7 @@ part of 'attendance_model.dart';
 
 AttendanceModel _$AttendanceModelFromJson(Map<String, dynamic> json) {
   return AttendanceModel(
+    id: json['id'] as String?,
     isCheckInFar: json['is_check_in_far'] as bool?,
     isCheckOutFar: json['is_check_out_far'] as bool?,
     isCheckedIn: json['is_checked_in'] as bool?,
@@ -25,6 +26,7 @@ AttendanceModel _$AttendanceModelFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$AttendanceModelToJson(AttendanceModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'uid': instance.uid,
       'email': instance.email,
       'is_check_in_far': instance.isCheckInFar,

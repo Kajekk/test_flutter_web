@@ -3,13 +3,6 @@ import 'package:test_flutter_web/global_widgets/barrel.dart';
 import 'barrel.dart';
 
 class SubTabInfo {
-  // static const String entityType = 'Entity Type';
-  // static const List<String> entityTypeDataCol = [
-  //   "Organization 1",
-  //   "Type 1",
-  //   "Role 1",
-  //   "Account Name 1",
-  // ];
   static const SubTabInfoModel entityType = SubTabInfoModel(
       title: "Entity Type",
       svgSource: "assets/icons/menu_dashboard.svg",
@@ -56,9 +49,19 @@ class SubTabInfo {
       svgSource: "assets/icons/menu_dashboard.svg",
       dataColumn: [
         "Email",
+        "Workplace",
         "Working Hours",
         "Working Days",
         "Created Time"
+      ]);
+  static const SubTabInfoModel workplaceDetail = SubTabInfoModel(
+      title: "Workplace Detail",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Name",
+        "Address",
+        "Latitude",
+        "Longitude"
       ]);
 
   static const SubTabInfoModel checkInOut = SubTabInfoModel(

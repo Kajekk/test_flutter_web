@@ -4,17 +4,38 @@ part 'employment.g.dart';
 
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class Employment implements BaseModel {
-  final String? uid, email, workplaceId;
+  final String? id, uid, email, workplaceId, workplaceName;
   final DateTime? createdTime;
   final DateTime? lastUpdatedTime;
-  final int? workingTimeFrom, workingTimeTo, lunchTimeFrom, lunchTimeTo, timeToWork;
-  final List<Scope>? scope;
+  final int? workingTimeFrom,
+      workingTimeTo,
+      lunchTimeFrom,
+      lunchTimeTo,
+      timeToWork;
+  final List<Scope>? scopeList;
   final List<Coach>? coachList;
-  final List<int>? workingDay;
+  final List<int>? workingDays;
 
-  Employment({this.workingDay, this.workplaceId, this.workingTimeFrom, this.workingTimeTo, this.lunchTimeFrom, this.lunchTimeTo, this.timeToWork, this.scope, this.coachList, this.uid, this.email, this.createdTime, this.lastUpdatedTime});
+  Employment(
+      {
+        this.id,
+        this.workingDays,
+      this.workplaceId,
+      this.workplaceName,
+      this.workingTimeFrom,
+      this.workingTimeTo,
+      this.lunchTimeFrom,
+      this.lunchTimeTo,
+      this.timeToWork,
+      this.scopeList,
+      this.coachList,
+      this.uid,
+      this.email,
+      this.createdTime,
+      this.lastUpdatedTime});
 
-  factory Employment.fromJson(Map<String, dynamic> json) => _$EmploymentFromJson(json);
+  factory Employment.fromJson(Map<String, dynamic> json) =>
+      _$EmploymentFromJson(json);
 
   Map<String, dynamic> toJson() => _$EmploymentToJson(this);
 }
@@ -29,6 +50,13 @@ class Scope implements BaseModel {
   factory Scope.fromJson(Map<String, dynamic> json) => _$ScopeFromJson(json);
 
   Map<String, dynamic> toJson() => _$ScopeToJson(this);
+
+  Scope copyWith({
+    String? name,
+    List<String>? task,
+  }) {
+    return Scope(name: name ?? this.name, task: task ?? this.task);
+  }
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -40,5 +68,11 @@ class Coach implements BaseModel {
   factory Coach.fromJson(Map<String, dynamic> json) => _$CoachFromJson(json);
 
   Map<String, dynamic> toJson() => _$CoachToJson(this);
-}
 
+  Coach copyWith({
+    String? email,
+    type,
+  }) {
+    return Coach(email: email ?? this.email, type: type ?? this.type);
+  }
+}

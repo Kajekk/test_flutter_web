@@ -1,13 +1,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 import 'package:test_flutter_web/constants/barrel.dart';
 import 'package:test_flutter_web/data/barrel.dart';
 import 'package:test_flutter_web/global_widgets/barrel.dart';
-import 'package:test_flutter_web/utils/barrel.dart';
 import 'barrel.dart';
-import 'controllers.dart';
 
 class SupportManagementPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -98,17 +95,14 @@ class SupportManagementPage extends StatelessWidget {
           return ListItem(
             controller: controller,
             dataTableSource: AttendanceDataSource(context: _scaffoldKey.currentContext!, controller: atController),
-            customDialog: null,
+            customDialog: AttendanceDialog(),
           );
         }
-        if (state is AttendanceLoading) {
-          return ListItem(
-            controller: controller,
-            dataTableSource: LoadingDataSource(numCol: atController.info.dataColumn!.length),
-            customDialog: null,
-            isLoading: true,
-          );
-        }
+        return ListItem(
+          controller: controller,
+          dataTableSource: LoadingDataSource(numCol: atController.info.dataColumn!.length),
+          isLoading: (state is AttendanceLoading) ? true : false,
+        );
       }
     }
     return Container();
@@ -118,10 +112,10 @@ class SupportManagementPage extends StatelessWidget {
     for (var controller in listController) {
       if (controller.isCurrent &&
           controller.subTabInfoModel.title == SubTabInfo.checkInOut.title) {
-        // var state = empController.emotionalLogState;
+        var editController = Get.find<EditAttendanceController>();
         return ItemDetail(
-          controller: controller,
           itemDetailInfo: AttendanceItemDetailInfo(),
+          customDialog: editController.itemDetail == null ? null : EditAttendanceDialog(),
         );
       }
     }

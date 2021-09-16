@@ -7,10 +7,21 @@ class EmotionalManagementBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<IEmotionalApiProvider>(() => EmotionalApiProvider());
     Get.lazyPut<IEmotionalRepository>(
-            () => EmotionalRepository(provider: Get.find()));
+        () => EmotionalRepository(provider: Get.find()));
     Get.lazyPut(
-          () => EmotionalLogController(emotionalLogRepository: Get.find(), info: SubTabInfo.emotionalLog),
+      () => EmotionalLogController(
+          emotionalLogRepository: Get.find<IEmotionalRepository>(),
+          info: SubTabInfo.emotionalLog),
     );
-    Get.lazyPut(() => AddNewEmotionalLogController());
+    Get.lazyPut(
+        () => AddNewEmotionalLogController(emotionalLogRepository: Get.find<IEmotionalRepository>()));
+    Get.lazyPut(
+            () => EditEmotionalLogController(emotionalLogRepository: Get.find<IEmotionalRepository>()));
+
+
+    Get.lazyPut(
+            () => EmotionTypeController(
+            emotionTypeRepository: Get.find<IEmotionalRepository>(),
+            info: SubTabInfo.emotionalLog));
   }
 }

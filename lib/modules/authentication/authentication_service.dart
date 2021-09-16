@@ -18,7 +18,6 @@ class AuthenticationService extends IAuthenticationService {
     // await Future.delayed(Duration(seconds: 2));
     final res = await provider.getCurrentUser();
     if (res.status != ApiStatus.Ok) {
-      print(res.status);
       throw AuthenticationException(message: res.message ?? 'Unknown error occurred. ');
     }
     return res.data!.first;
@@ -28,7 +27,6 @@ class AuthenticationService extends IAuthenticationService {
   Future<UserLoginResponse?> signInWithEmailAndPassword(String email, String password) async {
     final res = await provider.signInWithEmailAndPassword(email, password);
     if (res.status != ApiStatus.Ok) {
-      print(res.status);
       throw AuthenticationException(message: res.message ?? 'Unknown error occurred. ');
     }
     return res.data!.first;

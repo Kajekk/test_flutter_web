@@ -20,7 +20,7 @@ class ListItem extends StatelessWidget {
       {Key? key,
       required this.controller,
       required this.dataTableSource,
-      required this.customDialog,
+      this.customDialog,
       this.isLoading = false})
       : super(key: key);
 
@@ -32,6 +32,7 @@ class ListItem extends StatelessWidget {
       if (customDialog != null) {
         showDialog(
             context: context,
+            barrierDismissible: false,
             builder: (context) {
               return customDialog!;
             });
