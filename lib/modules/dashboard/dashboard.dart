@@ -87,7 +87,9 @@ class Dashboard extends StatelessWidget {
                               spacing: defaultPadding,
                               // runAlignment: WrapAlignment.center,
                               children: [
-                                // RouteButton(title: "Goal Management", route: Routes.USER_ACCESS_MANAGEMENT),
+                                RouteButton(title: "Goal Management", route: Routes.GOAL_MANAGEMENT, icon: Icon(
+                                  Icons.work_outlined,
+                                ),),
                                 RouteButton(title: "Employment Management", route: Routes.EMPLOYMENT_MANAGEMENT, icon: Icon(
                                   Icons.work_outlined,
                                 ),),

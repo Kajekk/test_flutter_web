@@ -25,6 +25,7 @@ class EntityTypeController extends SubTabController {
     var res = await emotionalRepository.getEmotionalLogs(queryModel);
     if (res.status != ApiStatus.Ok) {
       _emotionalLogStateStream.value = EmotionalFailure(message: res.message ?? "Something went wrong, please try again");
+      return;
     }
     totalRows = res.total ?? 0;
     _emotionalLogStateStream.value = EmotionalLoaded(listData: res.data!);

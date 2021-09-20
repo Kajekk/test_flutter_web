@@ -10,3 +10,5 @@ export 'employment.dart';
 export 'attendance_model.dart';
 export 'emotion_type.dart';
 export 'workplace_detail.dart';
+export 'goal.dart';
+export 'goal_frequency.dart';

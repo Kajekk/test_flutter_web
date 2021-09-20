@@ -75,11 +75,16 @@ class SideMenu extends StatelessWidget {
           //   svgSrc: "assets/icons/menu_dashboard.svg",
           //   press: () {},
           // ),
-          // DrawerListTile(
-          //   title: "Goal Management",
-          //   svgSrc: "assets/icons/menu_dashboard.svg",
-          //   press: () {},
-          // ),
+          DrawerListTile(
+            title: "Goal Management",
+            icon: Icon(
+              Icons.work_outlined,
+              color: bodyTextColor,
+            ),
+            press: () {
+              Get.toNamed(Routes.GOAL_MANAGEMENT);
+            },
+          ),
           DrawerListTile(
             title: "Employment Management",
             icon: Icon(

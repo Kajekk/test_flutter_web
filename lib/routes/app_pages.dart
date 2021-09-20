@@ -5,6 +5,7 @@ import 'package:test_flutter_web/modules/authentication/login/login.dart';
 import 'package:test_flutter_web/modules/dashboard/barrel.dart';
 import 'package:test_flutter_web/modules/emotional_management/barrel.dart';
 import 'package:test_flutter_web/modules/employment_management/barrel.dart';
+import 'package:test_flutter_web/modules/goal_management/barrel.dart';
 import 'package:test_flutter_web/modules/support_management/barrel.dart';
 import 'package:test_flutter_web/modules/user_access_management/barrel.dart';
 
@@ -24,11 +25,11 @@ class AppPages {
         name: Routes.LOGIN_PAGE,
         page: () => LoginPage(),
         middlewares: [AuthMiddleware()]),
-    GetPage(
-        name: Routes.USER_ACCESS_MANAGEMENT,
-        page: () => UserAccessManagementPage(),
-        binding: UserAccessManagementBinding(),
-        middlewares: [AuthMiddleware()]),
+    // GetPage(
+    //     name: Routes.USER_ACCESS_MANAGEMENT,
+    //     page: () => UserAccessManagementPage(),
+    //     binding: UserAccessManagementBinding(),
+    //     middlewares: [AuthMiddleware()]),
     // EmotionalManagementPage
     GetPage(
         name: Routes.EMOTIONAL_MANAGEMENT,
@@ -44,12 +45,12 @@ class AppPages {
         name: Routes.SUPPORT_MANAGEMENT,
         page: () => SupportManagementPage(),
         binding: SupportManagementBinding(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: Routes.GOAL_MANAGEMENT,
+        page: () => GoalManagementPage(),
+        binding: GoalManagementBinding(),
         middlewares: [AuthMiddleware()])
-    // GetPage(
-    //     name: Routes.SUPPORT_MANAGEMENT,
-    //     page: () => SupportManagementPage(),
-    //     binding: SupportManagementBinding(),
-    //     middlewares: [AuthMiddleware()]),
   ];
 }
 

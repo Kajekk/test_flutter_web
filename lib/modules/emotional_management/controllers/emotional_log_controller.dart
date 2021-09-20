@@ -20,6 +20,7 @@ class EmotionalLogController extends SubTabController {
     if (res.status != ApiStatus.Ok) {
       _emotionalStateStream.value = EmotionalLogFailure(
           message: res.message ?? "Something went wrong, please try again");
+      return;
     }
     totalRows = res.total ?? 0;
     _emotionalStateStream.value = EmotionalLogLoaded(listData: res.data!);

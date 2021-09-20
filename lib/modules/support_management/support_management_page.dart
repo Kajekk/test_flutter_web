@@ -100,7 +100,7 @@ class SupportManagementPage extends StatelessWidget {
         }
         return ListItem(
           controller: controller,
-          dataTableSource: LoadingDataSource(numCol: atController.info.dataColumn!.length),
+          dataTableSource: EmptyDataSource(numCol: atController.info.dataColumn!.length),
           isLoading: (state is AttendanceLoading) ? true : false,
         );
       }

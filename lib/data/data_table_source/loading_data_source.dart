@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class LoadingDataSource extends DataTableSource {
+class EmptyDataSource extends DataTableSource {
   final int numCol;
-  LoadingDataSource({required this.numCol});
+  EmptyDataSource({required this.numCol});
 
   bool get isRowCountApproximate => false;
   int get rowCount => 10;

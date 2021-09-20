@@ -101,7 +101,7 @@ class EmploymentManagementPage extends StatelessWidget {
         }
         return ListItem(
           controller: controller,
-          dataTableSource: LoadingDataSource(numCol: empController.info.dataColumn!.length),
+          dataTableSource: EmptyDataSource(numCol: empController.info.dataColumn!.length),
           isLoading: (state is EmploymentDetailLoading) ? true : false,
         );
       }
@@ -117,7 +117,7 @@ class EmploymentManagementPage extends StatelessWidget {
         }
         return ListItem(
           controller: controller,
-          dataTableSource: LoadingDataSource(numCol: wpdController.info.dataColumn!.length),
+          dataTableSource: EmptyDataSource(numCol: wpdController.info.dataColumn!.length),
           isLoading: (state is WorkplaceDetailLoading) ? true : false,
         );
       }

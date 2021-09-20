@@ -105,7 +105,7 @@ class EmotionalManagementPage extends StatelessWidget {
         if (state is EmotionalLogLoading) {
           return ListItem(
             controller: controller,
-            dataTableSource: LoadingDataSource(numCol: emoController.info.dataColumn!.length),
+            dataTableSource: EmptyDataSource(numCol: emoController.info.dataColumn!.length),
             isLoading: true,
           );
         }

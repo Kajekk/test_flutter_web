@@ -1,5 +1,5 @@
 import 'package:test_flutter_web/data/models/barrel.dart';
-import 'package:test_flutter_web/data/provider/support_provider.dart';
+import 'package:test_flutter_web/data/provider/barrel.dart';
 
 abstract class ISupportRepository {
   Future<BaseResponse<AttendanceModel>> getAttendanceList(QueryModel queryModel);

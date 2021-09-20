@@ -29,6 +29,7 @@ class WorkplaceDetailController extends SubTabController {
     var res = await _employmentRepository.getWorkplaceDetailLists(queryModel);
     if (res.status != ApiStatus.Ok) {
       _workplaceStateStream.value = WorkplaceDetailFailure(message: res.message ?? "Something went wrong, please try again");
+      return;
     }
     totalRows = res.total ?? 0;
     _workplaceStateStream.value = WorkplaceDetailLoaded(listData: res.data!);

@@ -72,4 +72,24 @@ class SubTabInfo {
         "Checked in",
         "Checked out",
       ]);
+
+  static const SubTabInfoModel goal = SubTabInfoModel(
+      title: "Goal",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Name",
+        "Frequency",
+        "Description",
+        "Nature",
+        "Created Time"
+      ]);
+
+  static const SubTabInfoModel goalFrequency = SubTabInfoModel(
+      title: "Goal Frequency",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Frequency",
+        "Days Equivalent Frequency",
+        "Created Time"
+      ]);
 }

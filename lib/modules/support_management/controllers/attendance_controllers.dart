@@ -21,6 +21,7 @@ class AttendanceController extends SubTabController {
     if (res.status != ApiStatus.Ok) {
       _attendanceStateStream.value = AttendanceFailure(
           message: res.message ?? "Something went wrong, please try again");
+      return;
     }
     totalRows = res.total ?? 0;
     _attendanceStateStream.value = AttendanceLoaded(listData: res.data!);
