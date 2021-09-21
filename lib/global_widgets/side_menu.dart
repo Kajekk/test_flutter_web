@@ -78,7 +78,7 @@ class SideMenu extends StatelessWidget {
           DrawerListTile(
             title: "Goal Management",
             icon: Icon(
-              Icons.work_outlined,
+              Icons.track_changes_outlined,
               color: bodyTextColor,
             ),
             press: () {

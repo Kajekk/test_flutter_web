@@ -88,7 +88,7 @@ class Dashboard extends StatelessWidget {
                               // runAlignment: WrapAlignment.center,
                               children: [
                                 RouteButton(title: "Goal Management", route: Routes.GOAL_MANAGEMENT, icon: Icon(
-                                  Icons.work_outlined,
+                                  Icons.track_changes_outlined,
                                 ),),
                                 RouteButton(title: "Employment Management", route: Routes.EMPLOYMENT_MANAGEMENT, icon: Icon(
                                   Icons.work_outlined,
