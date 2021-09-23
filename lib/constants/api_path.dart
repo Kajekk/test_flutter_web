@@ -29,5 +29,9 @@ abstract class ApiPath {
   static const String CreateGoalFrequency = '/admin/v1/goal-frequency';
   static const String UpdateGoalFrequency = '/admin/v1/goal-frequency';
 
+  static const String GetGoalRelationshipList = '/admin/v1/goal-relationship';
+  static const String CreateGoalRelationship = '/admin/v1/goal-relationship';
+  static const String UpdateGoalRelationship = '/admin/v1/goal-relationship';
+
   static const String FcmSaveDeviceTokenUri = '/admin/v1/firebase/register';
 }

@@ -10,6 +10,7 @@ abstract class IGoalProvider {
   Future<BaseResponse<GoalFrequency>> getGoalFrequencyList(QueryModel queryModel);
   Future<BaseResponse> createGoalFrequency(GoalFrequency data);
   Future<BaseResponse> updateGoalFrequency(GoalFrequency data);
+  Future<BaseResponse<GoalRelationship>> getGoalRelationshipList(QueryModel queryModel);
 }
 
 class GoalProvider extends BaseProvider with IGoalProvider {
@@ -58,6 +59,15 @@ class GoalProvider extends BaseProvider with IGoalProvider {
     };
     var rs = await put(ApiPath.UpdateGoalFrequency, data.toJson(), query: query);
     BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
+    return baseResponse;
+  }
+
+  Future<BaseResponse<GoalRelationship>> getGoalRelationshipList(QueryModel queryModel) async {
+    var query = parsedQuery(queryModel.toJson())!;
+    var rs = await get(ApiPath.GetGoalRelationshipList, query: query);
+    BaseResponse<GoalRelationship> baseResponse = BaseResponse.fromJson(
+        rs.body,
+            (json) => GoalRelationship.fromJson(json as Map<String, dynamic>));
     return baseResponse;
   }
 }

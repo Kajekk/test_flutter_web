@@ -92,4 +92,14 @@ class SubTabInfo {
         "Days Equivalent Frequency",
         "Created Time"
       ]);
+
+  static const SubTabInfoModel goalRelationship = SubTabInfoModel(
+      title: "Goal Relationship",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Email",
+        "Goal",
+        "Created By",
+        "Created Time",
+      ]);
 }

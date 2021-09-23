@@ -12,3 +12,4 @@ export 'emotion_type.dart';
 export 'workplace_detail.dart';
 export 'goal.dart';
 export 'goal_frequency.dart';
+export 'goal_relationship.dart';
