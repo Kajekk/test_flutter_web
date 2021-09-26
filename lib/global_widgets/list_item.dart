@@ -113,7 +113,6 @@ class ListItem extends StatelessWidget {
                     showCheckboxColumn: false,
                     showFirstLastButtons: true,
                     rowsPerPage: controller.rowsPerPage,
-                    // onSelectAll: _data.se,
                     source: dataTableSource,
                   ),
                 ),

@@ -36,4 +36,8 @@ class Goal implements BaseModel {
   factory Goal.fromJson(Map<String, dynamic> json) => _$GoalFromJson(json);
 
   Map<String, dynamic> toJson() => _$GoalToJson(this);
+
+  bool isEqual(Goal? model) {
+    return this.id == model?.id;
+  }
 }

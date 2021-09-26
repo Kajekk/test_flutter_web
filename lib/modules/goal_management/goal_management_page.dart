@@ -136,7 +136,7 @@ class GoalManagementPage extends StatelessWidget {
           return ListItem(
             controller: controller,
             dataTableSource: GoalRelationshipData(controller: goalRelationshipController),
-            // customDialog: GoalFrequencyDialog(),
+            customDialog: GoalRelationshipDialog(),
           );
         }
         return ListItem(

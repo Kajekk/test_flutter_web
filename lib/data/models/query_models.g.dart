@@ -12,6 +12,7 @@ QueryModel _$QueryModelFromJson(Map<String, dynamic> json) {
     limit: json['limit'] as int?,
     total: json['total'] as bool?,
     reverse: json['reverse'] as bool?,
+    q: json['q'] as String?,
   );
 }
 
@@ -21,4 +22,5 @@ Map<String, dynamic> _$QueryModelToJson(QueryModel instance) =>
       'limit': instance.limit,
       'total': instance.total,
       'reverse': instance.reverse,
+      'q': instance.q,
     };

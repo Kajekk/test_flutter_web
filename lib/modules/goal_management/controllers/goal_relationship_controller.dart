@@ -18,7 +18,7 @@ class GoalRelationshipController extends SubTabController {
 
   get goalState => _goalStateStream.value;
 
-  void fetchListItems(QueryModel queryModel) async {
+  Future<void> fetchListItems(QueryModel queryModel) async {
     _goalStateStream.value = GoalRelationshipLoading();
     var res = await _goalRepository.getGoalRelationshipList(queryModel);
     if (res.status != ApiStatus.Ok) {
@@ -58,52 +58,54 @@ class GoalRelationshipController extends SubTabController {
         QueryModel(offset: 0, limit: rowsPerPage, total: true, reverse: true));
   }
 }
-//
-// class AddNewGoalRelationshipController extends GetxController {
-//   AddNewGoalRelationshipController({required goalRepository})
-//       : _goalRepository = goalRepository;
-//   final IGoalRepository _goalRepository;
-//   final _stateStream = AddGoalRelationshipState().obs;
-//
-//   AddGoalRelationshipState get state => _stateStream.value;
-//   final frequencyController = TextEditingController();
-//   final dayEquivalentController = TextEditingController();
-//
-//   @override
-//   void onInit() {
-//     super.onInit();
-//
-//     ever(_stateStream, (state) {
-//       if (state is AddGoalFrequencySuccess) {
-//         Get.back();
-//
-//         var gController = Get.find<GoalFrequencyController>();
-//         gController.fetchListItems(QueryModel(
-//             offset: 0,
-//             limit: gController.rowsPerPage,
-//             total: true,
-//             reverse: true));
-//       }
-//     });
-//   }
-//
-//   void addNewItem() async {
-//     var data = GoalFrequency(
-//       frequency: frequencyController.text,
-//       dayEquivalent: int.parse(dayEquivalentController.text),
-//     );
-//
-//     _stateStream.value = AddGoalFrequencyLoading();
-//     var res = await _goalRepository.createGoalFrequency(data);
-//     if (res.status != ApiStatus.Ok) {
-//       _stateStream.value = AddGoalFrequencyFailure(
-//           message: res.message ?? "Something went wrong, please try again");
-//       return;
-//     }
-//     _stateStream.value = AddGoalFrequencySuccess();
-//   }
-// }
-//
+
+class AddNewGoalRelationshipController extends GetxController {
+  AddNewGoalRelationshipController({required goalRepository})
+      : _goalRepository = goalRepository;
+  final IGoalRepository _goalRepository;
+  final _stateStream = AddGoalRelationshipState().obs;
+
+  AddGoalRelationshipState get state => _stateStream.value;
+  final goalId = ''.obs;
+  final emailController = TextEditingController();
+  final createdByController = TextEditingController();
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    ever(_stateStream, (state) {
+      if (state is AddGoalRelationshipSuccess) {
+        Get.back();
+
+        var gController = Get.find<GoalRelationshipController>();
+        gController.fetchListItems(QueryModel(
+            offset: 0,
+            limit: gController.rowsPerPage,
+            total: true,
+            reverse: true));
+      }
+    });
+  }
+
+  Future<void> addNewItem() async {
+    var data = GoalRelationship(
+      email: emailController.text,
+      createdBy: createdByController.text,
+      goalId: goalId.value,
+    );
+
+    _stateStream.value = AddGoalRelationshipLoading();
+    var res = await _goalRepository.createGoalRelationship(data);
+    if (res.status != ApiStatus.Ok) {
+      _stateStream.value = AddGoalRelationshipFailure(
+          message: res.message ?? "Something went wrong, please try again");
+      return;
+    }
+    _stateStream.value = AddGoalRelationshipSuccess();
+  }
+}
+
 class EditGoalRelationshipController extends GetxController {
   EditGoalRelationshipController({required goalRepository})
       : _goalRepository = goalRepository;

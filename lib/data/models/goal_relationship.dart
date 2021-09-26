@@ -6,7 +6,7 @@ part 'goal_relationship.g.dart';
 
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class GoalRelationship implements BaseModel {
-  final String? id, uid, email, type, createdBy;
+  final String? id, uid, email, type, createdBy, goalId;
   final Goal? goal;
   final DateTime? createdTime;
   final DateTime? lastUpdatedTime;
@@ -19,6 +19,7 @@ class GoalRelationship implements BaseModel {
     this.type,
     this.createdBy,
     this.goal,
+    this.goalId,
     this.createdTime,
     this.lastUpdatedTime,
   });

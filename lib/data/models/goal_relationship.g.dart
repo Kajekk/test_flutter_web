@@ -16,6 +16,7 @@ GoalRelationship _$GoalRelationshipFromJson(Map<String, dynamic> json) {
     goal: json['goal'] == null
         ? null
         : Goal.fromJson(json['goal'] as Map<String, dynamic>),
+    goalId: json['goal_id'] as String?,
     createdTime: json['created_time'] == null
         ? null
         : DateTime.parse(json['created_time'] as String),
@@ -32,6 +33,7 @@ Map<String, dynamic> _$GoalRelationshipToJson(GoalRelationship instance) =>
       'email': instance.email,
       'type': instance.type,
       'created_by': instance.createdBy,
+      'goal_id': instance.goalId,
       'goal': instance.goal?.toJson(),
       'created_time': instance.createdTime?.toIso8601String(),
       'last_updated_time': instance.lastUpdatedTime?.toIso8601String(),

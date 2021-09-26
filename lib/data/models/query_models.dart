@@ -5,8 +5,9 @@ part 'query_models.g.dart';
 class QueryModel {
   final int? offset, limit;
   final bool? total, reverse;
+  final String? q;
 
-  QueryModel({this.offset, this.limit, this.total, this.reverse});
+  QueryModel({this.offset, this.limit, this.total, this.reverse, this.q});
 
   factory QueryModel.fromJson(Map<String, dynamic> json) => _$QueryModelFromJson(json);
 

@@ -18,7 +18,7 @@ class GoalController extends SubTabController {
 
   get goalState => _goalStateStream.value;
 
-  void fetchListItems(QueryModel queryModel) async {
+  Future<void> fetchListItems(QueryModel queryModel) async {
     _goalStateStream.value = GoalLoading();
     var res = await _goalRepository.getGoalList(queryModel);
     if (res.status != ApiStatus.Ok) {
@@ -39,6 +39,9 @@ class GoalController extends SubTabController {
     isCurrent = true;
     Get.find<GoalFrequencyController>().isCurrent = false;
     Get.find<GoalRelationshipController>().isCurrent = false;
+
+    fetchListItems(
+        QueryModel(offset: 0, limit: rowsPerPage, total: true, reverse: true));
   }
 
   void selectItemDetail(BaseModel? item) {
