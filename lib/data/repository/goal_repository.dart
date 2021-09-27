@@ -11,7 +11,7 @@ abstract class IGoalRepository {
 
   Future<BaseResponse<GoalRelationship>> getGoalRelationshipList(QueryModel queryModel);
   Future<BaseResponse> createGoalRelationship(GoalRelationship data);
-  // Future<BaseResponse> updateGoalFrequency(GoalFrequency data);
+  Future<BaseResponse> updateGoalRelationship(GoalRelationship data);
 }
 
 class GoalRepository implements IGoalRepository {
@@ -26,5 +26,5 @@ class GoalRepository implements IGoalRepository {
   Future<BaseResponse> updateGoalFrequency(GoalFrequency data) => provider.updateGoalFrequency(data);
   Future<BaseResponse<GoalRelationship>> getGoalRelationshipList(QueryModel queryModel) => provider.getGoalRelationshipList(queryModel);
   Future<BaseResponse> createGoalRelationship(GoalRelationship data) => provider.createGoalRelationship(data);
-
+  Future<BaseResponse> updateGoalRelationship(GoalRelationship data) => provider.updateGoalRelationship(data);
 }

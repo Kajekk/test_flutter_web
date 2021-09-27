@@ -12,6 +12,7 @@ abstract class IGoalProvider {
   Future<BaseResponse> updateGoalFrequency(GoalFrequency data);
   Future<BaseResponse<GoalRelationship>> getGoalRelationshipList(QueryModel queryModel);
   Future<BaseResponse> createGoalRelationship(GoalRelationship data);
+  Future<BaseResponse> updateGoalRelationship(GoalRelationship data);
 }
 
 class GoalProvider extends BaseProvider with IGoalProvider {
@@ -74,6 +75,15 @@ class GoalProvider extends BaseProvider with IGoalProvider {
 
   Future<BaseResponse> createGoalRelationship(GoalRelationship data) async {
     var rs = await post(ApiPath.CreateGoalRelationship, data.toJson());
+    BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
+    return baseResponse;
+  }
+
+  Future<BaseResponse> updateGoalRelationship(GoalRelationship data) async {
+    var query = {
+      "id": data.id,
+    };
+    var rs = await put(ApiPath.UpdateGoalRelationship, data.toJson(), query: query);
     BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
     return baseResponse;
   }

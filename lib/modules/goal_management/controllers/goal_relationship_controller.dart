@@ -122,10 +122,14 @@ class EditGoalRelationshipController extends GetxController {
   EditGoalRelationshipState get state => _stateStream.value;
 
   //fields
+  final goalId = ''.obs;
   final emailController = TextEditingController();
+  final createdByController = TextEditingController();
   void changeEditItem(GoalRelationship? data) {
     if (data != null) {
       emailController.text = data.email!;
+      createdByController.text = data.createdBy!;
+      goalId.value = data.goal!.id!;
 
       itemDetail = data;
     }
@@ -151,19 +155,20 @@ class EditGoalRelationshipController extends GetxController {
   }
 
   void editItem() async {
-    // var data = GoalFrequency(
-    //   id: itemDetail!.id,
-    //   frequency: frequencyController.text,
-    //   dayEquivalent: int.parse(dayEquivalentController.text),
-    // );
-    //
-    // _stateStream.value = EditGoalRelationshipLoading();
-    // var res = await _goalRepository.updateGoalFrequency(data);
-    // if (res.status != ApiStatus.Ok) {
-    //   _stateStream.value = EditGoalRelationshipFailure(
-    //       message: res.message ?? "Something went wrong, please try again");
-    //   return;
-    // }
-    // _stateStream.value = EditGoalRelationshipSuccess();
+    var data = GoalRelationship(
+      id: itemDetail!.id,
+      email: emailController.text,
+      createdBy: createdByController.text,
+      goalId: goalId.value,
+    );
+
+    _stateStream.value = EditGoalRelationshipLoading();
+    var res = await _goalRepository.updateGoalRelationship(data);
+    if (res.status != ApiStatus.Ok) {
+      _stateStream.value = EditGoalRelationshipFailure(
+          message: res.message ?? "Something went wrong, please try again");
+      return;
+    }
+    _stateStream.value = EditGoalRelationshipSuccess();
   }
 }

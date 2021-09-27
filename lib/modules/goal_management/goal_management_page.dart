@@ -175,8 +175,7 @@ class GoalManagementPage extends StatelessWidget {
         var editController = Get.find<EditGoalRelationshipController>();
         return ItemDetail(
           itemDetailInfo: GoalRelationshipItemDetailInfo(),
-          //TODO
-          customDialog: null,
+          customDialog: editController.itemDetail == null ? null : EditGoalRelationshipDialog(),
         );
       }
     }
