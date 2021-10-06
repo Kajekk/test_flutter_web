@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:test_flutter_web/data/models/barrel.dart';
 import 'package:test_flutter_web/modules/goal_management/barrel.dart';
 import 'package:test_flutter_web/modules/goal_management/states/goal_relationship_states.dart';
 
@@ -15,11 +16,13 @@ class GoalRelationshipData extends DataTableSource {
     if (index >= controller.totalRows || index < controller.firstRowIndex) {
       return null;
     }
-    var state = controller.goalState as GoalRelationshipLoaded;
-    final _data = state.listData![index - controller.firstRowIndex];
+    // var state = controller.goalState as GoalRelationshipLoaded;
+    // final _data = state.listData![index - controller.firstRowIndex];
+    final _data = controller.dataList.cast<GoalRelationship>()[index - controller.firstRowIndex];
 
     return DataRow.byIndex(
         index: index,
+        selected: _data.selected,
         cells: [
           DataCell(Container(
               constraints: BoxConstraints(
@@ -44,7 +47,11 @@ class GoalRelationshipData extends DataTableSource {
                   .add_jm()
                   .format(_data.createdTime!.toLocal())))),
         ],
-        onSelectChanged: (bool? selected) {
+        onSelectChanged: (bool? value) {
+          if (_data.selected != value) {
+            _data.selected = value!;
+            notifyListeners();
+          }
           controller.selectItemDetail(_data);
         });
   }

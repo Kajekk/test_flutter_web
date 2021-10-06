@@ -49,7 +49,7 @@ class SideMenu extends StatelessWidget {
           DrawerListTile(
             title: "Dashboard",
             icon: Icon(
-              Icons.home_outlined,
+              Icons.dashboard,
               color: bodyTextColor,
             ),
             press: () {
@@ -70,11 +70,16 @@ class SideMenu extends StatelessWidget {
           //     // Get.toNamed(Routes.SUPPORT_MANAGEMENT);
           //   },
           // ),
-          // DrawerListTile(
-          //   title: "Home Management",
-          //   svgSrc: "assets/icons/menu_dashboard.svg",
-          //   press: () {},
-          // ),
+          DrawerListTile(
+            title: "Home Management",
+            icon: Icon(
+              Icons.home_outlined,
+              color: bodyTextColor,
+            ),
+            press: () {
+              Get.toNamed(Routes.HOME_MANAGEMENT);
+            },
+          ),
           DrawerListTile(
             title: "Goal Management",
             icon: Icon(

@@ -50,4 +50,9 @@ class EmotionTypeController extends SubTabController {
     // TODO: implement selectItemDetail
   }
 
+  @override
+  void deleteItems() {
+    // TODO: implement deleteItems
+  }
+
 }

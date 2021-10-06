@@ -7,6 +7,8 @@ class EmotionalLog implements BaseModel {
   final String? id, uid, email, type, description;
   final DateTime? createdTime;
   final DateTime? lastUpdatedTime;
+  @JsonKey(ignore: true)
+  bool selected = false;
 
   EmotionalLog(
       {this.id,

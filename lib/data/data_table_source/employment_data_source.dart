@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:test_flutter_web/data/models/barrel.dart';
 import 'package:test_flutter_web/modules/employment_management/barrel.dart';
 import 'package:test_flutter_web/utils/barrel.dart';
 
@@ -18,8 +19,9 @@ class EmploymentDetailData extends DataTableSource {
     if (index >= controller.totalRows || index < controller.firstRowIndex) {
       return null;
     }
-    var state = controller.employmentState as EmploymentDetailLoaded;
-    final _data = state.listData![index - controller.firstRowIndex];
+    // var state = controller.employmentState as EmploymentDetailLoaded;
+    // final _data = state.listData![index - controller.firstRowIndex];
+    final _data = controller.dataList.cast<Employment>()[index - controller.firstRowIndex];
 
     var startingTime = toTimeString(context, _data.workingTimeFrom!);
     var finishingTime = toTimeString(context, _data.workingTimeTo!);
@@ -38,6 +40,7 @@ class EmploymentDetailData extends DataTableSource {
 
     return DataRow.byIndex(
         index: index,
+        selected: _data.selected,
         cells: [
           DataCell(Container(
               constraints: BoxConstraints(
@@ -67,7 +70,11 @@ class EmploymentDetailData extends DataTableSource {
                   .add_jm()
                   .format(_data.createdTime!.toLocal())))),
         ],
-        onSelectChanged: (bool? selected) {
+        onSelectChanged: (bool? value) {
+          if (_data.selected != value) {
+            _data.selected = value!;
+            notifyListeners();
+          }
           controller.selectItemDetail(_data);
         });
 

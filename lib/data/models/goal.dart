@@ -17,6 +17,8 @@ class Goal implements BaseModel {
   final List<String>? tips;
   final DateTime? createdTime;
   final DateTime? lastUpdatedTime;
+  @JsonKey(ignore: true)
+  bool selected = false;
 
   Goal(
       {this.icon,

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:test_flutter_web/constants/barrel.dart';
 import 'package:test_flutter_web/global_widgets/barrel.dart';
+import 'package:test_flutter_web/modules/support_management/barrel.dart';
 import 'package:test_flutter_web/modules/support_management/controllers/barrel.dart';
 
 class AttendanceItemDetailInfo extends StatelessWidget {
@@ -194,6 +195,17 @@ class AttendanceDialog extends StatelessWidget {
                             ),
                           ),
                         ),
+                        if (controller.state is AddAttendanceFailure)
+                          Padding(
+                            padding: EdgeInsets.only(top: defaultPadding / 2),
+                            child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  (controller.state as AddAttendanceFailure)
+                                      .message,
+                                  style: TextStyle(color: Get.theme.errorColor),
+                                )),
+                          ),
                       ],
                     ),
                   ),

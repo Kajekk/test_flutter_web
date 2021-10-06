@@ -24,6 +24,7 @@ class EmotionalLogController extends SubTabController {
     }
     totalRows = res.total ?? 0;
     _emotionalStateStream.value = EmotionalLogLoaded(listData: res.data!);
+    dataList = res.data!;
   }
 
   void countItems() {
@@ -52,6 +53,48 @@ class EmotionalLogController extends SubTabController {
 
     fetchListItems(
         QueryModel(offset: 0, limit: rowsPerPage, total: true, reverse: true));
+
+    ever(_emotionalStateStream, (state) {
+      if (state is DeleteEmotionalLogsSuccess) {
+        Get.back();
+
+        fetchListItems(QueryModel(
+            offset: 0,
+            limit: rowsPerPage,
+            total: true,
+            reverse: true));
+      }
+      if (state is DeleteEmotionalLogsFailure) {
+        Get.snackbar("Error", state.message,
+            backgroundColor: Colors.redAccent,
+            margin: EdgeInsets.only(bottom: 15),
+            snackPosition: SnackPosition.BOTTOM);
+      }
+    });
+  }
+
+  @override
+  void deleteItems() async {
+    var selectedItemIds = <String>[];
+    for (var item in dataList.cast<EmotionalLog>()) {
+      if (item.selected) selectedItemIds.add(item.id!);
+    }
+
+    if (dataList.isNotEmpty) {
+      _emotionalStateStream.value = DeleteEmotionalLogsProcessing();
+      var res = await _emotionalLogRepository.deleteEmotionalLogs(QueryModel(
+        ids: selectedItemIds,
+      ));
+      if (res.status != ApiStatus.Ok) {
+        _emotionalStateStream.value = DeleteEmotionalLogsFailure(
+            message: res.message ?? "Something went wrong, please try again",
+          );
+        return;
+      }
+      dataList.removeWhere((element) => element.selected);
+      totalRows = dataList.length;
+      _emotionalStateStream.value = DeleteEmotionalLogsSuccess();
+    }
   }
 }
 

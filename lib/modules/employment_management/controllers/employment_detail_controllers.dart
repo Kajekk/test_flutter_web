@@ -32,6 +32,7 @@ class EmploymentDetailController extends SubTabController {
     }
     totalRows = res.total ?? 0;
     _employmentStateStream.value = EmploymentDetailLoaded(listData: res.data!);
+    dataList = res.data!;
   }
   void countItems() {
     // _countItemStateStream.value = CountEmotionalLoading();
@@ -59,6 +60,48 @@ class EmploymentDetailController extends SubTabController {
     // itemDetail = null;
 
     fetchListItems(QueryModel(offset: 0, limit: rowsPerPage, total: true, reverse: true));
+
+    ever(_employmentStateStream, (state) {
+      if (state is DeleteEmploymentDetailsSuccess) {
+        Get.back();
+
+        fetchListItems(QueryModel(
+            offset: 0,
+            limit: rowsPerPage,
+            total: true,
+            reverse: true));
+      }
+      if (state is DeleteEmploymentDetailsFailure) {
+        Get.snackbar("Error", state.message,
+            backgroundColor: Colors.redAccent,
+            margin: EdgeInsets.only(bottom: 15),
+            snackPosition: SnackPosition.BOTTOM);
+      }
+    });
+  }
+
+  @override
+  void deleteItems() async {
+    var selectedItemIds = <String>[];
+    for (var item in dataList.cast<Employment>()) {
+      if (item.selected) selectedItemIds.add(item.id!);
+    }
+
+    if (dataList.isNotEmpty) {
+      _employmentStateStream.value = DeleteEmploymentDetailsProcessing();
+      var res = await _employmentRepository.deleteEmployments(QueryModel(
+        ids: selectedItemIds,
+      ));
+      if (res.status != ApiStatus.Ok) {
+        _employmentStateStream.value = DeleteEmploymentDetailsFailure(
+            message: res.message ?? "Something went wrong, please try again",
+            status: res.status);
+        return;
+      }
+      dataList.removeWhere((element) => element.selected);
+      totalRows = dataList.length;
+      _employmentStateStream.value = DeleteEmploymentDetailsSuccess();
+    }
   }
 }
 

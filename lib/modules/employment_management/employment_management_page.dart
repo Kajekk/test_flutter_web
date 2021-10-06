@@ -92,33 +92,33 @@ class EmploymentManagementPage extends StatelessWidget {
       if (controller.isCurrent &&
           controller.subTabInfoModel.title == SubTabInfo.employmentDetail.title) {
         var state = empController.employmentState;
-        if (state is EmploymentDetailLoaded) {
+        if (state is EmploymentDetailLoading || state is EmploymentDetailFailure) {
           return ListItem(
             controller: controller,
-            dataTableSource: EmploymentDetailData(context: _scaffoldKey.currentContext!, controller: empController),
-            customDialog: EmploymentDetailDialog(),
+            dataTableSource: EmptyDataSource(numCol: empController.info.dataColumn!.length),
+            isLoading: (state is EmploymentDetailLoading) ? true : false,
           );
         }
         return ListItem(
           controller: controller,
-          dataTableSource: EmptyDataSource(numCol: empController.info.dataColumn!.length),
-          isLoading: (state is EmploymentDetailLoading) ? true : false,
+          dataTableSource: EmploymentDetailData(context: _scaffoldKey.currentContext!, controller: empController),
+          customDialog: EmploymentDetailDialog(),
         );
       }
       if (controller.isCurrent &&
           controller.subTabInfoModel.title == SubTabInfo.workplaceDetail.title) {
         var state = wpdController.state;
-        if (state is WorkplaceDetailLoaded) {
+        if (state is WorkplaceDetailLoading || state is WorkplaceDetailFailure) {
           return ListItem(
             controller: controller,
-            dataTableSource: WorkplaceDetailData(context: _scaffoldKey.currentContext!, controller: wpdController),
-            customDialog: WorkplaceDetailDialog(),
+            dataTableSource: EmptyDataSource(numCol: wpdController.info.dataColumn!.length),
+            isLoading: (state is WorkplaceDetailLoading) ? true : false,
           );
         }
         return ListItem(
           controller: controller,
-          dataTableSource: EmptyDataSource(numCol: wpdController.info.dataColumn!.length),
-          isLoading: (state is WorkplaceDetailLoading) ? true : false,
+          dataTableSource: WorkplaceDetailData(context: _scaffoldKey.currentContext!, controller: wpdController),
+          customDialog: WorkplaceDetailDialog(),
         );
       }
     }

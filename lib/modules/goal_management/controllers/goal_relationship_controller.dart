@@ -29,6 +29,7 @@ class GoalRelationshipController extends SubTabController {
     }
     totalRows = res.total ?? 0;
     _goalStateStream.value = GoalRelationshipLoaded(listData: res.data!);
+    dataList = res.data;
   }
 
   void countItems() {
@@ -56,6 +57,48 @@ class GoalRelationshipController extends SubTabController {
 
     fetchListItems(
         QueryModel(offset: 0, limit: rowsPerPage, total: true, reverse: true));
+
+    ever(_goalStateStream, (state) {
+      if (state is DeleteGoalRelationshipsSuccess) {
+        Get.back();
+
+        fetchListItems(QueryModel(
+            offset: 0,
+            limit: rowsPerPage,
+            total: true,
+            reverse: true));
+      }
+      if (state is DeleteGoalRelationshipsFailure) {
+        Get.snackbar("Error", state.message,
+            backgroundColor: Colors.redAccent,
+            margin: EdgeInsets.only(bottom: 15),
+            snackPosition: SnackPosition.BOTTOM);
+      }
+    });
+  }
+
+  @override
+  void deleteItems() async {
+    var selectedItemIds = <String>[];
+    for (var item in dataList.cast<GoalRelationship>()) {
+      if (item.selected) selectedItemIds.add(item.id!);
+    }
+
+    if (dataList.isNotEmpty) {
+      _goalStateStream.value = DeleteGoalRelationshipsProcessing();
+      var res = await _goalRepository.deleteGoalRelationships(QueryModel(
+        ids: selectedItemIds,
+      ));
+      if (res.status != ApiStatus.Ok) {
+        _goalStateStream.value = DeleteGoalRelationshipsFailure(
+            message: res.message ?? "Something went wrong, please try again",
+            status: res.status);
+        return;
+      }
+      dataList.removeWhere((element) => element.selected);
+      totalRows = dataList.length;
+      _goalStateStream.value = DeleteGoalRelationshipsSuccess();
+    }
   }
 }
 

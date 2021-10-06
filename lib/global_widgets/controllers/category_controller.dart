@@ -43,6 +43,8 @@ abstract class SubTabController extends GetxController {
   final _rowsPerPage = 10.obs;
   final _totalRows = 0.obs;
   final _firstRowIndex = 0.obs;
+  final _dataList = <BaseModel>[].obs;
+  // final _selectedItemsCount = 0.obs;
   // final _itemDetail = BaseModel().obs;
 
   SubTabInfoModel subTabInfoModel = SubTabInfoModel();
@@ -52,6 +54,18 @@ abstract class SubTabController extends GetxController {
   set isCurrent(value) {
     _isCurrent.value = value;
   }
+
+  List<BaseModel> get dataList => _dataList;
+
+  set dataList(value) {
+    _dataList.value = value;
+  }
+
+  // int get selectedItemsCount => _selectedItemsCount.value;
+  //
+  // set selectedItemsCount(value) {
+  //   _selectedItemsCount.value = value;
+  // }
 
   int get rowsPerPage => _rowsPerPage.value;
 
@@ -81,6 +95,7 @@ abstract class SubTabController extends GetxController {
   void countItems();
   void changeSubTab();
   void selectItemDetail(BaseModel? item);
+  void deleteItems();
 }
 
 class SubTabItem {

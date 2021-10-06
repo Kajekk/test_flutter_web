@@ -29,6 +29,20 @@ class GoalRelationshipFailure extends GoalRelationshipState {
   List<Object> get props => [message];
 }
 
+class DeleteGoalRelationshipsProcessing extends GoalRelationshipState {}
+
+class DeleteGoalRelationshipsSuccess extends GoalRelationshipState {}
+
+class DeleteGoalRelationshipsFailure extends GoalRelationshipState {
+  final String message;
+  final String? status;
+
+  DeleteGoalRelationshipsFailure({required this.message, this.status});
+
+  @override
+  List<Object> get props => [message];
+}
+
 class AddGoalRelationshipState extends Equatable {
   const AddGoalRelationshipState();
 

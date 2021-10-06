@@ -102,4 +102,13 @@ class SubTabInfo {
         "Created By",
         "Created Time",
       ]);
+
+  static const SubTabInfoModel quotes = SubTabInfoModel(
+      title: "Quotes",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Quote",
+        "Author",
+        "Created Time"
+      ]);
 }

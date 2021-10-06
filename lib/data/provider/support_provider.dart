@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:test_flutter_web/constants/barrel.dart';
 import 'package:test_flutter_web/data/models/barrel.dart';
 import 'package:test_flutter_web/utils/barrel.dart';
@@ -8,6 +9,7 @@ abstract class ISupportProvider {
   Future<BaseResponse<AttendanceModel>> getAttendanceList(QueryModel queryModel);
   Future<BaseResponse> createAttendance(AttendanceModel data);
   Future<BaseResponse> updateAttendance(AttendanceModel data);
+  Future<BaseResponse> deleteAttendances(QueryModel queryModel);
 }
 
 class SupportProvider extends BaseProvider with ISupportProvider {
@@ -31,6 +33,15 @@ class SupportProvider extends BaseProvider with ISupportProvider {
       "id": data.id,
     };
     var rs = await put(ApiPath.UpdateAttendance, data.toJson(), query: query);
+    BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
+    return baseResponse;
+  }
+
+  Future<BaseResponse> deleteAttendances(QueryModel queryModel) async {
+    var query = {
+      "q": jsonEncode(queryModel.toJson()),
+    };
+    var rs = await delete(ApiPath.DeleteAttendances, query: query);
     BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
     return baseResponse;
   }

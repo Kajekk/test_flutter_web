@@ -25,6 +25,7 @@ class AttendanceController extends SubTabController {
     }
     totalRows = res.total ?? 0;
     _attendanceStateStream.value = AttendanceLoaded(listData: res.data!);
+    dataList = res.data!;
   }
 
   void countItems() {
@@ -54,6 +55,48 @@ class AttendanceController extends SubTabController {
 
     fetchListItems(
         QueryModel(offset: 0, limit: rowsPerPage, total: true, reverse: true));
+
+    ever(_attendanceStateStream, (state) {
+      if (state is DeleteAttendancesSuccess) {
+        Get.back();
+
+        fetchListItems(QueryModel(
+            offset: 0,
+            limit: rowsPerPage,
+            total: true,
+            reverse: true));
+      }
+      if (state is DeleteAttendancesFailure) {
+        Get.snackbar("Error", state.message,
+            backgroundColor: Colors.redAccent,
+            margin: EdgeInsets.only(bottom: 15),
+            snackPosition: SnackPosition.BOTTOM);
+      }
+    });
+  }
+
+  @override
+  void deleteItems() async {
+    var selectedItemIds = <String>[];
+    for (var item in dataList.cast<AttendanceModel>()) {
+      if (item.selected) selectedItemIds.add(item.id!);
+    }
+
+    if (dataList.isNotEmpty) {
+      _attendanceStateStream.value = DeleteAttendancesProcessing();
+      var res = await _supportRepository.deleteAttendances(QueryModel(
+        ids: selectedItemIds,
+      ));
+      if (res.status != ApiStatus.Ok) {
+        _attendanceStateStream.value = DeleteAttendancesFailure(
+            message: res.message ?? "Something went wrong, please try again",
+            status: res.status);
+        return;
+      }
+      dataList.removeWhere((element) => element.selected);
+      totalRows = dataList.length;
+      _attendanceStateStream.value = DeleteAttendancesSuccess();
+    }
   }
 }
 

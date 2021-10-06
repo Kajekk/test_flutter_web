@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:test_flutter_web/constants/barrel.dart';
 import 'package:test_flutter_web/data/models/barrel.dart';
 import 'package:test_flutter_web/data/provider/barrel.dart';
@@ -7,6 +8,8 @@ abstract class IEmotionalApiProvider {
   Future<BaseResponse<EmotionalLog>> getEmotionalLogs(QueryModel queryModel);
   Future<BaseResponse> createEmotionalLog(EmotionalLog data);
   Future<BaseResponse> updateEmotionalLog(EmotionalLog data);
+  Future<BaseResponse> deleteEmotionalLogs(QueryModel queryModel);
+
   Future<BaseResponse<EmotionType>> getEmotionalTypes(QueryModel queryModel);
 }
 
@@ -31,6 +34,15 @@ class EmotionalApiProvider extends BaseProvider with IEmotionalApiProvider {
       "id": data.id,
     };
     var rs = await put(ApiPath.UpdateEmotionLog, data.toJson(), query: query);
+    BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
+    return baseResponse;
+  }
+
+  Future<BaseResponse> deleteEmotionalLogs(QueryModel queryModel) async {
+    var query = {
+      "q": jsonEncode(queryModel.toJson()),
+    };
+    var rs = await delete(ApiPath.DeleteEmotionLogs, query: query);
     BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
     return baseResponse;
   }

@@ -146,13 +146,13 @@ class GoalFrequencyDialog extends StatelessWidget {
                             ),
                           ),
                         ),
-                        if (controller.state is AddGoalFailure)
+                        if (controller.state is AddGoalFrequencyFailure)
                           Padding(
                             padding: EdgeInsets.only(top: defaultPadding / 2),
                             child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  (controller.state as AddGoalFailure)
+                                  (controller.state as AddGoalFrequencyFailure)
                                       .message,
                                   style: TextStyle(color: Get.theme.errorColor),
                                 )),
@@ -358,13 +358,13 @@ class EditGoalFrequencyDialog extends StatelessWidget {
                                       Colors.deepPurpleAccent))
                           ),
                         ),
-                        if (controller.state is AddGoalFailure)
+                        if (controller.state is EditGoalFrequencyFailure)
                           Padding(
                             padding: EdgeInsets.only(top: defaultPadding / 2),
                             child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  (controller.state as AddGoalFailure)
+                                  (controller.state as EditGoalFrequencyFailure)
                                       .message,
                                   style: TextStyle(color: Get.theme.errorColor),
                                 )),

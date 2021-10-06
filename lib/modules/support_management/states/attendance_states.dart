@@ -28,6 +28,20 @@ class AttendanceFailure extends AttendanceState {
   List<Object> get props => [message];
 }
 
+class DeleteAttendancesProcessing extends AttendanceState {}
+
+class DeleteAttendancesSuccess extends AttendanceState {}
+
+class DeleteAttendancesFailure extends AttendanceState {
+  final String message;
+  final String? status;
+
+  DeleteAttendancesFailure({required this.message, this.status});
+
+  @override
+  List<Object> get props => [message];
+}
+
 class AddAttendanceState extends Equatable {
   const AddAttendanceState();
 

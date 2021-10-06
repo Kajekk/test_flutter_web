@@ -13,6 +13,7 @@ QueryModel _$QueryModelFromJson(Map<String, dynamic> json) {
     total: json['total'] as bool?,
     reverse: json['reverse'] as bool?,
     q: json['q'] as String?,
+    ids: (json['ids'] as List<dynamic>?)?.map((e) => e as String).toList(),
   );
 }
 
@@ -23,4 +24,5 @@ Map<String, dynamic> _$QueryModelToJson(QueryModel instance) =>
       'total': instance.total,
       'reverse': instance.reverse,
       'q': instance.q,
+      'ids': instance.ids,
     };

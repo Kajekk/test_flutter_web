@@ -6,8 +6,8 @@ import 'package:test_flutter_web/modules/dashboard/barrel.dart';
 import 'package:test_flutter_web/modules/emotional_management/barrel.dart';
 import 'package:test_flutter_web/modules/employment_management/barrel.dart';
 import 'package:test_flutter_web/modules/goal_management/barrel.dart';
+import 'package:test_flutter_web/modules/home_management/barrel.dart';
 import 'package:test_flutter_web/modules/support_management/barrel.dart';
-import 'package:test_flutter_web/modules/user_access_management/barrel.dart';
 
 import '../modules/main_screen/main_screen.dart';
 import 'middlewares.dart';
@@ -50,6 +50,11 @@ class AppPages {
         name: Routes.GOAL_MANAGEMENT,
         page: () => GoalManagementPage(),
         binding: GoalManagementBinding(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: Routes.HOME_MANAGEMENT,
+        page: () => HomeManagementPage(),
+        binding: HomeManagementBinding(),
         middlewares: [AuthMiddleware()])
   ];
 }

@@ -11,4 +11,5 @@ abstract class Routes {
   static const EMPLOYMENT_MANAGEMENT = '/employment-management';
   static const SUPPORT_MANAGEMENT = '/support-management';
   static const GOAL_MANAGEMENT = '/goal-management';
+  static const HOME_MANAGEMENT = '/home-management';
 }

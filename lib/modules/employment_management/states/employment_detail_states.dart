@@ -28,6 +28,20 @@ class EmploymentDetailFailure extends EmploymentDetailState {
   List<Object> get props => [message];
 }
 
+class DeleteEmploymentDetailsProcessing extends EmploymentDetailState {}
+
+class DeleteEmploymentDetailsSuccess extends EmploymentDetailState {}
+
+class DeleteEmploymentDetailsFailure extends EmploymentDetailState {
+  final String message;
+  final String? status;
+
+  DeleteEmploymentDetailsFailure({required this.message, this.status});
+
+  @override
+  List<Object> get props => [message];
+}
+
 class AddEmploymentState extends Equatable {
   const AddEmploymentState();
 

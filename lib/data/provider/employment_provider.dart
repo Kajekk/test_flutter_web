@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:test_flutter_web/constants/barrel.dart';
 import 'package:test_flutter_web/data/barrel.dart';
 import 'package:test_flutter_web/utils/helpers.dart';
@@ -6,9 +7,13 @@ abstract class IEmploymentProvider {
   Future<BaseResponse<Employment>> getEmploymentLists(QueryModel queryModel);
   Future<BaseResponse> createEmployment(Employment data);
   Future<BaseResponse> updateEmployment(Employment data);
+  Future<BaseResponse> deleteEmployments(QueryModel queryModel);
+
   Future<BaseResponse<WorkplaceDetail>> getWorkplaceDetailLists(QueryModel queryModel);
   Future<BaseResponse> createWorkplace(WorkplaceDetail data);
   Future<BaseResponse> updateWorkplace(WorkplaceDetail data);
+  Future<BaseResponse> deleteWorkplaces(QueryModel queryModel);
+
 }
 
 class EmploymentProvider extends BaseProvider with IEmploymentProvider {
@@ -36,6 +41,15 @@ class EmploymentProvider extends BaseProvider with IEmploymentProvider {
     return baseResponse;
   }
 
+  Future<BaseResponse> deleteEmployments(QueryModel queryModel) async {
+    var query = {
+      "q": jsonEncode(queryModel.toJson()),
+    };
+    var rs = await delete(ApiPath.DeleteEmployments, query: query);
+    BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
+    return baseResponse;
+  }
+
   Future<BaseResponse<WorkplaceDetail>> getWorkplaceDetailLists(QueryModel queryModel) async {
     var query = parsedQuery(queryModel.toJson())!;
     var rs = await get(ApiPath.GetWorkplaceDetailLists, query: query);
@@ -56,6 +70,15 @@ class EmploymentProvider extends BaseProvider with IEmploymentProvider {
       "id": data.id,
     };
     var rs = await put(ApiPath.UpdateWorkplace, data.toJson(), query: query);
+    BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
+    return baseResponse;
+  }
+
+  Future<BaseResponse> deleteWorkplaces(QueryModel queryModel) async {
+    var query = {
+      "q": jsonEncode(queryModel.toJson()),
+    };
+    var rs = await delete(ApiPath.DeleteWorkplaces, query: query);
     BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
     return baseResponse;
   }

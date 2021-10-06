@@ -7,6 +7,8 @@ class WorkplaceDetail implements BaseModel {
   final String? id, address, name;
   final double? latitude, longitude;
   final DateTime? createdTime, lastUpdatedTime;
+  @JsonKey(ignore: true)
+  bool selected = false;
 
   WorkplaceDetail(
       {this.id,

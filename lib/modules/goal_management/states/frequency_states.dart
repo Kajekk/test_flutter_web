@@ -29,6 +29,20 @@ class GoalFrequencyFailure extends GoalFrequencyState {
   List<Object> get props => [message];
 }
 
+class DeleteGoalFrequenciesProcessing extends GoalFrequencyState {}
+
+class DeleteGoalFrequenciesSuccess extends GoalFrequencyState {}
+
+class DeleteGoalFrequenciesFailure extends GoalFrequencyState {
+  final String message;
+  final String? status;
+
+  DeleteGoalFrequenciesFailure({required this.message, this.status});
+
+  @override
+  List<Object> get props => [message];
+}
+
 class AddGoalFrequencyState extends Equatable {
   const AddGoalFrequencyState();
 

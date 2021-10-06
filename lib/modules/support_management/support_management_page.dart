@@ -91,17 +91,17 @@ class SupportManagementPage extends StatelessWidget {
       if (controller.isCurrent &&
           controller.subTabInfoModel.title == SubTabInfo.checkInOut.title) {
         var state = atController.attendanceState;
-        if (state is AttendanceLoaded) {
+        if (state is AttendanceLoading || state is AttendanceFailure) {
           return ListItem(
             controller: controller,
-            dataTableSource: AttendanceDataSource(context: _scaffoldKey.currentContext!, controller: atController),
-            customDialog: AttendanceDialog(),
+            dataTableSource: EmptyDataSource(numCol: atController.info.dataColumn!.length),
+            isLoading: (state is AttendanceLoading) ? true : false,
           );
         }
         return ListItem(
           controller: controller,
-          dataTableSource: EmptyDataSource(numCol: atController.info.dataColumn!.length),
-          isLoading: (state is AttendanceLoading) ? true : false,
+          dataTableSource: AttendanceDataSource(context: _scaffoldKey.currentContext!, controller: atController),
+          customDialog: AttendanceDialog(),
         );
       }
     }

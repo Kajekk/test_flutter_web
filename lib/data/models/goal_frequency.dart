@@ -9,6 +9,8 @@ class GoalFrequency implements BaseModel {
   final bool? isEnabled;
   final DateTime? createdTime;
   final DateTime? lastUpdatedTime;
+  @JsonKey(ignore: true)
+  bool selected = false;
 
   GoalFrequency(
       {this.id,

@@ -95,18 +95,18 @@ class EmotionalManagementPage extends StatelessWidget {
       if (controller.isCurrent &&
           controller.subTabInfoModel.title == SubTabInfo.emotionalLog.title) {
         var state = emoController.emotionalLogState;
-        if (state is EmotionalLogLoaded) {
+        if (state is EmotionalLogLoading || state is EmotionalLogFailure) {
           return ListItem(
             controller: controller,
-            dataTableSource: EmotionalLogData(controller: emoController),
-            customDialog: EmotionalLogDialog(),
+            dataTableSource: EmptyDataSource(numCol: emoController.info.dataColumn!.length),
+            isLoading: true,
           );
         }
         if (state is EmotionalLogLoading) {
           return ListItem(
             controller: controller,
-            dataTableSource: EmptyDataSource(numCol: emoController.info.dataColumn!.length),
-            isLoading: true,
+            dataTableSource: EmotionalLogData(controller: emoController),
+            customDialog: EmotionalLogDialog(),
           );
         }
       }

@@ -29,6 +29,20 @@ class GoalFailure extends GoalState {
   List<Object> get props => [message];
 }
 
+class DeleteGoalsProcessing extends GoalState {}
+
+class DeleteGoalsSuccess extends GoalState {}
+
+class DeleteGoalsFailure extends GoalState {
+  final String message;
+  final String? status;
+
+  DeleteGoalsFailure({required this.message, this.status});
+
+  @override
+  List<Object> get props => [message];
+}
+
 class AddGoalState extends Equatable {
   const AddGoalState();
 

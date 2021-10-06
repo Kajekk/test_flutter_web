@@ -28,6 +28,20 @@ class WorkplaceDetailFailure extends WorkplaceDetailState {
   List<Object> get props => [message];
 }
 
+class DeleteWorkplaceDetailsProcessing extends WorkplaceDetailState {}
+
+class DeleteWorkplaceDetailsSuccess extends WorkplaceDetailState {}
+
+class DeleteWorkplaceDetailsFailure extends WorkplaceDetailState {
+  final String message;
+  final String? status;
+
+  DeleteWorkplaceDetailsFailure({required this.message, this.status});
+
+  @override
+  List<Object> get props => [message];
+}
+
 
 class AddWorkplaceDetailState extends Equatable {
   const AddWorkplaceDetailState();

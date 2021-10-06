@@ -96,17 +96,17 @@ class GoalManagementPage extends StatelessWidget {
       if (controller.isCurrent &&
           controller.subTabInfoModel.title == SubTabInfo.goal.title) {
         var state = goalController.goalState;
-        if (state is GoalLoaded) {
+        if (state is GoalLoading || state is GoalFailure) {
           return ListItem(
             controller: controller,
-            dataTableSource: GoalData(controller: goalController),
+            dataTableSource: EmptyDataSource(numCol: goalController.info.dataColumn!.length),
+            isLoading: (state is GoalLoading) ? true : false,
             customDialog: GoalDetailDialog(),
           );
         }
         return ListItem(
           controller: controller,
-          dataTableSource: EmptyDataSource(numCol: goalController.info.dataColumn!.length),
-          isLoading: (state is GoalLoading) ? true : false,
+          dataTableSource: GoalData(controller: goalController),
           customDialog: GoalDetailDialog(),
         );
       }
@@ -114,17 +114,17 @@ class GoalManagementPage extends StatelessWidget {
       if (controller.isCurrent &&
           controller.subTabInfoModel.title == SubTabInfo.goalFrequency.title) {
         var state = goalFrequencyController.goalState;
-        if (state is GoalFrequencyLoaded) {
+        if (state is GoalFrequencyLoading || state is GoalFrequencyFailure) {
           return ListItem(
             controller: controller,
-            dataTableSource: GoalFrequencyData(controller: goalFrequencyController),
+            dataTableSource: EmptyDataSource(numCol: goalFrequencyController.info.dataColumn!.length),
+            isLoading: (state is GoalFrequencyLoading) ? true : false,
             customDialog: GoalFrequencyDialog(),
           );
         }
         return ListItem(
           controller: controller,
-          dataTableSource: EmptyDataSource(numCol: goalFrequencyController.info.dataColumn!.length),
-          isLoading: (state is GoalFrequencyLoading) ? true : false,
+          dataTableSource: GoalFrequencyData(controller: goalFrequencyController),
           customDialog: GoalFrequencyDialog(),
         );
       }
@@ -132,18 +132,18 @@ class GoalManagementPage extends StatelessWidget {
       if (controller.isCurrent &&
           controller.subTabInfoModel.title == SubTabInfo.goalRelationship.title) {
         var state = goalRelationshipController.goalState;
-        if (state is GoalRelationshipLoaded) {
+        if (state is GoalRelationshipLoading || state is GoalRelationshipFailure) {
           return ListItem(
             controller: controller,
-            dataTableSource: GoalRelationshipData(controller: goalRelationshipController),
-            customDialog: GoalRelationshipDialog(),
+            dataTableSource: EmptyDataSource(numCol: goalRelationshipController.info.dataColumn!.length),
+            isLoading: (state is GoalRelationshipLoading) ? true : false,
+            // customDialog: GoalFrequencyDialog(),
           );
         }
         return ListItem(
           controller: controller,
-          dataTableSource: EmptyDataSource(numCol: goalRelationshipController.info.dataColumn!.length),
-          isLoading: (state is GoalRelationshipLoading) ? true : false,
-          // customDialog: GoalFrequencyDialog(),
+          dataTableSource: GoalRelationshipData(controller: goalRelationshipController),
+          customDialog: GoalRelationshipDialog(),
         );
       }
     }

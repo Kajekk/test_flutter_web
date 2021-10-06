@@ -15,6 +15,8 @@ class Employment implements BaseModel {
   final List<Scope>? scopeList;
   final List<Coach>? coachList;
   final List<int>? workingDays;
+  @JsonKey(ignore: true)
+  bool selected = false;
 
   Employment(
       {
@@ -41,7 +43,7 @@ class Employment implements BaseModel {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class Scope implements BaseModel {
+class Scope {
   final String? name;
   final List<String>? task;
 
@@ -60,7 +62,7 @@ class Scope implements BaseModel {
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class Coach implements BaseModel {
+class Coach {
   final String? email, name, type;
 
   Coach({this.email, this.name, this.type});

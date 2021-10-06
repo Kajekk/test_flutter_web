@@ -107,85 +107,98 @@ class GoalRelationshipDialog extends StatelessWidget {
   }
 
   Widget dialogContent(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 0.0, right: 0.0),
-      child: Stack(
-        children: <Widget>[
-          Container(
-            width: 400,
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-            margin: EdgeInsets.only(top: 13.0, right: 8.0),
-            decoration: BoxDecoration(
-                color: Color(0xFF242430),
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(16.0),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 0.0,
-                    offset: Offset(0.0, 0.0),
+    return Obx(() {
+      return Container(
+        margin: EdgeInsets.only(left: 0.0, right: 0.0),
+        child: Stack(
+          children: <Widget>[
+            Container(
+              width: 400,
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+              margin: EdgeInsets.only(top: 13.0, right: 8.0),
+              decoration: BoxDecoration(
+                  color: Color(0xFF242430),
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(16.0),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 0.0,
+                      offset: Offset(0.0, 0.0),
+                    ),
+                  ]),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Text(
+                    'Add new item',
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
-                ]),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Text(
-                  'Add new item',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Form(key: _key, child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ...emailField(),
-                    ...createdByField(),
-                    ...goalField(),
-                  ],
-                ),),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        _submitForm();
-                      },
-                      child: Text('Submit'),
-                      style: ButtonStyle(
-                          padding: MaterialStateProperty.all<EdgeInsets>(
-                              EdgeInsets.symmetric(
-                                  horizontal: defaultPadding,
-                                  vertical: defaultPadding / 1.5)),
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              Colors.deepPurpleAccent))
+                  SizedBox(
+                    height: 20.0,
                   ),
-                ),
-              ],
+                  Form(key: _key, child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ...emailField(),
+                      ...createdByField(),
+                      ...goalField(),
+                    ],
+                  ),),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          _submitForm();
+                        },
+                        child: Text('Submit'),
+                        style: ButtonStyle(
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                EdgeInsets.symmetric(
+                                    horizontal: defaultPadding,
+                                    vertical: defaultPadding / 1.5)),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.deepPurpleAccent))
+                    ),
+                  ),
+                  if (controller.state is AddGoalRelationshipFailure)
+                    Padding(
+                      padding: EdgeInsets.only(top: defaultPadding / 2),
+                      child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            (controller.state as AddGoalRelationshipFailure)
+                                .message,
+                            style: TextStyle(color: Get.theme.errorColor),
+                          )),
+                    ),
+                ],
+              ),
             ),
-          ),
-          Positioned(
-            right: 0.0,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Align(
-                alignment: Alignment.topRight,
-                child: CircleAvatar(
-                  radius: 14.0,
-                  backgroundColor: Colors.white,
-                  child: Icon(Icons.close, color: Colors.red),
+            Positioned(
+              right: 0.0,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: CircleAvatar(
+                    radius: 14.0,
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.close, color: Colors.red),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 
   List<Widget> emailField() {
@@ -444,85 +457,98 @@ class EditGoalRelationshipDialog extends StatelessWidget {
   }
 
   Widget dialogContent(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 0.0, right: 0.0),
-      child: Stack(
-        children: <Widget>[
-          Container(
-            width: 400,
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-            margin: EdgeInsets.only(top: 13.0, right: 8.0),
-            decoration: BoxDecoration(
-                color: Color(0xFF242430),
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(16.0),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 0.0,
-                    offset: Offset(0.0, 0.0),
+    return Obx(() {
+      return Container(
+        margin: EdgeInsets.only(left: 0.0, right: 0.0),
+        child: Stack(
+          children: <Widget>[
+            Container(
+              width: 400,
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+              margin: EdgeInsets.only(top: 13.0, right: 8.0),
+              decoration: BoxDecoration(
+                  color: Color(0xFF242430),
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(16.0),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 0.0,
+                      offset: Offset(0.0, 0.0),
+                    ),
+                  ]),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Text(
+                    'Edit item',
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
-                ]),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Text(
-                  'Add new item',
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Form(key: _key, child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ...emailField(),
-                    ...createdByField(),
-                    ...goalField(),
-                  ],
-                ),),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        _submitForm();
-                      },
-                      child: Text('Submit'),
-                      style: ButtonStyle(
-                          padding: MaterialStateProperty.all<EdgeInsets>(
-                              EdgeInsets.symmetric(
-                                  horizontal: defaultPadding,
-                                  vertical: defaultPadding / 1.5)),
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              Colors.deepPurpleAccent))
+                  SizedBox(
+                    height: 20.0,
                   ),
-                ),
-              ],
+                  Form(key: _key, child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ...emailField(),
+                      ...createdByField(),
+                      ...goalField(),
+                    ],
+                  ),),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          _submitForm();
+                        },
+                        child: Text('Submit'),
+                        style: ButtonStyle(
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                EdgeInsets.symmetric(
+                                    horizontal: defaultPadding,
+                                    vertical: defaultPadding / 1.5)),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.deepPurpleAccent))
+                    ),
+                  ),
+                  if (controller.state is EditGoalRelationshipFailure)
+                    Padding(
+                      padding: EdgeInsets.only(top: defaultPadding / 2),
+                      child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            (controller.state as EditGoalRelationshipFailure)
+                                .message,
+                            style: TextStyle(color: Get.theme.errorColor),
+                          )),
+                    ),
+                ],
+              ),
             ),
-          ),
-          Positioned(
-            right: 0.0,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Align(
-                alignment: Alignment.topRight,
-                child: CircleAvatar(
-                  radius: 14.0,
-                  backgroundColor: Colors.white,
-                  child: Icon(Icons.close, color: Colors.red),
+            Positioned(
+              right: 0.0,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: CircleAvatar(
+                    radius: 14.0,
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.close, color: Colors.red),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 
   List<Widget> emailField() {

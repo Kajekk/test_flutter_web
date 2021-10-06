@@ -77,7 +77,11 @@ class Dashboard extends StatelessWidget {
                               children: [
                                 // RouteButton(title: "User Access Management", route: Routes.USER_ACCESS_MANAGEMENT),
                                 // RouteButton(title: "Account Management", route: Routes.USER_ACCESS_MANAGEMENT),
-                                // RouteButton(title: "Home Management", route: Routes.USER_ACCESS_MANAGEMENT),
+                                RouteButton(title: "Home Management", route: Routes.HOME_MANAGEMENT,
+                                  icon: Icon(
+                                    Icons.home_outlined,
+                                  ),
+                                ),
                               ],
                             ),
                             SizedBox(

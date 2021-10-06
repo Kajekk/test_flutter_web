@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:test_flutter_web/data/barrel.dart';
 import 'package:test_flutter_web/modules/emotional_management/barrel.dart';
 
 class EmotionalLogData extends DataTableSource {
@@ -16,11 +17,13 @@ class EmotionalLogData extends DataTableSource {
     if (index >= controller.totalRows || index < controller.firstRowIndex) {
       return null;
     }
-    var state = controller.emotionalLogState as EmotionalLogLoaded;
-    final _data = state.listData![index - controller.firstRowIndex];
+    // var state = controller.emotionalLogState as EmotionalLogLoaded;
+    // final _data = state.listData![index - controller.firstRowIndex];
+    final _data = controller.dataList.cast<EmotionalLog>()[index - controller.firstRowIndex];
 
     return DataRow.byIndex(
         index: index,
+        selected: _data.selected,
         cells: [
           DataCell(Container(
               constraints: BoxConstraints(
@@ -45,7 +48,11 @@ class EmotionalLogData extends DataTableSource {
                   .add_jm()
                   .format(_data.createdTime!.toLocal())))),
         ],
-        onSelectChanged: (bool? selected) {
+        onSelectChanged: (bool? value) {
+          if (_data.selected != value) {
+            _data.selected = value!;
+            notifyListeners();
+          }
           controller.selectItemDetail(_data);
         });
 

@@ -10,6 +10,8 @@ class GoalRelationship implements BaseModel {
   final Goal? goal;
   final DateTime? createdTime;
   final DateTime? lastUpdatedTime;
+  @JsonKey(ignore: true)
+  bool selected = false;
 
   GoalRelationship(
       {

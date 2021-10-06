@@ -28,6 +28,19 @@ class EmotionalLogFailure extends EmotionalLogState {
   List<Object> get props => [message];
 }
 
+class DeleteEmotionalLogsProcessing extends EmotionalLogState {}
+
+class DeleteEmotionalLogsSuccess extends EmotionalLogState {}
+
+class DeleteEmotionalLogsFailure extends EmotionalLogState {
+  final String message;
+
+  DeleteEmotionalLogsFailure({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
+
 class AddEmotionalLogState extends Equatable {
   const AddEmotionalLogState();
 

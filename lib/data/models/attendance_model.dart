@@ -8,6 +8,8 @@ class AttendanceModel implements BaseModel {
   final bool? isCheckInFar, isCheckOutFar, isCheckedIn, isCheckedOut;
   final DateTime? createdTime;
   final DateTime? lastUpdatedTime;
+  @JsonKey(ignore: true)
+  bool selected = false;
 
   AttendanceModel({this.id, this.isCheckInFar, this.isCheckOutFar, this.isCheckedIn, this.isCheckedOut, this.uid, this.email, this.createdTime, this.lastUpdatedTime});
 

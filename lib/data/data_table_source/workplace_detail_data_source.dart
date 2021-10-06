@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_flutter_web/data/models/barrel.dart';
 import 'package:test_flutter_web/modules/employment_management/barrel.dart';
 
 class WorkplaceDetailData extends DataTableSource {
@@ -14,11 +15,13 @@ class WorkplaceDetailData extends DataTableSource {
     if (index >= controller.totalRows || index < controller.firstRowIndex) {
       return null;
     }
-    var state = controller.state as WorkplaceDetailLoaded;
-    final _data = state.listData![index - controller.firstRowIndex];
+    // var state = controller.state as WorkplaceDetailLoaded;
+    // final _data = state.listData![index - controller.firstRowIndex];
+    final _data = controller.dataList.cast<WorkplaceDetail>()[index - controller.firstRowIndex];
 
     return DataRow.byIndex(
         index: index,
+        selected: _data.selected,
         cells: [
           DataCell(Container(
               constraints: BoxConstraints(
@@ -41,7 +44,11 @@ class WorkplaceDetailData extends DataTableSource {
               ),
               child: Text('${_data.longitude.toString()}'))),
         ],
-        onSelectChanged: (bool? selected) {
+        onSelectChanged: (bool? value) {
+          if (_data.selected != value) {
+            _data.selected = value!;
+            notifyListeners();
+          }
           controller.selectItemDetail(_data);
         });
 

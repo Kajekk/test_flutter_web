@@ -7,6 +7,8 @@ class EmotionType implements BaseModel {
   final String? id, type, image, group;
   final bool? isEnabled;
   final DateTime? createdTime, lastUpdatedTime;
+  @JsonKey(ignore: true)
+  bool selected = false;
 
   EmotionType(
       {this.id,

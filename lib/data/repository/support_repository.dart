@@ -5,6 +5,7 @@ abstract class ISupportRepository {
   Future<BaseResponse<AttendanceModel>> getAttendanceList(QueryModel queryModel);
   Future<BaseResponse> createAttendance(AttendanceModel data);
   Future<BaseResponse> updateAttendance(AttendanceModel data);
+  Future<BaseResponse> deleteAttendances(QueryModel queryModel);
 }
 
 class SupportRepository implements ISupportRepository {
@@ -14,4 +15,5 @@ class SupportRepository implements ISupportRepository {
   Future<BaseResponse<AttendanceModel>> getAttendanceList(QueryModel queryModel) => provider.getAttendanceList(queryModel);
   Future<BaseResponse> createAttendance(AttendanceModel data) => provider.createAttendance(data);
   Future<BaseResponse> updateAttendance(AttendanceModel data) => provider.updateAttendance(data);
+  Future<BaseResponse> deleteAttendances(QueryModel queryModel) => provider.deleteAttendances(queryModel);
 }

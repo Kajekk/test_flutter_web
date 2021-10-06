@@ -33,6 +33,7 @@ class WorkplaceDetailController extends SubTabController {
     }
     totalRows = res.total ?? 0;
     _workplaceStateStream.value = WorkplaceDetailLoaded(listData: res.data!);
+    dataList = res.data;
   }
   void countItems() {
     // _countItemStateStream.value = CountEmotionalLoading();
@@ -61,6 +62,47 @@ class WorkplaceDetailController extends SubTabController {
     // itemDetail = null;
 
     fetchListItems(QueryModel(offset: 0, limit: rowsPerPage, total: true, reverse: true));
+    ever(_workplaceStateStream, (state) {
+      if (state is DeleteWorkplaceDetailsSuccess) {
+        Get.back();
+
+        fetchListItems(QueryModel(
+            offset: 0,
+            limit: rowsPerPage,
+            total: true,
+            reverse: true));
+      }
+      if (state is DeleteWorkplaceDetailsFailure) {
+        Get.snackbar("Error", state.message,
+            backgroundColor: Colors.redAccent,
+            margin: EdgeInsets.only(bottom: 15),
+            snackPosition: SnackPosition.BOTTOM);
+      }
+    });
+  }
+
+  @override
+  void deleteItems() async {
+    var selectedItemIds = <String>[];
+    for (var item in dataList.cast<WorkplaceDetail>()) {
+      if (item.selected) selectedItemIds.add(item.id!);
+    }
+
+    if (dataList.isNotEmpty) {
+      _workplaceStateStream.value = DeleteWorkplaceDetailsProcessing();
+      var res = await _employmentRepository.deleteWorkplaces(QueryModel(
+        ids: selectedItemIds,
+      ));
+      if (res.status != ApiStatus.Ok) {
+        _workplaceStateStream.value = DeleteWorkplaceDetailsFailure(
+            message: res.message ?? "Something went wrong, please try again",
+            status: res.status);
+        return;
+      }
+      dataList.removeWhere((element) => element.selected);
+      totalRows = dataList.length;
+      _workplaceStateStream.value = DeleteWorkplaceDetailsSuccess();
+    }
   }
 }
 

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:test_flutter_web/data/barrel.dart';
 import 'package:test_flutter_web/modules/support_management/barrel.dart';
 
-class AttendanceDataSource extends DataTableSource {
+class AttendanceDataSource extends DataTableSource{
   AttendanceDataSource({required this.controller, required this.context});
   // final List<EmotionalLog> _listData;
   // final int _totalItems;
@@ -17,10 +18,13 @@ class AttendanceDataSource extends DataTableSource {
     if (index >= controller.totalRows || index < controller.firstRowIndex) {
       return null;
     }
-    var state = controller.attendanceState as AttendanceLoaded;
-    final _data = state.listData![index - controller.firstRowIndex];
+    // var state = controller.attendanceState as AttendanceLoaded;
+    // final _data = state.listData![index - controller.firstRowIndex];
+    final _data = controller.dataList.cast<AttendanceModel>()[index - controller.firstRowIndex];
+
     return DataRow.byIndex(
         index: index,
+        selected: _data.selected,
         cells: [
           DataCell(Container(
               constraints: BoxConstraints(
@@ -46,22 +50,12 @@ class AttendanceDataSource extends DataTableSource {
                   .format(_data.lastUpdatedTime!.toLocal())
                   : "Not checked out"))),
         ],
-        onSelectChanged: (bool? selected) {
+        onSelectChanged: (bool? value) {
+          if (_data.selected != value) {
+            _data.selected = value!;
+            notifyListeners();
+          }
           controller.selectItemDetail(_data);
         });
-
-    // return DataRow.byIndex(
-    //     index: index,
-    //     cells: [
-    //       DataCell(Text(testData[index]['id'].toString())),
-    //       DataCell(Text(testData[index]["title"])),
-    //       DataCell(Text(testData[index]["price"].toString())),
-    //       DataCell(Text(testData[index]["4"])),
-    //     ],
-    //     onSelectChanged: (bool? selected) {
-    //       if (selected!) {
-    //         print('selected $index');
-    //       }
-    //     });
   }
 }

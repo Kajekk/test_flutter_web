@@ -53,6 +53,11 @@ class EntityTypeController extends SubTabController {
 
     fetchListItems(QueryModel(offset: 0, limit: rowsPerPage, total: true));
   }
+
+  @override
+  void deleteItems() {
+    // TODO: implement deleteItems
+  }
 }
 
 class AddNewEntityTypeController extends GetxController {
