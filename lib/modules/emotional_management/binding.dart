@@ -18,10 +18,13 @@ class EmotionalManagementBinding extends Bindings {
     Get.lazyPut(
             () => EditEmotionalLogController(emotionalLogRepository: Get.find<IEmotionalRepository>()));
 
-
     Get.lazyPut(
             () => EmotionTypeController(
             emotionTypeRepository: Get.find<IEmotionalRepository>(),
-            info: SubTabInfo.emotionalLog));
+            info: SubTabInfo.emotionType));
+    Get.lazyPut(
+            () => AddNewEmotionTypeController(emotionTypeRepository: Get.find<IEmotionalRepository>()));
+    Get.lazyPut(
+            () => EditEmotionTypeController(emotionTypeRepository: Get.find<IEmotionalRepository>()));
   }
 }

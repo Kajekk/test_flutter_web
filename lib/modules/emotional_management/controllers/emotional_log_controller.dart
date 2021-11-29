@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:test_flutter_web/constants/barrel.dart';
 import 'package:test_flutter_web/data/barrel.dart';
 import 'package:test_flutter_web/global_widgets/barrel.dart';
+import 'package:test_flutter_web/modules/emotional_management/barrel.dart';
 import 'package:test_flutter_web/modules/emotional_management/states/barrel.dart';
 
 class EmotionalLogController extends SubTabController {
@@ -33,7 +34,7 @@ class EmotionalLogController extends SubTabController {
   }
   void changeSubTab() {
     isCurrent = true;
-    // Get.find<EntityTypeController2>().isCurrent = false;
+    Get.find<EmotionTypeController>().isCurrent = false;
     // Get.find<EntityTypeController3>().isCurrent = false;
   }
 

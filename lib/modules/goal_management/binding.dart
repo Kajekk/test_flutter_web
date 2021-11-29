@@ -25,5 +25,9 @@ class GoalManagementBinding extends Bindings {
     );
     Get.lazyPut(() => AddNewGoalRelationshipController(goalRepository: Get.find<IGoalRepository>()));
     Get.lazyPut(() => EditGoalRelationshipController(goalRepository: Get.find<IGoalRepository>()));
+
+    Get.lazyPut(
+          () => GoalTrackingController(goalRepository: Get.find<IGoalRepository>(), info: SubTabInfo.goalTracking),
+    );
   }
 }

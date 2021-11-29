@@ -14,6 +14,7 @@ class GoalManagementPage extends StatelessWidget {
   final GoalController goalController = Get.find();
   final GoalFrequencyController goalFrequencyController = Get.find();
   final GoalRelationshipController goalRelationshipController = Get.find();
+  final GoalTrackingController goalTrackingController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -33,58 +34,75 @@ class GoalManagementPage extends StatelessWidget {
                 flex: 5,
                 child: SafeArea(
                     child: SingleChildScrollView(
-                      padding: EdgeInsets.all(defaultPadding),
-                      child: Column(
-                        children: [
-                          Header(
-                            scaffoldKey: _scaffoldKey,
-                            title: 'Goal Management',
-                          ),
-                          SizedBox(
-                            height: defaultPadding,
-                          ),
-                          SubTabs(
-                            listController: [goalController, goalFrequencyController, goalRelationshipController],
-                          ),
-                          SizedBox(
-                            height: defaultPadding,
-                          ),
-                          Obx(() {
-                            return Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                    flex: 5,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                      children: [
-                                        buildListItem([
-                                          goalController, goalFrequencyController, goalRelationshipController
-                                        ]),
-                                        if (Responsive.isMobile(context))
-                                          SizedBox(
-                                            height: defaultPadding,
-                                          ),
-                                        if (Responsive.isMobile(context))
-                                          buildItemDetail([goalController, goalFrequencyController, goalRelationshipController])
-                                      ],
-                                    )),
-                                if (!Responsive.isMobile(context))
-                                  SizedBox(
-                                    width: defaultPadding,
-                                  ),
-                                if (!Responsive.isMobile(context))
-                                  Expanded(
-                                      flex: 2,
-                                      child: buildItemDetail([goalController, goalFrequencyController, goalRelationshipController])
-                                  )
-                              ],
-                            );
-                          }),
+                  padding: EdgeInsets.all(defaultPadding),
+                  child: Column(
+                    children: [
+                      Header(
+                        scaffoldKey: _scaffoldKey,
+                        title: 'Goal Management',
+                      ),
+                      SizedBox(
+                        height: defaultPadding,
+                      ),
+                      SubTabs(
+                        listController: [
+                          goalController,
+                          goalFrequencyController,
+                          goalRelationshipController,
+                          goalTrackingController
                         ],
                       ),
-                    )))
+                      SizedBox(
+                        height: defaultPadding,
+                      ),
+                      Obx(() {
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                                flex: 5,
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    buildListItem([
+                                      goalController,
+                                      goalFrequencyController,
+                                      goalRelationshipController,
+                                      goalTrackingController
+                                    ]),
+                                    if (Responsive.isMobile(context))
+                                      SizedBox(
+                                        height: defaultPadding,
+                                      ),
+                                    if (Responsive.isMobile(context))
+                                      buildItemDetail([
+                                        goalController,
+                                        goalFrequencyController,
+                                        goalRelationshipController,
+                                        goalTrackingController
+                                      ])
+                                  ],
+                                )),
+                            if (!Responsive.isMobile(context))
+                              SizedBox(
+                                width: defaultPadding,
+                              ),
+                            if (!Responsive.isMobile(context))
+                              Expanded(
+                                  flex: 2,
+                                  child: buildItemDetail([
+                                    goalController,
+                                    goalFrequencyController,
+                                    goalRelationshipController,
+                                    goalTrackingController
+                                  ]))
+                          ],
+                        );
+                      }),
+                    ],
+                  ),
+                )))
           ],
         ),
       ),
@@ -99,7 +117,8 @@ class GoalManagementPage extends StatelessWidget {
         if (state is GoalLoading || state is GoalFailure) {
           return ListItem(
             controller: controller,
-            dataTableSource: EmptyDataSource(numCol: goalController.info.dataColumn!.length),
+            dataTableSource:
+                EmptyDataSource(numCol: goalController.info.dataColumn!.length),
             isLoading: (state is GoalLoading) ? true : false,
             customDialog: GoalDetailDialog(),
           );
@@ -117,33 +136,61 @@ class GoalManagementPage extends StatelessWidget {
         if (state is GoalFrequencyLoading || state is GoalFrequencyFailure) {
           return ListItem(
             controller: controller,
-            dataTableSource: EmptyDataSource(numCol: goalFrequencyController.info.dataColumn!.length),
+            dataTableSource: EmptyDataSource(
+                numCol: goalFrequencyController.info.dataColumn!.length),
             isLoading: (state is GoalFrequencyLoading) ? true : false,
             customDialog: GoalFrequencyDialog(),
           );
         }
         return ListItem(
           controller: controller,
-          dataTableSource: GoalFrequencyData(controller: goalFrequencyController),
+          dataTableSource:
+              GoalFrequencyData(controller: goalFrequencyController),
           customDialog: GoalFrequencyDialog(),
         );
       }
 
       if (controller.isCurrent &&
-          controller.subTabInfoModel.title == SubTabInfo.goalRelationship.title) {
+          controller.subTabInfoModel.title ==
+              SubTabInfo.goalRelationship.title) {
         var state = goalRelationshipController.goalState;
-        if (state is GoalRelationshipLoading || state is GoalRelationshipFailure) {
+        if (state is GoalRelationshipLoading ||
+            state is GoalRelationshipFailure) {
           return ListItem(
             controller: controller,
-            dataTableSource: EmptyDataSource(numCol: goalRelationshipController.info.dataColumn!.length),
+            dataTableSource: EmptyDataSource(
+                numCol: goalRelationshipController.info.dataColumn!.length),
             isLoading: (state is GoalRelationshipLoading) ? true : false,
             // customDialog: GoalFrequencyDialog(),
           );
         }
         return ListItem(
           controller: controller,
-          dataTableSource: GoalRelationshipData(controller: goalRelationshipController),
+          dataTableSource:
+              GoalRelationshipData(controller: goalRelationshipController),
           customDialog: GoalRelationshipDialog(),
+        );
+      }
+
+      if (controller.isCurrent &&
+          controller.subTabInfoModel.title ==
+              SubTabInfo.goalTracking.title) {
+        var state = goalTrackingController.goalState;
+        if (state is GoalTrackingLoading ||
+            state is GoalTrackingFailure) {
+          return ListItem(
+            controller: controller,
+            dataTableSource: EmptyDataSource(
+                numCol: goalTrackingController.info.dataColumn!.length),
+            isLoading: (state is GoalTrackingLoading) ? true : false,
+            // customDialog: GoalFrequencyDialog(),
+          );
+        }
+        return ListItem(
+          controller: controller,
+          dataTableSource:
+          GoalTrackingData(controller: goalTrackingController),
+          // customDialog: GoalRelationshipDialog(),
         );
       }
     }
@@ -157,7 +204,8 @@ class GoalManagementPage extends StatelessWidget {
         var editController = Get.find<EditGoalController>();
         return ItemDetail(
           itemDetailInfo: GoalItemDetailInfo(),
-          customDialog: editController.itemDetail == null ? null : EditGoalDetailDialog(),
+          customDialog:
+              editController.itemDetail == null ? null : EditGoalDetailDialog(),
         );
       }
 
@@ -166,16 +214,21 @@ class GoalManagementPage extends StatelessWidget {
         var editController = Get.find<EditGoalFrequencyController>();
         return ItemDetail(
           itemDetailInfo: GoalFrequencyItemDetailInfo(),
-          customDialog: editController.itemDetail == null ? null : EditGoalFrequencyDialog(),
+          customDialog: editController.itemDetail == null
+              ? null
+              : EditGoalFrequencyDialog(),
         );
       }
 
       if (controller.isCurrent &&
-          controller.subTabInfoModel.title == SubTabInfo.goalRelationship.title) {
+          controller.subTabInfoModel.title ==
+              SubTabInfo.goalRelationship.title) {
         var editController = Get.find<EditGoalRelationshipController>();
         return ItemDetail(
           itemDetailInfo: GoalRelationshipItemDetailInfo(),
-          customDialog: editController.itemDetail == null ? null : EditGoalRelationshipDialog(),
+          customDialog: editController.itemDetail == null
+              ? null
+              : EditGoalRelationshipDialog(),
         );
       }
     }

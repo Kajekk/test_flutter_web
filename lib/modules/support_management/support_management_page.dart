@@ -3,12 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_flutter_web/constants/barrel.dart';
 import 'package:test_flutter_web/data/barrel.dart';
+import 'package:test_flutter_web/data/data_table_source/support_log_data_source.dart';
+import 'package:test_flutter_web/data/data_table_source/support_metric_data_source.dart';
 import 'package:test_flutter_web/global_widgets/barrel.dart';
 import 'barrel.dart';
 
 class SupportManagementPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final AttendanceController atController = Get.find();
+  final SupportMetricController spMetricController = Get.find();
+  final SupportLogController spLogController = Get.find();
+  final LocationTrackingController locationController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +44,7 @@ class SupportManagementPage extends StatelessWidget {
                             height: defaultPadding,
                           ),
                           SubTabs(
-                            listController: [atController],
+                            listController: [atController, spMetricController, spLogController, locationController],
                           ),
                           SizedBox(
                             height: defaultPadding,
@@ -52,17 +57,20 @@ class SupportManagementPage extends StatelessWidget {
                                     flex: 5,
                                     child: Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         buildListItem([
                                           atController,
+                                          spMetricController,
+                                          spLogController,
+                                          locationController
                                         ]),
                                         if (Responsive.isMobile(context))
                                           SizedBox(
                                             height: defaultPadding,
                                           ),
                                         if (Responsive.isMobile(context))
-                                          buildItemDetail([atController])
+                                          buildItemDetail([atController, spMetricController, spLogController, locationController])
                                       ],
                                     )),
                                 if (!Responsive.isMobile(context))
@@ -72,7 +80,7 @@ class SupportManagementPage extends StatelessWidget {
                                 if (!Responsive.isMobile(context))
                                   Expanded(
                                     flex: 2,
-                                    child: buildItemDetail([atController])
+                                    child: buildItemDetail([atController, spMetricController, spLogController, locationController])
                                   )
                               ],
                             );
@@ -102,6 +110,57 @@ class SupportManagementPage extends StatelessWidget {
           controller: controller,
           dataTableSource: AttendanceDataSource(context: _scaffoldKey.currentContext!, controller: atController),
           customDialog: AttendanceDialog(),
+        );
+      }
+
+      if (controller.isCurrent &&
+          controller.subTabInfoModel.title == SubTabInfo.supportMetric.title) {
+        var state = spMetricController.state;
+        if (state is SupportMetricLoading || state is SupportMetricFailure) {
+          return ListItem(
+            controller: controller,
+            dataTableSource: EmptyDataSource(numCol: spMetricController.info.dataColumn!.length),
+            isLoading: (state is SupportMetricLoading) ? true : false,
+          );
+        }
+        return ListItem(
+          controller: controller,
+          dataTableSource: SupportMetricDataSource(context: _scaffoldKey.currentContext!, controller: spMetricController),
+          // customDialog: AttendanceDialog(),
+        );
+      }
+
+      if (controller.isCurrent &&
+          controller.subTabInfoModel.title == SubTabInfo.supportLog.title) {
+        var state = spLogController.state;
+        if (state is SupportMetricLoading || state is SupportMetricFailure) {
+          return ListItem(
+            controller: controller,
+            dataTableSource: EmptyDataSource(numCol: spLogController.info.dataColumn!.length),
+            isLoading: (state is SupportMetricLoading) ? true : false,
+          );
+        }
+        return ListItem(
+          controller: controller,
+          dataTableSource: SupportLogDataSource(context: _scaffoldKey.currentContext!, controller: spLogController),
+          // customDialog: AttendanceDialog(),
+        );
+      }
+
+      if (controller.isCurrent &&
+          controller.subTabInfoModel.title == SubTabInfo.locationTracking.title) {
+        var state = locationController.state;
+        if (state is LocationTrackingLoading || state is LocationTrackingFailure) {
+          return ListItem(
+            controller: controller,
+            dataTableSource: EmptyDataSource(numCol: locationController.info.dataColumn!.length),
+            isLoading: (state is LocationTrackingLoading) ? true : false,
+          );
+        }
+        return ListItem(
+          controller: controller,
+          dataTableSource: LocationTrackingDataSource(context: _scaffoldKey.currentContext!, controller: locationController),
+          // customDialog: AttendanceDialog(),
         );
       }
     }

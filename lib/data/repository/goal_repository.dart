@@ -17,6 +17,9 @@ abstract class IGoalRepository {
   Future<BaseResponse> updateGoalRelationship(GoalRelationship data);
   Future<BaseResponse> deleteGoalRelationships(QueryModel queryModel);
 
+  Future<BaseResponse<GoalTracking>> getGoalTrackingList(QueryModel queryModel);
+  Future<BaseResponse> updateGoalTracking(GoalTracking data);
+  Future<BaseResponse> deleteGoalTracking(QueryModel queryModel);
 }
 
 class GoalRepository implements IGoalRepository {
@@ -38,4 +41,7 @@ class GoalRepository implements IGoalRepository {
   Future<BaseResponse> updateGoalRelationship(GoalRelationship data) => provider.updateGoalRelationship(data);
   Future<BaseResponse> deleteGoalRelationships(QueryModel queryModel) => provider.deleteGoalRelationships(queryModel);
 
+  Future<BaseResponse<GoalTracking>> getGoalTrackingList(QueryModel queryModel) => provider.getGoalTrackingList(queryModel);
+  Future<BaseResponse> updateGoalTracking(GoalTracking data) => provider.updateGoalTracking(data);
+  Future<BaseResponse> deleteGoalTracking(QueryModel queryModel) => provider.deleteGoalTracking(queryModel);
 }

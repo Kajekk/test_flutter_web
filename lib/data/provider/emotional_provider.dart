@@ -11,6 +11,9 @@ abstract class IEmotionalApiProvider {
   Future<BaseResponse> deleteEmotionalLogs(QueryModel queryModel);
 
   Future<BaseResponse<EmotionType>> getEmotionalTypes(QueryModel queryModel);
+  Future<BaseResponse> createEmotionalType(EmotionType data);
+  Future<BaseResponse> updateEmotionalType(EmotionType data);
+  Future<BaseResponse> deleteEmotionalType(QueryModel queryModel);
 }
 
 class EmotionalApiProvider extends BaseProvider with IEmotionalApiProvider {
@@ -53,6 +56,30 @@ class EmotionalApiProvider extends BaseProvider with IEmotionalApiProvider {
     var rs = await get(ApiPath.GetEmotionTypes, query: query);
     BaseResponse<EmotionType> baseResponse = BaseResponse.fromJson(
         rs.body, (json) => EmotionType.fromJson(json as Map<String, dynamic>));
+    return baseResponse;
+  }
+
+  Future<BaseResponse> createEmotionalType(EmotionType data) async {
+    var rs = await post(ApiPath.EmotionTypeUri, data.toJson());
+    BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
+    return baseResponse;
+  }
+
+  Future<BaseResponse> updateEmotionalType(EmotionType data) async {
+    var query = {
+      "id": data.id,
+    };
+    var rs = await put(ApiPath.EmotionTypeUri, data.toJson(), query: query);
+    BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
+    return baseResponse;
+  }
+
+  Future<BaseResponse> deleteEmotionalType(QueryModel queryModel) async {
+    var query = {
+      "q": jsonEncode(queryModel.toJson()),
+    };
+    var rs = await delete(ApiPath.EmotionTypeUri, query: query);
+    BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
     return baseResponse;
   }
 }

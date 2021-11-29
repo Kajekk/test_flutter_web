@@ -4,8 +4,6 @@ A new Flutter project.
 
 flutter pub get && flutter pub run build_runner build --delete-conflicting-outputs
 
-flutter build apk --obfuscate --split-debug-info=/<project-name>/<directory> --no-sound-null-safety
-
 flutter run --no-sound-null-safety
 
 ## Getting Started

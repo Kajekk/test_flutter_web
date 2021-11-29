@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:test_flutter_web/data/models/base_model.dart';
-
 import 'barrel.dart';
 part 'goal_relationship.g.dart';
 

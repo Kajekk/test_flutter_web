@@ -40,6 +40,7 @@ class GoalController extends SubTabController {
     isCurrent = true;
     Get.find<GoalFrequencyController>().isCurrent = false;
     Get.find<GoalRelationshipController>().isCurrent = false;
+    Get.find<GoalTrackingController>().isCurrent = false;
 
     fetchListItems(
         QueryModel(offset: 0, limit: rowsPerPage, total: true, reverse: true));

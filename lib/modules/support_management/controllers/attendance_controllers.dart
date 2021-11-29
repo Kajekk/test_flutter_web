@@ -5,6 +5,7 @@ import 'package:test_flutter_web/constants/barrel.dart';
 import 'package:test_flutter_web/data/models/barrel.dart';
 import 'package:test_flutter_web/data/repository/barrel.dart';
 import 'package:test_flutter_web/global_widgets/barrel.dart';
+import 'package:test_flutter_web/modules/support_management/barrel.dart';
 import 'package:test_flutter_web/modules/support_management/states/barrel.dart';
 
 class AttendanceController extends SubTabController {
@@ -34,8 +35,9 @@ class AttendanceController extends SubTabController {
   }
   void changeSubTab() {
     isCurrent = true;
-    // Get.find<EntityTypeController2>().isCurrent = false;
-    // Get.find<EntityTypeController3>().isCurrent = false;
+    Get.find<SupportMetricController>().isCurrent = false;
+    Get.find<SupportLogController>().isCurrent = false;
+    Get.find<LocationTrackingController>().isCurrent = false;
   }
 
   void selectItemDetail(BaseModel? item) {

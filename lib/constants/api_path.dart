@@ -1,6 +1,6 @@
 abstract class ApiPath {
-  static const String BaseUrl = 'https://inclus-mapi.tihub.net';
-  // static const String BaseUrl = 'http://localhost';
+  // static const String BaseUrl = 'https://inclus-mapi.tihub.net';
+  static const String BaseUrl = 'http://localhost';
   static const String Login = '/admin/v1/login';
   static const String GetMe = '/admin/v1/me';
 
@@ -8,6 +8,7 @@ abstract class ApiPath {
   static const String CreateEmotionLog = '/admin/v1/emotion-log';
   static const String UpdateEmotionLog = '/admin/v1/emotion-log';
   static const String DeleteEmotionLogs = '/admin/v1/emotion-log';
+  static const String EmotionTypeUri = '/admin/v1/emotion-type';
 
   static const String GetEmotionTypes = '/admin/v1/emotion/list';
 
@@ -24,6 +25,10 @@ abstract class ApiPath {
   static const String CreateAttendance = '/admin/v1/attendance';
   static const String UpdateAttendance = '/admin/v1/attendance';
   static const String DeleteAttendances = '/admin/v1/attendance';
+
+  static const String SupportMetricUri = '/admin/v1/support-metric';
+  static const String SupportLogUri = '/admin/v1/support-log';
+  static const String LocationTrackingUri = '/admin/v1/location';
 
   static const String GetQuoteList = '/admin/v1/quotes';
   static const String CreateQuote = '/admin/v1/quotes';
@@ -44,6 +49,8 @@ abstract class ApiPath {
   static const String CreateGoalRelationship = '/admin/v1/goal-relationship';
   static const String UpdateGoalRelationship = '/admin/v1/goal-relationship';
   static const String DeleteGoalRelationships = '/admin/v1/goal-relationship';
+
+  static const String GoalTrackingUri = '/admin/v1/goal-tracking';
 
   static const String FcmSaveDeviceTokenUri = '/admin/v1/firebase/register';
 }

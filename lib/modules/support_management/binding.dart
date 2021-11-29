@@ -15,5 +15,15 @@ class SupportManagementBinding extends Bindings {
     Get.lazyPut(() => AddNewAttendanceController(supportRepository: Get.find<ISupportRepository>()));
     Get.lazyPut(() => EditAttendanceController(supportRepository: Get.find<ISupportRepository>()));
 
+
+    Get.lazyPut(
+          () => SupportMetricController(supportRepository: Get.find<ISupportRepository>(), info: SubTabInfo.supportMetric),
+    );
+    Get.lazyPut(
+          () => SupportLogController(supportRepository: Get.find<ISupportRepository>(), info: SubTabInfo.supportLog),
+    );
+    Get.lazyPut(
+          () => LocationTrackingController(supportRepository: Get.find<ISupportRepository>(), info: SubTabInfo.locationTracking),
+    );
   }
 }

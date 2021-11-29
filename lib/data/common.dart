@@ -44,6 +44,15 @@ class SubTabInfo {
         "Created Time"
       ]);
 
+  static const SubTabInfoModel emotionType = SubTabInfoModel(
+      title: "Emotion Type",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Type",
+        "Group",
+        "Is Enabled"
+      ]);
+
   static const SubTabInfoModel employmentDetail = SubTabInfoModel(
       title: "Employment Detail",
       svgSource: "assets/icons/menu_dashboard.svg",
@@ -71,6 +80,36 @@ class SubTabInfo {
         "Email",
         "Checked in",
         "Checked out",
+      ]);
+
+  static const SubTabInfoModel supportMetric = SubTabInfoModel(
+      title: "Support Metrics",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Name",
+        "Target",
+      ]);
+
+  static const SubTabInfoModel supportLog = SubTabInfoModel(
+      title: "Support Log",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Email",
+        "Type",
+        "For Email",
+        "Start At",
+        "End At",
+        "Created Time",
+      ]);
+
+  static const SubTabInfoModel locationTracking = SubTabInfoModel(
+      title: "Location Tracking",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Email",
+        "Latitude",
+        "Longitude",
+        "Created Time",
       ]);
 
   static const SubTabInfoModel goal = SubTabInfoModel(
@@ -101,6 +140,18 @@ class SubTabInfo {
         "Goal",
         "Created By",
         "Created Time",
+      ]);
+
+  static const SubTabInfoModel goalTracking = SubTabInfoModel(
+      title: "Goal Tracking",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Email",
+        "Goal",
+        "Created By",
+        "Status",
+        "Start Date",
+        "End Date",
       ]);
 
   static const SubTabInfoModel quotes = SubTabInfoModel(

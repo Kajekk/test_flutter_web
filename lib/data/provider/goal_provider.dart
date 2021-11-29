@@ -19,6 +19,10 @@ abstract class IGoalProvider {
   Future<BaseResponse> createGoalRelationship(GoalRelationship data);
   Future<BaseResponse> updateGoalRelationship(GoalRelationship data);
   Future<BaseResponse> deleteGoalRelationships(QueryModel queryModel);
+
+  Future<BaseResponse<GoalTracking>> getGoalTrackingList(QueryModel queryModel);
+  Future<BaseResponse> updateGoalTracking(GoalTracking data);
+  Future<BaseResponse> deleteGoalTracking(QueryModel queryModel);
 }
 
 class GoalProvider extends BaseProvider with IGoalProvider {
@@ -117,6 +121,33 @@ class GoalProvider extends BaseProvider with IGoalProvider {
       "q": jsonEncode(queryModel.toJson()),
     };
     var rs = await delete(ApiPath.DeleteGoalRelationships, query: query);
+    BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
+    return baseResponse;
+  }
+
+  Future<BaseResponse<GoalTracking>> getGoalTrackingList(QueryModel queryModel) async {
+    var query = parsedQuery(queryModel.toJson())!;
+    var rs = await get(ApiPath.GoalTrackingUri, query: query);
+    BaseResponse<GoalTracking> baseResponse = BaseResponse.fromJson(
+        rs.body,
+            (json) => GoalTracking.fromJson(json as Map<String, dynamic>));
+    return baseResponse;
+  }
+
+  Future<BaseResponse> updateGoalTracking(GoalTracking data) async {
+    var query = {
+      "id": data.id,
+    };
+    var rs = await put(ApiPath.GoalTrackingUri, data.toJson(), query: query);
+    BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
+    return baseResponse;
+  }
+
+  Future<BaseResponse> deleteGoalTracking(QueryModel queryModel) async {
+    var query = {
+      "q": jsonEncode(queryModel.toJson()),
+    };
+    var rs = await delete(ApiPath.GoalTrackingUri, query: query);
     BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
     return baseResponse;
   }

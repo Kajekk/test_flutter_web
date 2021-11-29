@@ -11,6 +11,9 @@ abstract class IEmotionalRepository {
   Future<BaseResponse> deleteEmotionalLogs(QueryModel queryModel);
 
   Future<BaseResponse<EmotionType>> getEmotionalTypes(QueryModel queryModel);
+  Future<BaseResponse> createEmotionalType(EmotionType data);
+  Future<BaseResponse> updateEmotionalType(EmotionType data);
+  Future<BaseResponse> deleteEmotionalType(QueryModel queryModel);
 }
 
 class EmotionalRepository implements IEmotionalRepository {
@@ -23,5 +26,7 @@ class EmotionalRepository implements IEmotionalRepository {
   Future<BaseResponse> deleteEmotionalLogs(QueryModel queryModel) => provider.deleteEmotionalLogs(queryModel);
 
   Future<BaseResponse<EmotionType>> getEmotionalTypes(QueryModel queryModel) => provider.getEmotionalTypes(queryModel);
-
+  Future<BaseResponse> createEmotionalType(EmotionType data) => provider.createEmotionalType(data);
+  Future<BaseResponse> updateEmotionalType(EmotionType data) => provider.updateEmotionalType(data);
+  Future<BaseResponse> deleteEmotionalType(QueryModel queryModel) => provider.deleteEmotionalType(queryModel);
 }

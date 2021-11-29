@@ -11,6 +11,7 @@ import 'components/barrel.dart';
 class EmotionalManagementPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final EmotionalLogController emoController = Get.find();
+  final EmotionTypeController emoTypeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class EmotionalManagementPage extends StatelessWidget {
                             height: defaultPadding,
                           ),
                           SubTabs(
-                            listController: [emoController],
+                            listController: [emoController, emoTypeController],
                           ),
                           SizedBox(
                             height: defaultPadding,
@@ -58,7 +59,7 @@ class EmotionalManagementPage extends StatelessWidget {
                                       children: [
                                         buildListItem([
                                           emoController,
-                                          // controller2,
+                                          emoTypeController,
                                           // controller3
                                         ]),
                                         if (Responsive.isMobile(context))
@@ -66,7 +67,7 @@ class EmotionalManagementPage extends StatelessWidget {
                                             height: defaultPadding,
                                           ),
                                         if (Responsive.isMobile(context))
-                                          buildItemDetail([emoController])
+                                          buildItemDetail([emoController, emoTypeController])
                                       ],
                                     )),
                                 if (!Responsive.isMobile(context))
@@ -76,7 +77,7 @@ class EmotionalManagementPage extends StatelessWidget {
                                 if (!Responsive.isMobile(context))
                                   Expanded(
                                     flex: 2,
-                                    child: buildItemDetail([emoController])
+                                    child: buildItemDetail([emoController, emoTypeController])
                                   )
                               ],
                             );
@@ -102,7 +103,7 @@ class EmotionalManagementPage extends StatelessWidget {
             isLoading: true,
           );
         }
-        if (state is EmotionalLogLoading) {
+        if (state is EmotionalLogLoaded) {
           return ListItem(
             controller: controller,
             dataTableSource: EmotionalLogData(controller: emoController),
@@ -110,11 +111,24 @@ class EmotionalManagementPage extends StatelessWidget {
           );
         }
       }
-      // if (controller.isCurrent &&
-      //     controller.subTabInfoModel.title ==
-      //         SubTabInfo.userPermissions.title) {
-      //   return ListItem(controller: controller, dataTableSource: MyData());
-      // }
+      if (controller.isCurrent &&
+          controller.subTabInfoModel.title == SubTabInfo.emotionType.title) {
+        var state = emoTypeController.emotionTypeState;
+        if (state is EmotionTypeLoading || state is EmotionTypeFailure) {
+          return ListItem(
+            controller: controller,
+            dataTableSource: EmptyDataSource(numCol: emoTypeController.info.dataColumn!.length),
+            isLoading: true,
+          );
+        }
+        if (state is EmotionTypeLoaded) {
+          return ListItem(
+            controller: controller,
+            dataTableSource: EmotionTypeData(controller: emoTypeController),
+            // customDialog: EmotionTypeDialog(),
+          );
+        }
+      }
       // if (controller.isCurrent &&
       //     controller.subTabInfoModel.title == SubTabInfo.userRoles.title) {
       //   return ListItem(controller: controller, dataTableSource: MyData());
@@ -132,6 +146,14 @@ class EmotionalManagementPage extends StatelessWidget {
             itemDetailInfo: EmotionalLogItemDetailInfo(),
             customDialog: editController.itemDetail == null ? null : EditEmotionalLogDialog(),
           );
+      }
+      if (controller.isCurrent &&
+          controller.subTabInfoModel.title == SubTabInfo.emotionType.title) {
+        var editController = Get.find<EditEmotionTypeController>();
+        return ItemDetail(
+          itemDetailInfo: EmotionTypeItemDetailInfo(),
+          customDialog: editController.itemDetail == null ? null : EditEmotionTypeDialog(),
+        );
       }
     }
     return Container();

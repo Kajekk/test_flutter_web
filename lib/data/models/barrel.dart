@@ -13,4 +13,8 @@ export 'workplace_detail.dart';
 export 'goal.dart';
 export 'goal_frequency.dart';
 export 'goal_relationship.dart';
+export 'goal_tracking.dart';
 export 'quote.dart';
+export 'support_metric.dart';
+export 'support_log.dart';
+export 'location_tracking.dart';

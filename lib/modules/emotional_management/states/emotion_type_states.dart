@@ -27,3 +27,54 @@ class EmotionTypeFailure extends EmotionTypeState {
   @override
   List<Object> get props => [message];
 }
+
+class AddEmotionTypeState extends Equatable {
+  const AddEmotionTypeState();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class AddEmotionTypeLoading extends AddEmotionTypeState {}
+
+class AddEmotionTypeSuccess extends AddEmotionTypeState {
+  // final List<EmotionalLog>? listData;
+
+  AddEmotionTypeSuccess();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class AddEmotionTypeFailure extends AddEmotionTypeState {
+  final String message;
+
+  AddEmotionTypeFailure({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
+
+class EditEmotionTypeState extends Equatable {
+  const EditEmotionTypeState();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class EditEmotionTypeLoading extends EditEmotionTypeState {
+  const EditEmotionTypeLoading();
+}
+
+class EditEmotionTypeSuccess extends EditEmotionTypeState {
+  const EditEmotionTypeSuccess();
+}
+
+class EditEmotionTypeFailure extends EditEmotionTypeState {
+  final String message;
+
+  const EditEmotionTypeFailure({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

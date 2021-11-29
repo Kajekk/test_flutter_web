@@ -38,6 +38,7 @@ class GoalFrequencyController extends SubTabController {
     isCurrent = true;
     Get.find<GoalController>().isCurrent = false;
     Get.find<GoalRelationshipController>().isCurrent = false;
+    Get.find<GoalTrackingController>().isCurrent = false;
   }
 
   void selectItemDetail(BaseModel? item) {
