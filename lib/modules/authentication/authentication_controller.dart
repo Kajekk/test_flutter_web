@@ -45,7 +45,8 @@ class AuthenticationController extends GetxController {
   }
 
   void signOut() async {
-    await authenticationService.signOut();
+    // await authenticationService.signOut();
+    window.localStorage["access_token"] = "";
     _authenticationStateStream.value = UnAuthenticated();
   }
 

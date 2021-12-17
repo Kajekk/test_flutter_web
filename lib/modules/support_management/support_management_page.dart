@@ -126,24 +126,24 @@ class SupportManagementPage extends StatelessWidget {
         return ListItem(
           controller: controller,
           dataTableSource: SupportMetricDataSource(context: _scaffoldKey.currentContext!, controller: spMetricController),
-          // customDialog: AttendanceDialog(),
+          customDialog: AddSupportMetricDialog(),
         );
       }
 
       if (controller.isCurrent &&
           controller.subTabInfoModel.title == SubTabInfo.supportLog.title) {
         var state = spLogController.state;
-        if (state is SupportMetricLoading || state is SupportMetricFailure) {
+        if (state is SupportLogLoading || state is SupportLogFailure) {
           return ListItem(
             controller: controller,
             dataTableSource: EmptyDataSource(numCol: spLogController.info.dataColumn!.length),
-            isLoading: (state is SupportMetricLoading) ? true : false,
+            isLoading: (state is SupportLogLoading) ? true : false,
           );
         }
         return ListItem(
           controller: controller,
           dataTableSource: SupportLogDataSource(context: _scaffoldKey.currentContext!, controller: spLogController),
-          // customDialog: AttendanceDialog(),
+          customDialog: AddSupportLogDialog(),
         );
       }
 
@@ -175,6 +175,24 @@ class SupportManagementPage extends StatelessWidget {
         return ItemDetail(
           itemDetailInfo: AttendanceItemDetailInfo(),
           customDialog: editController.itemDetail == null ? null : EditAttendanceDialog(),
+        );
+      }
+
+      if (controller.isCurrent &&
+          controller.subTabInfoModel.title == SubTabInfo.supportMetric.title) {
+        var editController = Get.find<EditSupportMetricController>();
+        return ItemDetail(
+          itemDetailInfo: SupportMetricItemDetailInfo(),
+          customDialog: editController.itemDetail == null ? null : EditSupportMetricDialog(),
+        );
+      }
+
+      if (controller.isCurrent &&
+          controller.subTabInfoModel.title == SubTabInfo.supportLog.title) {
+        var editController = Get.find<EditSupportLogController>();
+        return ItemDetail(
+          itemDetailInfo: SupportLogItemDetailInfo(),
+          customDialog: editController.itemDetail == null ? null : EditSupportLogDialog(),
         );
       }
     }

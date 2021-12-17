@@ -21,9 +21,6 @@ Employment _$EmploymentFromJson(Map<String, dynamic> json) {
     scopeList: (json['scope_list'] as List<dynamic>?)
         ?.map((e) => Scope.fromJson(e as Map<String, dynamic>))
         .toList(),
-    coachList: (json['coach_list'] as List<dynamic>?)
-        ?.map((e) => Coach.fromJson(e as Map<String, dynamic>))
-        .toList(),
     uid: json['uid'] as String?,
     email: json['email'] as String?,
     createdTime: json['created_time'] == null
@@ -50,7 +47,6 @@ Map<String, dynamic> _$EmploymentToJson(Employment instance) =>
       'lunch_time_to': instance.lunchTimeTo,
       'time_to_work': instance.timeToWork,
       'scope_list': instance.scopeList?.map((e) => e.toJson()).toList(),
-      'coach_list': instance.coachList?.map((e) => e.toJson()).toList(),
       'working_days': instance.workingDays,
     };
 

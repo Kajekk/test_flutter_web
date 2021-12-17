@@ -30,7 +30,11 @@ class SupportMetricDataSource extends DataTableSource{
                 maxWidth: 200,
               ),
               child: Text('${_data.name}'))),
-
+          DataCell(Container(
+              constraints: BoxConstraints(
+                maxWidth: 200,
+              ),
+              child: Text('${_data.description}', overflow: TextOverflow.ellipsis,))),
           DataCell(Container(
               constraints: BoxConstraints(
                 maxWidth: 200,

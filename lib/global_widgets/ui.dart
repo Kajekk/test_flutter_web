@@ -320,8 +320,8 @@ class _DatePickerFieldState extends State<DatePickerField> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(DateTime.now().year + 1),
       builder: (context, child) {
         return Theme(
           data: ThemeData(

@@ -13,7 +13,6 @@ class Employment implements BaseModel {
       lunchTimeTo,
       timeToWork;
   final List<Scope>? scopeList;
-  final List<Coach>? coachList;
   final List<int>? workingDays;
   @JsonKey(ignore: true)
   bool selected = false;
@@ -30,7 +29,6 @@ class Employment implements BaseModel {
       this.lunchTimeTo,
       this.timeToWork,
       this.scopeList,
-      this.coachList,
       this.uid,
       this.email,
       this.createdTime,

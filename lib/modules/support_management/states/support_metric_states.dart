@@ -27,3 +27,53 @@ class SupportMetricFailure extends SupportMetricState {
   @override
   List<Object> get props => [message];
 }
+
+class AddSupportMetricState extends Equatable {
+  const AddSupportMetricState();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class AddSupportMetricLoading extends AddSupportMetricState {}
+
+class AddSupportMetricSuccess extends AddSupportMetricState {
+  const AddSupportMetricSuccess();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class AddSupportMetricFailure extends AddSupportMetricState {
+  final String message;
+
+  AddSupportMetricFailure({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
+
+class EditSupportMetricState extends Equatable {
+  const EditSupportMetricState();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class EditSupportMetricLoading extends EditSupportMetricState {}
+
+class EditSupportMetricSuccess extends EditSupportMetricState {
+  const EditSupportMetricSuccess();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class EditSupportMetricFailure extends EditSupportMetricState {
+  final String message;
+
+  EditSupportMetricFailure({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

@@ -141,7 +141,7 @@ class EditEmotionTypeController extends GetxController {
         //set detail to null
         var eController = Get.find<EmotionTypeController>();
         eController.fetchListItems(
-            QueryModel(offset: 0, limit: eController.rowsPerPage, total: true, reverse: true));
+            QueryModel(offset: eController.firstRowIndex, limit: eController.rowsPerPage, total: true, reverse: true));
         itemDetail = null;
       }
     });

@@ -200,10 +200,11 @@ class EditGoalController extends GetxController {
 
         var gController = Get.find<GoalController>();
         gController.fetchListItems(QueryModel(
-            offset: 0,
+            offset: gController.firstRowIndex,
             limit: gController.rowsPerPage,
             total: true,
             reverse: true));
+        itemDetail = null;
       }
     });
   }

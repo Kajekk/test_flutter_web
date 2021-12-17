@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:test_flutter_web/data/barrel.dart';
 import 'package:test_flutter_web/main.dart';
+import 'package:test_flutter_web/modules/account_management/barrel.dart';
 import 'package:test_flutter_web/modules/authentication/login/login.dart';
 import 'package:test_flutter_web/modules/dashboard/barrel.dart';
 import 'package:test_flutter_web/modules/emotional_management/barrel.dart';
@@ -8,6 +10,8 @@ import 'package:test_flutter_web/modules/employment_management/barrel.dart';
 import 'package:test_flutter_web/modules/goal_management/barrel.dart';
 import 'package:test_flutter_web/modules/home_management/barrel.dart';
 import 'package:test_flutter_web/modules/support_management/barrel.dart';
+import 'package:test_flutter_web/modules/term_service_privacy_policy/barrel.dart';
+import 'package:test_flutter_web/modules/user_access_management/barrel.dart';
 
 import '../modules/main_screen/main_screen.dart';
 import 'middlewares.dart';
@@ -19,18 +23,13 @@ class AppPages {
     GetPage(
       name: Routes.DASHBOARD,
       page: () => Dashboard(),
+      // binding: InitialBindings(),
       middlewares: [AuthMiddleware()],
     ),
     GetPage(
         name: Routes.LOGIN_PAGE,
         page: () => LoginPage(),
         middlewares: [AuthMiddleware()]),
-    // GetPage(
-    //     name: Routes.USER_ACCESS_MANAGEMENT,
-    //     page: () => UserAccessManagementPage(),
-    //     binding: UserAccessManagementBinding(),
-    //     middlewares: [AuthMiddleware()]),
-    // EmotionalManagementPage
     GetPage(
         name: Routes.EMOTIONAL_MANAGEMENT,
         page: () => EmotionalManagementPage(),
@@ -55,8 +54,37 @@ class AppPages {
         name: Routes.HOME_MANAGEMENT,
         page: () => HomeManagementPage(),
         binding: HomeManagementBinding(),
-        middlewares: [AuthMiddleware()])
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: Routes.ACCOUNT_MANAGEMENT,
+        page: () => AccountManagementPage(),
+        binding: AccountManagementBinding(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: Routes.USER_ACCESS_MANAGEMENT,
+        page: () => UserAccessManagementPage(),
+        binding: UserAccessManagementBinding(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: Routes.TERM_SERVICE_PRIVACY_POLICY,
+        page: () => AgreementAndPolicyPage(),
+        binding: AgreementAndPolicyBinding(),
+        middlewares: [AuthMiddleware()]),
   ];
+}
+
+class InitialBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<IUserAccessApiProvider>(() => UserAccessApiProvider());
+    Get.lazyPut<IUserAccessRepository>(
+            () => UserAccessRepository(provider: Get.find()));
+    Get.lazyPut(
+          () => OrganisationController(
+          userAccessRepository: Get.find<IUserAccessRepository>(),
+          info: SubTabInfo.organisation),
+    );
+  }
 }
 
 class RouteView {

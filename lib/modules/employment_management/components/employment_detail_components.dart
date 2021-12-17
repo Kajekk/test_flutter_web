@@ -123,14 +123,14 @@ class EmploymentItemDetailInfo extends StatelessWidget {
               ]);
             }).toList(),
           ])),
-          Text.rich(TextSpan(children: [
-            TextSpan(
-                text: "Coaches: \n",
-                style: Theme.of(context).textTheme.subtitle1),
-            ...controller.itemDetail!.coachList!.map((e) {
-              return TextSpan(text: e.name! + " - " + e.type! + "\n");
-            }).toList(),
-          ])),
+          // Text.rich(TextSpan(children: [
+          //   TextSpan(
+          //       text: "Coaches: \n",
+          //       style: Theme.of(context).textTheme.subtitle1),
+          //   ...controller.itemDetail!.coachList!.map((e) {
+          //     return TextSpan(text: e.name! + " - " + e.type! + "\n");
+          //   }).toList(),
+          // ])),
           Text.rich(TextSpan(children: [
             TextSpan(
                 text: "Created time: \n",
@@ -227,7 +227,7 @@ class EmploymentDetailDialog extends StatelessWidget {
                         ...workingDaysField(),
                         ...timeToWorkField(),
                         ...jobScopeField(),
-                        ...coachListField(),
+                        // ...coachListField(),
                         Align(
                           alignment: Alignment.center,
                           child: ElevatedButton(
@@ -702,143 +702,143 @@ class EmploymentDetailDialog extends StatelessWidget {
     ];
   }
 
-  List<Widget> coachListField() {
-    return <Widget>[
-      Text('Coaches', style: TextStyle(fontWeight: FontWeight.bold)),
-      SizedBox(
-        height: defaultPadding / 2,
-      ),
-      ...controller.coachList.asMap().entries.map((e) {
-        return Column(
-          children: [
-            TextFormField(
-              style: TextStyle(
-                color: Color(0xFF999999),
-              ),
-              decoration: InputDecoration(
-                labelText: 'Coach email',
-                labelStyle: TextStyle(
-                    color: Color(0xFF999999), fontWeight: FontWeight.bold),
-                // filled: true,
-                // isDense: true,
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: Color(0xFF999999)),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: Color(0xFF999999)),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: Colors.redAccent),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: Colors.redAccent),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-              cursorColor: Color(0xFF999999),
-              keyboardType: TextInputType.text,
-              onChanged: (String? newVal) {
-                if (newVal != null) {
-                  controller.coachList[e.key] =
-                      controller.coachList[e.key].copyWith(email: newVal);
-                }
-              },
-              validator: (val) {
-                if (val == "") {
-                  return 'Coach email is required';
-                }
-                return null;
-              },
-            ),
-            SizedBox(height: defaultPadding / 2),
-            TextFormField(
-              style: TextStyle(
-                color: Color(0xFF999999),
-              ),
-              decoration: InputDecoration(
-                labelText: 'Type',
-                labelStyle: TextStyle(
-                    color: Color(0xFF999999), fontWeight: FontWeight.bold),
-                hintText: 'e.g Life skills coach',
-                hintStyle: TextStyle(color: Color(0xFF999999).withOpacity(0.5)),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: Color(0xFF999999)),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: Color(0xFF999999)),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: Colors.redAccent),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: Colors.redAccent),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-              cursorColor: Color(0xFF999999),
-              keyboardType: TextInputType.text,
-              onChanged: (String? newVal) {
-                if (newVal != null) {
-                  controller.coachList[e.key] =
-                      controller.coachList[e.key].copyWith(type: newVal);
-                }
-              },
-              validator: (val) {
-                if (val == "") {
-                  return 'Coach type is required';
-                }
-                return null;
-              },
-            ),
-            SizedBox(
-              height: defaultPadding / 2,
-            ),
-          ],
-        );
-      }).toList(),
-      SizedBox(
-        height: defaultPadding / 2,
-      ),
-      Row(
-        children: [
-          Expanded(
-              child: TextButton.icon(
-            style: TextButton.styleFrom(
-              primary: Colors.deepPurpleAccent,
-              padding: EdgeInsets.symmetric(
-                  horizontal: defaultPadding, vertical: defaultPadding / 2),
-            ),
-            onPressed: () {
-              controller.coachList.add(Coach());
-            },
-            icon: Icon(Icons.add),
-            label: Text("Add New Coach"),
-          )),
-          if (controller.coachList.length > 0)
-            Expanded(
-                child: TextButton.icon(
-              style: TextButton.styleFrom(
-                primary: Colors.deepPurpleAccent,
-                padding: EdgeInsets.symmetric(
-                    horizontal: defaultPadding, vertical: defaultPadding / 2),
-              ),
-              onPressed: () {
-                controller.coachList.removeLast();
-              },
-              icon: Icon(Icons.remove),
-              label: Text("Remove Coach"),
-            ))
-        ],
-      ),
-      SizedBox(height: defaultPadding),
-    ];
-  }
+  // List<Widget> coachListField() {
+  //   return <Widget>[
+  //     Text('Coaches', style: TextStyle(fontWeight: FontWeight.bold)),
+  //     SizedBox(
+  //       height: defaultPadding / 2,
+  //     ),
+  //     ...controller.coachList.asMap().entries.map((e) {
+  //       return Column(
+  //         children: [
+  //           TextFormField(
+  //             style: TextStyle(
+  //               color: Color(0xFF999999),
+  //             ),
+  //             decoration: InputDecoration(
+  //               labelText: 'Coach email',
+  //               labelStyle: TextStyle(
+  //                   color: Color(0xFF999999), fontWeight: FontWeight.bold),
+  //               // filled: true,
+  //               // isDense: true,
+  //               enabledBorder: OutlineInputBorder(
+  //                 borderSide: BorderSide(width: 2, color: Color(0xFF999999)),
+  //                 borderRadius: BorderRadius.circular(15),
+  //               ),
+  //               focusedBorder: OutlineInputBorder(
+  //                 borderSide: BorderSide(width: 2, color: Color(0xFF999999)),
+  //                 borderRadius: BorderRadius.circular(15),
+  //               ),
+  //               errorBorder: OutlineInputBorder(
+  //                 borderSide: BorderSide(width: 2, color: Colors.redAccent),
+  //                 borderRadius: BorderRadius.circular(15),
+  //               ),
+  //               focusedErrorBorder: OutlineInputBorder(
+  //                 borderSide: BorderSide(width: 2, color: Colors.redAccent),
+  //                 borderRadius: BorderRadius.circular(15),
+  //               ),
+  //             ),
+  //             cursorColor: Color(0xFF999999),
+  //             keyboardType: TextInputType.text,
+  //             onChanged: (String? newVal) {
+  //               if (newVal != null) {
+  //                 controller.coachList[e.key] =
+  //                     controller.coachList[e.key].copyWith(email: newVal);
+  //               }
+  //             },
+  //             validator: (val) {
+  //               if (val == "") {
+  //                 return 'Coach email is required';
+  //               }
+  //               return null;
+  //             },
+  //           ),
+  //           SizedBox(height: defaultPadding / 2),
+  //           TextFormField(
+  //             style: TextStyle(
+  //               color: Color(0xFF999999),
+  //             ),
+  //             decoration: InputDecoration(
+  //               labelText: 'Type',
+  //               labelStyle: TextStyle(
+  //                   color: Color(0xFF999999), fontWeight: FontWeight.bold),
+  //               hintText: 'e.g Life skills coach',
+  //               hintStyle: TextStyle(color: Color(0xFF999999).withOpacity(0.5)),
+  //               enabledBorder: OutlineInputBorder(
+  //                 borderSide: BorderSide(width: 2, color: Color(0xFF999999)),
+  //                 borderRadius: BorderRadius.circular(15),
+  //               ),
+  //               focusedBorder: OutlineInputBorder(
+  //                 borderSide: BorderSide(width: 2, color: Color(0xFF999999)),
+  //                 borderRadius: BorderRadius.circular(15),
+  //               ),
+  //               errorBorder: OutlineInputBorder(
+  //                 borderSide: BorderSide(width: 2, color: Colors.redAccent),
+  //                 borderRadius: BorderRadius.circular(15),
+  //               ),
+  //               focusedErrorBorder: OutlineInputBorder(
+  //                 borderSide: BorderSide(width: 2, color: Colors.redAccent),
+  //                 borderRadius: BorderRadius.circular(15),
+  //               ),
+  //             ),
+  //             cursorColor: Color(0xFF999999),
+  //             keyboardType: TextInputType.text,
+  //             onChanged: (String? newVal) {
+  //               if (newVal != null) {
+  //                 controller.coachList[e.key] =
+  //                     controller.coachList[e.key].copyWith(type: newVal);
+  //               }
+  //             },
+  //             validator: (val) {
+  //               if (val == "") {
+  //                 return 'Coach type is required';
+  //               }
+  //               return null;
+  //             },
+  //           ),
+  //           SizedBox(
+  //             height: defaultPadding / 2,
+  //           ),
+  //         ],
+  //       );
+  //     }).toList(),
+  //     SizedBox(
+  //       height: defaultPadding / 2,
+  //     ),
+  //     Row(
+  //       children: [
+  //         Expanded(
+  //             child: TextButton.icon(
+  //           style: TextButton.styleFrom(
+  //             primary: Colors.deepPurpleAccent,
+  //             padding: EdgeInsets.symmetric(
+  //                 horizontal: defaultPadding, vertical: defaultPadding / 2),
+  //           ),
+  //           onPressed: () {
+  //             controller.coachList.add(Coach());
+  //           },
+  //           icon: Icon(Icons.add),
+  //           label: Text("Add New Coach"),
+  //         )),
+  //         if (controller.coachList.length > 0)
+  //           Expanded(
+  //               child: TextButton.icon(
+  //             style: TextButton.styleFrom(
+  //               primary: Colors.deepPurpleAccent,
+  //               padding: EdgeInsets.symmetric(
+  //                   horizontal: defaultPadding, vertical: defaultPadding / 2),
+  //             ),
+  //             onPressed: () {
+  //               controller.coachList.removeLast();
+  //             },
+  //             icon: Icon(Icons.remove),
+  //             label: Text("Remove Coach"),
+  //           ))
+  //       ],
+  //     ),
+  //     SizedBox(height: defaultPadding),
+  //   ];
+  // }
 }
 
 class EditEmploymentDetailDialog extends StatelessWidget {
@@ -910,7 +910,7 @@ class EditEmploymentDetailDialog extends StatelessWidget {
                         ...workingDaysField(),
                         ...timeToWorkField(),
                         ...jobScopeField(),
-                        ...coachListField(),
+                        // ...coachListField(),
                         Align(
                           alignment: Alignment.center,
                           child: ElevatedButton(
@@ -1396,145 +1396,145 @@ class EditEmploymentDetailDialog extends StatelessWidget {
     ];
   }
 
-  List<Widget> coachListField() {
-    return <Widget>[
-      Text('Coaches', style: TextStyle(fontWeight: FontWeight.bold)),
-      SizedBox(
-        height: defaultPadding / 2,
-      ),
-      ...controller.coachList.asMap().entries.map((e) {
-        return Column(
-          children: [
-            TextFormField(
-              style: TextStyle(
-                color: Color(0xFF999999),
-              ),
-              decoration: InputDecoration(
-                labelText: 'Coach email',
-                labelStyle: TextStyle(
-                    color: Color(0xFF999999), fontWeight: FontWeight.bold),
-                // filled: true,
-                // isDense: true,
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: Color(0xFF999999)),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: Color(0xFF999999)),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: Colors.redAccent),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: Colors.redAccent),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-              cursorColor: Color(0xFF999999),
-              keyboardType: TextInputType.text,
-              initialValue: controller.coachList[e.key].name,
-              onChanged: (String? newVal) {
-                if (newVal != null) {
-                  controller.coachList[e.key] =
-                      controller.coachList[e.key].copyWith(email: newVal);
-                }
-              },
-              validator: (val) {
-                if (val == "") {
-                  return 'Coach email is required';
-                }
-                return null;
-              },
-            ),
-            SizedBox(height: defaultPadding / 2),
-            TextFormField(
-              style: TextStyle(
-                color: Color(0xFF999999),
-              ),
-              decoration: InputDecoration(
-                labelText: 'Type',
-                labelStyle: TextStyle(
-                    color: Color(0xFF999999), fontWeight: FontWeight.bold),
-                hintText: 'e.g Life skills coach',
-                hintStyle: TextStyle(color: Color(0xFF999999).withOpacity(0.5)),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: Color(0xFF999999)),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: Color(0xFF999999)),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: Colors.redAccent),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                focusedErrorBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 2, color: Colors.redAccent),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-              cursorColor: Color(0xFF999999),
-              keyboardType: TextInputType.text,
-              initialValue: controller.coachList[e.key].type,
-              onChanged: (String? newVal) {
-                if (newVal != null) {
-                  controller.coachList[e.key] =
-                      controller.coachList[e.key].copyWith(type: newVal);
-                }
-              },
-              validator: (val) {
-                if (val == "") {
-                  return 'Coach type is required';
-                }
-                return null;
-              },
-            ),
-            SizedBox(
-              height: defaultPadding / 2,
-            ),
-          ],
-        );
-      }).toList(),
-      SizedBox(
-        height: defaultPadding / 2,
-      ),
-      Row(
-        children: [
-          Expanded(
-              child: TextButton.icon(
-            style: TextButton.styleFrom(
-              primary: Colors.deepPurpleAccent,
-              padding: EdgeInsets.symmetric(
-                  horizontal: defaultPadding, vertical: defaultPadding / 2),
-            ),
-            onPressed: () {
-              controller.coachList.add(Coach());
-            },
-            icon: Icon(Icons.add),
-            label: Text("Add New Coach"),
-          )),
-          if (controller.coachList.length > 0)
-            Expanded(
-                child: TextButton.icon(
-              style: TextButton.styleFrom(
-                primary: Colors.deepPurpleAccent,
-                padding: EdgeInsets.symmetric(
-                    horizontal: defaultPadding, vertical: defaultPadding / 2),
-              ),
-              onPressed: () {
-                controller.coachList.removeLast();
-              },
-              icon: Icon(Icons.remove),
-              label: Text("Remove Coach"),
-            ))
-        ],
-      ),
-      SizedBox(height: defaultPadding),
-    ];
-  }
+  // List<Widget> coachListField() {
+  //   return <Widget>[
+  //     Text('Coaches', style: TextStyle(fontWeight: FontWeight.bold)),
+  //     SizedBox(
+  //       height: defaultPadding / 2,
+  //     ),
+  //     ...controller.coachList.asMap().entries.map((e) {
+  //       return Column(
+  //         children: [
+  //           TextFormField(
+  //             style: TextStyle(
+  //               color: Color(0xFF999999),
+  //             ),
+  //             decoration: InputDecoration(
+  //               labelText: 'Coach email',
+  //               labelStyle: TextStyle(
+  //                   color: Color(0xFF999999), fontWeight: FontWeight.bold),
+  //               // filled: true,
+  //               // isDense: true,
+  //               enabledBorder: OutlineInputBorder(
+  //                 borderSide: BorderSide(width: 2, color: Color(0xFF999999)),
+  //                 borderRadius: BorderRadius.circular(15),
+  //               ),
+  //               focusedBorder: OutlineInputBorder(
+  //                 borderSide: BorderSide(width: 2, color: Color(0xFF999999)),
+  //                 borderRadius: BorderRadius.circular(15),
+  //               ),
+  //               errorBorder: OutlineInputBorder(
+  //                 borderSide: BorderSide(width: 2, color: Colors.redAccent),
+  //                 borderRadius: BorderRadius.circular(15),
+  //               ),
+  //               focusedErrorBorder: OutlineInputBorder(
+  //                 borderSide: BorderSide(width: 2, color: Colors.redAccent),
+  //                 borderRadius: BorderRadius.circular(15),
+  //               ),
+  //             ),
+  //             cursorColor: Color(0xFF999999),
+  //             keyboardType: TextInputType.text,
+  //             initialValue: controller.coachList[e.key].name,
+  //             onChanged: (String? newVal) {
+  //               if (newVal != null) {
+  //                 controller.coachList[e.key] =
+  //                     controller.coachList[e.key].copyWith(email: newVal);
+  //               }
+  //             },
+  //             validator: (val) {
+  //               if (val == "") {
+  //                 return 'Coach email is required';
+  //               }
+  //               return null;
+  //             },
+  //           ),
+  //           SizedBox(height: defaultPadding / 2),
+  //           TextFormField(
+  //             style: TextStyle(
+  //               color: Color(0xFF999999),
+  //             ),
+  //             decoration: InputDecoration(
+  //               labelText: 'Type',
+  //               labelStyle: TextStyle(
+  //                   color: Color(0xFF999999), fontWeight: FontWeight.bold),
+  //               hintText: 'e.g Life skills coach',
+  //               hintStyle: TextStyle(color: Color(0xFF999999).withOpacity(0.5)),
+  //               enabledBorder: OutlineInputBorder(
+  //                 borderSide: BorderSide(width: 2, color: Color(0xFF999999)),
+  //                 borderRadius: BorderRadius.circular(15),
+  //               ),
+  //               focusedBorder: OutlineInputBorder(
+  //                 borderSide: BorderSide(width: 2, color: Color(0xFF999999)),
+  //                 borderRadius: BorderRadius.circular(15),
+  //               ),
+  //               errorBorder: OutlineInputBorder(
+  //                 borderSide: BorderSide(width: 2, color: Colors.redAccent),
+  //                 borderRadius: BorderRadius.circular(15),
+  //               ),
+  //               focusedErrorBorder: OutlineInputBorder(
+  //                 borderSide: BorderSide(width: 2, color: Colors.redAccent),
+  //                 borderRadius: BorderRadius.circular(15),
+  //               ),
+  //             ),
+  //             cursorColor: Color(0xFF999999),
+  //             keyboardType: TextInputType.text,
+  //             initialValue: controller.coachList[e.key].type,
+  //             onChanged: (String? newVal) {
+  //               if (newVal != null) {
+  //                 controller.coachList[e.key] =
+  //                     controller.coachList[e.key].copyWith(type: newVal);
+  //               }
+  //             },
+  //             validator: (val) {
+  //               if (val == "") {
+  //                 return 'Coach type is required';
+  //               }
+  //               return null;
+  //             },
+  //           ),
+  //           SizedBox(
+  //             height: defaultPadding / 2,
+  //           ),
+  //         ],
+  //       );
+  //     }).toList(),
+  //     SizedBox(
+  //       height: defaultPadding / 2,
+  //     ),
+  //     Row(
+  //       children: [
+  //         Expanded(
+  //             child: TextButton.icon(
+  //           style: TextButton.styleFrom(
+  //             primary: Colors.deepPurpleAccent,
+  //             padding: EdgeInsets.symmetric(
+  //                 horizontal: defaultPadding, vertical: defaultPadding / 2),
+  //           ),
+  //           onPressed: () {
+  //             controller.coachList.add(Coach());
+  //           },
+  //           icon: Icon(Icons.add),
+  //           label: Text("Add New Coach"),
+  //         )),
+  //         if (controller.coachList.length > 0)
+  //           Expanded(
+  //               child: TextButton.icon(
+  //             style: TextButton.styleFrom(
+  //               primary: Colors.deepPurpleAccent,
+  //               padding: EdgeInsets.symmetric(
+  //                   horizontal: defaultPadding, vertical: defaultPadding / 2),
+  //             ),
+  //             onPressed: () {
+  //               controller.coachList.removeLast();
+  //             },
+  //             icon: Icon(Icons.remove),
+  //             label: Text("Remove Coach"),
+  //           ))
+  //       ],
+  //     ),
+  //     SizedBox(height: defaultPadding),
+  //   ];
+  // }
 }
 
 

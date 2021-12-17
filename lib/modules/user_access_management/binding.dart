@@ -1,27 +1,52 @@
 import 'package:get/get.dart';
 import 'package:test_flutter_web/data/barrel.dart';
-import 'package:test_flutter_web/data/provider/barrel.dart';
-import 'package:test_flutter_web/data/provider/test.dart';
-import 'package:test_flutter_web/data/repository/emotional_repository.dart';
-import 'package:test_flutter_web/data/repository/test.dart';
-import 'package:test_flutter_web/global_widgets/barrel.dart';
-import 'package:http/http.dart' as http;
-import 'barrel.dart';
+import 'package:test_flutter_web/modules/user_access_management/barrel.dart';
 
-// class UserAccessManagementBinding extends Bindings {
-//   @override
-//   void dependencies() {
-//     Get.lazyPut<IEmotionalApiProvider>(() => EmotionalApiProvider());
-//     Get.lazyPut<IEmotionalRepository>(
-//             () => EmotionalRepository(provider: Get.find()));
-//     Get.lazyPut(
-//           () => EntityTypeController(emotionalRepository: Get.find(), info: SubTabInfo.entityType),
-//     );
-//     Get.lazyPut(() => AddNewEntityTypeController());
-//
-//     // Get.lazyPut<EntityTypeController>(() => EntityTypeController(CategoryListData.entityType));
-//     // Get.lazyPut<EntityTypeController2>(() => EntityTypeController2(SubTabInfo.userRoles));
-//     // Get.lazyPut<EntityTypeController3>(() => EntityTypeController3(SubTabInfo.userPermissions));
-//     // Get.put<ListItemController>(ListItemController());
-//   }
-// }
+class UserAccessManagementBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<IUserAccessApiProvider>(() => UserAccessApiProvider());
+    Get.lazyPut<IUserAccessRepository>(
+            () => UserAccessRepository(provider: Get.find()));
+    Get.lazyPut(
+          () => PermissionController(
+          userAccessRepository: Get.find<IUserAccessRepository>(),
+          info: SubTabInfo.permission),
+    );
+    Get.lazyPut(
+            () => AddNewPermissionController(repository: Get.find<IUserAccessRepository>()));
+    Get.lazyPut(
+            () => EditPermissionController(repository: Get.find<IUserAccessRepository>()));
+
+    Get.lazyPut(
+          () => PermissionModuleController(
+          userAccessRepository: Get.find<IUserAccessRepository>(),
+          info: SubTabInfo.permissionModule),
+    );
+    Get.lazyPut(
+            () => AddNewPermissionModuleController(repository: Get.find<IUserAccessRepository>()));
+    Get.lazyPut(
+            () => EditPermissionModuleController(repository: Get.find<IUserAccessRepository>()));
+
+    Get.lazyPut(
+          () => RoleController(
+          userAccessRepository: Get.find<IUserAccessRepository>(),
+          info: SubTabInfo.role),
+    );
+    Get.lazyPut(
+            () => AddNewRoleController(repository: Get.find<IUserAccessRepository>()));
+    Get.lazyPut(
+            () => EditRoleController(repository: Get.find<IUserAccessRepository>()));
+
+    Get.lazyPut(
+          () => OrganisationController(
+          userAccessRepository: Get.find<IUserAccessRepository>(),
+          info: SubTabInfo.organisation),
+    );
+    Get.lazyPut(
+            () => AddNewOrganisationController(repository: Get.find<IUserAccessRepository>()));
+    Get.lazyPut(
+            () => EditOrganisationController(repository: Get.find<IUserAccessRepository>()));
+
+  }
+}

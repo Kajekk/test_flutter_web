@@ -75,8 +75,16 @@ class Dashboard extends StatelessWidget {
                               spacing: defaultPadding,
                               // runAlignment: WrapAlignment.center,
                               children: [
-                                // RouteButton(title: "User Access Management", route: Routes.USER_ACCESS_MANAGEMENT),
-                                // RouteButton(title: "Account Management", route: Routes.USER_ACCESS_MANAGEMENT),
+                                RouteButton(title: "User Access Management", route: Routes.USER_ACCESS_MANAGEMENT,
+                                  icon: Icon(
+                                    Icons.admin_panel_settings,
+                                  ),
+                                ),
+                                RouteButton(title: "Account Management", route: Routes.ACCOUNT_MANAGEMENT,
+                                  icon: Icon(
+                                    Icons.people,
+                                  ),
+                                ),
                                 RouteButton(title: "Home Management", route: Routes.HOME_MANAGEMENT,
                                   icon: Icon(
                                     Icons.home_outlined,
@@ -111,6 +119,9 @@ class Dashboard extends StatelessWidget {
                               children: [
                                 RouteButton(title: "Emotional Management", route: Routes.EMOTIONAL_MANAGEMENT, icon: Icon(
                                   Icons.mood_outlined,
+                                ),),
+                                RouteButton(title: "Term of Service & Privacy Policy", route: Routes.TERM_SERVICE_PRIVACY_POLICY, icon: Icon(
+                                  Icons.privacy_tip_outlined,
                                 ),),
                               ],
                             ),

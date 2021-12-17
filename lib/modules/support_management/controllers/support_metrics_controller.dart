@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_flutter_web/constants/barrel.dart';
 import 'package:test_flutter_web/data/models/barrel.dart';
@@ -40,9 +41,8 @@ class SupportMetricController extends SubTabController {
 
   void selectItemDetail(BaseModel? item) {
     if (item is SupportMetric) {
-      // itemDetail = item;
-      // var editController = Get.find<EditAttendanceController>();
-      // editController.changeEditItem(item);
+      var editController = Get.find<EditSupportMetricController>();
+      editController.changeEditItem(item);
     }
   }
 
@@ -99,3 +99,136 @@ class SupportMetricController extends SubTabController {
     // }
   }
 }
+
+class AddNewSupportMetricController extends GetxController {
+  AddNewSupportMetricController({required repository})
+      : _repository = repository;
+  final ISupportRepository _repository;
+  final _stateStream = AddSupportMetricState().obs;
+
+  AddSupportMetricState get state => _stateStream.value;
+  final nameController = TextEditingController();
+  final targetController = TextEditingController();
+  final descriptionController = TextEditingController();
+  final tips = <String>[].obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    ever(_stateStream, (state) {
+      if (state is AddSupportMetricSuccess) {
+        Get.back();
+
+        var gController = Get.find<SupportMetricController>();
+        gController.fetchListItems(QueryModel(
+            offset: 0,
+            limit: gController.rowsPerPage,
+            total: true,
+            reverse: true));
+
+        clear();
+      }
+    });
+  }
+
+  void addNewItem() async {
+    var data = SupportMetric(
+      name: nameController.text,
+      description: descriptionController.text,
+      tips: tips,
+      target: int.parse(targetController.text),
+    );
+
+    _stateStream.value = AddSupportMetricLoading();
+    var res = await _repository.createSupportMetric(data);
+    if (res.status != ApiStatus.Ok) {
+      _stateStream.value = AddSupportMetricFailure(
+          message: res.message ?? "Something went wrong, please try again");
+      return;
+    }
+    _stateStream.value = AddSupportMetricSuccess();
+  }
+
+  void clear() async {
+    nameController.text = "";
+    descriptionController.text = "";
+    targetController.text = "";
+    tips.value = [];
+  }
+}
+
+class EditSupportMetricController extends GetxController {
+  EditSupportMetricController({required repository})
+      : _repository = repository;
+  final ISupportRepository _repository;
+  final _stateStream = EditSupportMetricState().obs;
+  final _itemDetail = SupportMetric().obs;
+
+  SupportMetric? get itemDetail => _itemDetail.value;
+
+  set itemDetail(value) {
+    _itemDetail.value = value;
+  }
+
+  EditSupportMetricState get state => _stateStream.value;
+
+  //fields
+  final nameController = TextEditingController();
+  final descriptionController = TextEditingController();
+  final targetController = TextEditingController();
+  final tips = <String>[].obs;
+
+  void changeEditItem(SupportMetric? data) {
+    if (data != null) {
+      nameController.text = data.name!;
+      descriptionController.text = data.description ?? "";
+      targetController.text = data.target!.toString();
+      if (data.tips != null && data.tips!.length > 0) {
+        tips.value = data.tips!;
+      }
+
+      itemDetail = data;
+    }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    itemDetail = null;
+
+    ever(_stateStream, (state) {
+      if (state is EditSupportMetricSuccess) {
+        Get.back();
+
+        var gController = Get.find<SupportMetricController>();
+        gController.fetchListItems(QueryModel(
+            offset: gController.firstRowIndex,
+            limit: gController.rowsPerPage,
+            total: true,
+            reverse: true));
+        itemDetail = null;
+      }
+    });
+  }
+
+  void editItem() async {
+    var data = SupportMetric(
+      id: itemDetail!.id,
+      name: nameController.text,
+      description: descriptionController.text,
+      target: int.parse(targetController.text),
+      tips: tips,
+    );
+
+    _stateStream.value = EditSupportMetricLoading();
+    var res = await _repository.updateSupportMetric(data);
+    if (res.status != ApiStatus.Ok) {
+      _stateStream.value = EditSupportMetricFailure(
+          message: res.message ?? "Something went wrong, please try again");
+      return;
+    }
+    _stateStream.value = EditSupportMetricSuccess();
+  }
+}
+

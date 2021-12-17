@@ -43,8 +43,8 @@ class GoalTrackingController extends SubTabController {
 
   void selectItemDetail(BaseModel? item) {
     if (item is GoalTracking) {
-      // var editController = Get.find<EditGoalTrackingController>();
-      // editController.changeEditItem(item);
+      var editController = Get.find<EditGoalTrackingController>();
+      editController.changeEditItem(item);
     }
   }
 
@@ -103,22 +103,22 @@ class EditGoalTrackingController extends GetxController {
   EditGoalTrackingController({required goalRepository})
       : _goalRepository = goalRepository;
   final IGoalRepository _goalRepository;
-  final _stateStream = EditGoalRelationshipState().obs;
-  final _itemDetail = GoalRelationship().obs;
+  final _stateStream = EditGoalTrackingState().obs;
+  final _itemDetail = GoalTracking().obs;
 
-  GoalRelationship? get itemDetail => _itemDetail.value;
+  GoalTracking? get itemDetail => _itemDetail.value;
 
   set itemDetail(value) {
     _itemDetail.value = value;
   }
 
-  EditGoalRelationshipState get state => _stateStream.value;
+  EditGoalTrackingState get state => _stateStream.value;
 
   //fields
   final goalId = ''.obs;
   final emailController = TextEditingController();
   final createdByController = TextEditingController();
-  void changeEditItem(GoalRelationship? data) {
+  void changeEditItem(GoalTracking? data) {
     if (data != null) {
       emailController.text = data.email!;
       createdByController.text = data.createdBy!;
@@ -139,29 +139,30 @@ class EditGoalTrackingController extends GetxController {
 
         var gController = Get.find<GoalRelationshipController>();
         gController.fetchListItems(QueryModel(
-            offset: 0,
+            offset: gController.firstRowIndex,
             limit: gController.rowsPerPage,
             total: true,
             reverse: true));
+        itemDetail = null;
       }
     });
   }
 
   void editItem() async {
-    var data = GoalRelationship(
+    var data = GoalTracking(
       id: itemDetail!.id,
       email: emailController.text,
       createdBy: createdByController.text,
       goalId: goalId.value,
     );
 
-    _stateStream.value = EditGoalRelationshipLoading();
-    var res = await _goalRepository.updateGoalRelationship(data);
+    _stateStream.value = EditGoalTrackingLoading();
+    var res = await _goalRepository.updateGoalTracking(data);
     if (res.status != ApiStatus.Ok) {
-      _stateStream.value = EditGoalRelationshipFailure(
+      _stateStream.value = EditGoalTrackingFailure(
           message: res.message ?? "Something went wrong, please try again");
       return;
     }
-    _stateStream.value = EditGoalRelationshipSuccess();
+    _stateStream.value = EditGoalTrackingSuccess();
   }
 }

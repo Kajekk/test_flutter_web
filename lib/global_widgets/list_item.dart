@@ -16,11 +16,14 @@ class ListItem extends StatelessWidget {
   final DataTableSource dataTableSource;
   final isLoading;
   final Widget? customDialog;
+  final double? dataRowHeight;
+
   ListItem(
       {Key? key,
       required this.controller,
       required this.dataTableSource,
       this.customDialog,
+      this.dataRowHeight,
       this.isLoading = false})
       : super(key: key);
 
@@ -212,6 +215,7 @@ class ListItem extends StatelessWidget {
                       showFirstLastButtons: true,
                       rowsPerPage: controller.rowsPerPage,
                       source: dataTableSource,
+                      dataRowHeight: dataRowHeight ?? kMinInteractiveDimension,
                     ),
                   ),
                 ),

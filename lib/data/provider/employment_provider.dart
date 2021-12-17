@@ -14,6 +14,10 @@ abstract class IEmploymentProvider {
   Future<BaseResponse> updateWorkplace(WorkplaceDetail data);
   Future<BaseResponse> deleteWorkplaces(QueryModel queryModel);
 
+  Future<BaseResponse<ProWorkSchedule>> getProScheduleLists(QueryModel queryModel);
+  Future<BaseResponse> createProSchedule(ProWorkSchedule data);
+  Future<BaseResponse> updateProSchedule(ProWorkSchedule data);
+  Future<BaseResponse> deleteProSchedules(QueryModel queryModel);
 }
 
 class EmploymentProvider extends BaseProvider with IEmploymentProvider {
@@ -79,6 +83,39 @@ class EmploymentProvider extends BaseProvider with IEmploymentProvider {
       "q": jsonEncode(queryModel.toJson()),
     };
     var rs = await delete(ApiPath.DeleteWorkplaces, query: query);
+    BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
+    return baseResponse;
+  }
+
+  Future<BaseResponse<ProWorkSchedule>> getProScheduleLists(QueryModel queryModel) async {
+    var query = parsedQuery(queryModel.toJson())!;
+    var rs = await get(ApiPath.ProScheduleUri, query: query);
+    BaseResponse<ProWorkSchedule> baseResponse = BaseResponse.fromJson(
+        rs.body,
+            (json) => ProWorkSchedule.fromJson(json as Map<String, dynamic>));
+    return baseResponse;
+  }
+
+  Future<BaseResponse> createProSchedule(ProWorkSchedule data) async {
+    var rs = await post(ApiPath.ProScheduleUri, data.toJson());
+    BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
+    return baseResponse;
+  }
+
+  Future<BaseResponse> updateProSchedule(ProWorkSchedule data) async {
+    var query = {
+      "id": data.id,
+    };
+    var rs = await put(ApiPath.ProScheduleUri, data.toJson(), query: query);
+    BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
+    return baseResponse;
+  }
+
+  Future<BaseResponse> deleteProSchedules(QueryModel queryModel) async {
+    var query = {
+      "q": jsonEncode(queryModel.toJson()),
+    };
+    var rs = await delete(ApiPath.ProScheduleUri, query: query);
     BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
     return baseResponse;
   }

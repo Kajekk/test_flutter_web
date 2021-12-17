@@ -19,5 +19,11 @@ class EmploymentManagementBinding extends Bindings {
     );
     Get.lazyPut(() => AddNewWorkplaceController(employmentRepository: Get.find<IEmploymentRepository>()));
     Get.lazyPut(() => EditWorkplaceController(employmentRepository: Get.find<IEmploymentRepository>()));
+
+    Get.lazyPut(
+          () => ProWorkScheduleController(repository: Get.find<IEmploymentRepository>(), info: SubTabInfo.proWorkSchedule),
+    );
+    Get.lazyPut(() => AddNewProScheduleController(repository: Get.find<IEmploymentRepository>()));
+    Get.lazyPut(() => EditProScheduleController(repository: Get.find<IEmploymentRepository>()));
   }
 }

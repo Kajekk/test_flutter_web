@@ -43,8 +43,7 @@ class WorkplaceDetailController extends SubTabController {
     if (!isCurrent) {
       isCurrent = true;
       Get.find<EmploymentDetailController>().isCurrent = false;
-      // Get.find<EntityTypeController3>().isCurrent = false;
-
+      Get.find<ProWorkScheduleController>().isCurrent = false;
     }
   }
 
@@ -195,7 +194,8 @@ class EditWorkplaceController extends GetxController {
 
         var eController = Get.find<WorkplaceDetailController>();
         eController.fetchListItems(
-            QueryModel(offset: 0, limit: eController.rowsPerPage, total: true, reverse: true));
+            QueryModel(offset: eController.firstRowIndex, limit: eController.rowsPerPage, total: true, reverse: true));
+        itemDetail = null;
       }
     });
   }

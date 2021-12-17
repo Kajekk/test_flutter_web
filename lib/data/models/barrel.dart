@@ -18,3 +18,8 @@ export 'quote.dart';
 export 'support_metric.dart';
 export 'support_log.dart';
 export 'location_tracking.dart';
+export 'permission.dart';
+export 'role.dart';
+export 'organisation.dart';
+export 'agreement_and_policy_model.dart';
+export 'pro_work_schedule.dart';

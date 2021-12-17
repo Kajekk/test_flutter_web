@@ -41,7 +41,7 @@ class EmploymentDetailController extends SubTabController {
   void changeSubTab() {
     isCurrent = true;
     Get.find<WorkplaceDetailController>().isCurrent = false;
-    // Get.find<EntityTypeController3>().isCurrent = false;
+    Get.find<ProWorkScheduleController>().isCurrent = false;
   }
 
   void selectItemDetail(BaseModel? item) {
@@ -121,7 +121,6 @@ class AddNewEmploymentController extends GetxController {
   final lunchTimeStartController = TextEditingController();
   final lunchTimeEndController = TextEditingController();
   final scopeList = <Scope>[].obs;
-  final coachList = <Coach>[].obs;
 
   @override
   void onInit() {
@@ -159,7 +158,6 @@ class AddNewEmploymentController extends GetxController {
       timeToWork: int.parse(travelTimeController.text),
       workingDays: workingDays,
       scopeList: scopeList,
-      coachList: coachList,
     );
 
     _stateStream.value = AddEmploymentLoading();
@@ -198,7 +196,6 @@ class EditEmploymentController extends GetxController {
   final lunchTimeStartController = TextEditingController();
   final lunchTimeEndController = TextEditingController();
   final scopeList = <Scope>[].obs;
-  final coachList = <Coach>[].obs;
   void changeEditItem(Employment? data) {
     if (data != null) {
       var startingTime = toTimeStringC(data.workingTimeFrom!);
@@ -219,9 +216,6 @@ class EditEmploymentController extends GetxController {
       if (data.scopeList != null) {
         scopeList.value = data.scopeList!;
       }
-      if (data.coachList != null) {
-        coachList.value = data.coachList!;
-      }
 
       itemDetail = data;
     }
@@ -238,7 +232,8 @@ class EditEmploymentController extends GetxController {
 
         var eController = Get.find<EmploymentDetailController>();
         eController.fetchListItems(
-            QueryModel(offset: 0, limit: eController.rowsPerPage, total: true, reverse: true));
+            QueryModel(offset: eController.firstRowIndex, limit: eController.rowsPerPage, total: true, reverse: true));
+        itemDetail = null;
       }
     });
   }
@@ -265,7 +260,6 @@ class EditEmploymentController extends GetxController {
       timeToWork: int.parse(travelTimeController.text),
       workingDays: workingDays,
       scopeList: scopeList,
-      coachList: coachList,
     );
 
     _stateStream.value = EditEmploymentLoading();

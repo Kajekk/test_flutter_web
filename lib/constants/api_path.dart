@@ -4,22 +4,32 @@ abstract class ApiPath {
   static const String Login = '/admin/v1/login';
   static const String GetMe = '/admin/v1/me';
 
-  static const String GetEmotionalLogs = '/admin/v1/emotion-log/list';
+  static const String AccountUri = '/admin/v1/account-management';
+  static const String PermissionUri = '/admin/v1/permission';
+  static const String PermissionModuleUri = '/admin/v1/permission-module';
+  static const String RoleUri = '/admin/v1/role';
+  static const String OrganisationUri = '/admin/v1/organisation';
+
+  static const String TermOfServiceUri = '/admin/v1/term-of-service';
+  static const String PolicyUri = '/admin/v1/policy';
+
+  static const String GetEmotionalLogs = '/admin/v1/emotion-log';
   static const String CreateEmotionLog = '/admin/v1/emotion-log';
   static const String UpdateEmotionLog = '/admin/v1/emotion-log';
   static const String DeleteEmotionLogs = '/admin/v1/emotion-log';
   static const String EmotionTypeUri = '/admin/v1/emotion-type';
 
-  static const String GetEmotionTypes = '/admin/v1/emotion/list';
+  static const String GetEmotionTypes = '/admin/v1/emotion';
 
-  static const String GetEmploymentLists = '/admin/v1/employment/list';
+  static const String GetEmploymentLists = '/admin/v1/employment';
   static const String CreateEmployment = '/admin/v1/employment';
   static const String UpdateEmployment = '/admin/v1/employment';
   static const String DeleteEmployments = '/admin/v1/employment';
-  static const String GetWorkplaceDetailLists = '/admin/v1/workplace-detail/list';
+  static const String GetWorkplaceDetailLists = '/admin/v1/workplace-detail';
   static const String CreateWorkplace = '/admin/v1/workplace-detail';
   static const String UpdateWorkplace = '/admin/v1/workplace-detail';
   static const String DeleteWorkplaces = '/admin/v1/workplace-detail';
+  static const String ProScheduleUri = '/admin/v1/pro-schedule';
 
   static const String GetAttendanceList = '/admin/v1/attendance';
   static const String CreateAttendance = '/admin/v1/attendance';

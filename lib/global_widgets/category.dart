@@ -82,17 +82,3 @@ class CategoryCard extends StatelessWidget {
             ));
   }
 }
-
-// List mockData = [
-//   CategoryCardModel(
-//       title: "Account", svgSource: "assets/icons/menu_dashboard.svg"),
-//   CategoryCardModel(
-//       title: "Account Relationship Relationship",
-//       svgSource: "assets/icons/menu_dashboard.svg"),
-//   // CategoryCardModel(
-//   //     title: "Example", svgSource: "assets/icons/menu_dashboard.svg"),
-//   // CategoryCardModel(
-//   //     title: "Account", svgSource: "assets/icons/menu_dashboard.svg"),
-//   // CategoryCardModel(
-//   //     title: "Account", svgSource: "assets/icons/menu_dashboard.svg"),
-// ];

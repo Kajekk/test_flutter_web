@@ -9,6 +9,7 @@ class EmploymentManagementPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final EmploymentDetailController empController = Get.find();
   final WorkplaceDetailController wpdController = Get.find();
+  final ProWorkScheduleController proScheduleController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class EmploymentManagementPage extends StatelessWidget {
                             height: defaultPadding,
                           ),
                           SubTabs(
-                            listController: [empController, wpdController],
+                            listController: [empController, proScheduleController, wpdController],
                           ),
                           SizedBox(
                             height: defaultPadding,
@@ -56,6 +57,7 @@ class EmploymentManagementPage extends StatelessWidget {
                                       children: [
                                         buildListItem([
                                           empController,
+                                          proScheduleController,
                                           wpdController
                                         ]),
                                         if (Responsive.isMobile(context))
@@ -63,7 +65,7 @@ class EmploymentManagementPage extends StatelessWidget {
                                             height: defaultPadding,
                                           ),
                                         if (Responsive.isMobile(context))
-                                          buildItemDetail([empController, wpdController])
+                                          buildItemDetail([empController, proScheduleController, wpdController])
                                       ],
                                     )),
                                 if (!Responsive.isMobile(context))
@@ -73,7 +75,7 @@ class EmploymentManagementPage extends StatelessWidget {
                                 if (!Responsive.isMobile(context))
                                   Expanded(
                                     flex: 2,
-                                    child: buildItemDetail([empController, wpdController])
+                                    child: buildItemDetail([empController, proScheduleController, wpdController])
                                   )
                               ],
                             );
@@ -105,6 +107,7 @@ class EmploymentManagementPage extends StatelessWidget {
           customDialog: EmploymentDetailDialog(),
         );
       }
+
       if (controller.isCurrent &&
           controller.subTabInfoModel.title == SubTabInfo.workplaceDetail.title) {
         var state = wpdController.state;
@@ -119,6 +122,23 @@ class EmploymentManagementPage extends StatelessWidget {
           controller: controller,
           dataTableSource: WorkplaceDetailData(context: _scaffoldKey.currentContext!, controller: wpdController),
           customDialog: WorkplaceDetailDialog(),
+        );
+      }
+
+      if (controller.isCurrent &&
+          controller.subTabInfoModel.title == SubTabInfo.proWorkSchedule.title) {
+        var state = proScheduleController.state;
+        if (state is ProWorkScheduleLoading || state is ProWorkScheduleFailure) {
+          return ListItem(
+            controller: controller,
+            dataTableSource: EmptyDataSource(numCol: proScheduleController.info.dataColumn!.length),
+            isLoading: (state is ProWorkScheduleLoading) ? true : false,
+          );
+        }
+        return ListItem(
+          controller: controller,
+          dataTableSource: ProScheduleDetailData(context: _scaffoldKey.currentContext!, controller: proScheduleController),
+          // customDialog: WorkplaceDetailDialog(),
         );
       }
     }

@@ -5,10 +5,16 @@ abstract class IEmploymentRepository {
   Future<BaseResponse> createEmployment(Employment data);
   Future<BaseResponse> updateEmployment(Employment data);
   Future<BaseResponse> deleteEmployments(QueryModel queryModel);
+
   Future<BaseResponse<WorkplaceDetail>> getWorkplaceDetailLists(QueryModel queryModel);
   Future<BaseResponse> createWorkplace(WorkplaceDetail data);
   Future<BaseResponse> updateWorkplace(WorkplaceDetail data);
   Future<BaseResponse> deleteWorkplaces(QueryModel queryModel);
+
+  Future<BaseResponse<ProWorkSchedule>> getProScheduleLists(QueryModel queryModel);
+  Future<BaseResponse> createProSchedule(ProWorkSchedule data);
+  Future<BaseResponse> updateProSchedule(ProWorkSchedule data);
+  Future<BaseResponse> deleteProSchedules(QueryModel queryModel);
 }
 
 class EmploymentRepository implements IEmploymentRepository {
@@ -24,4 +30,9 @@ class EmploymentRepository implements IEmploymentRepository {
   Future<BaseResponse> createWorkplace(WorkplaceDetail data) => provider.createWorkplace(data);
   Future<BaseResponse> updateWorkplace(WorkplaceDetail data) => provider.updateWorkplace(data);
   Future<BaseResponse> deleteWorkplaces(QueryModel queryModel) => provider.deleteWorkplaces(queryModel);
+
+  Future<BaseResponse<ProWorkSchedule>> getProScheduleLists(QueryModel queryModel) => provider.getProScheduleLists(queryModel);
+  Future<BaseResponse> createProSchedule(ProWorkSchedule data) => provider.createProSchedule(data);
+  Future<BaseResponse> updateProSchedule(ProWorkSchedule data) => provider.updateProSchedule(data);
+  Future<BaseResponse> deleteProSchedules(QueryModel queryModel) => provider.deleteProSchedules(queryModel);
 }

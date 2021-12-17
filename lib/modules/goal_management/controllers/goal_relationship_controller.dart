@@ -190,10 +190,11 @@ class EditGoalRelationshipController extends GetxController {
 
         var gController = Get.find<GoalRelationshipController>();
         gController.fetchListItems(QueryModel(
-            offset: 0,
+            offset: gController.firstRowIndex,
             limit: gController.rowsPerPage,
             total: true,
             reverse: true));
+        itemDetail = null;
       }
     });
   }

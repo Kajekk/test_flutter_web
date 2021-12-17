@@ -73,6 +73,14 @@ class SubTabInfo {
         "Longitude"
       ]);
 
+  static const SubTabInfoModel proWorkSchedule = SubTabInfoModel(
+      title: "Pro Schedule",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Email",
+        "Employment Email",
+      ]);
+
   static const SubTabInfoModel checkInOut = SubTabInfoModel(
       title: "Check in/out",
       svgSource: "assets/icons/menu_dashboard.svg",
@@ -87,6 +95,7 @@ class SubTabInfo {
       svgSource: "assets/icons/menu_dashboard.svg",
       dataColumn: [
         "Name",
+        "Description",
         "Target",
       ]);
 
@@ -161,5 +170,77 @@ class SubTabInfo {
         "Quote",
         "Author",
         "Created Time"
+      ]);
+
+  static const SubTabInfoModel pwdAccount = SubTabInfoModel(
+      title: "Pwd Account",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Organization",
+        "Type",
+        "Role",
+        "Name",
+        "Email",
+      ]);
+
+  static const SubTabInfoModel proAccount = SubTabInfoModel(
+      title: "Account",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Organization",
+        "Type",
+        "Role",
+        "Name",
+        "Email",
+      ]);
+
+  static const SubTabInfoModel permission = SubTabInfoModel(
+      title: "Permission",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Name",
+        "Description",
+        "Action",
+        "Resource",
+      ]);
+
+  static const SubTabInfoModel permissionModule = SubTabInfoModel(
+      title: "Permission Module",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Name",
+      ]);
+
+  static const SubTabInfoModel role = SubTabInfoModel(
+      title: "Role",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Organisation",
+        "Role",
+        "Description",
+        "Permissions",
+      ]);
+
+  static const SubTabInfoModel organisation = SubTabInfoModel(
+      title: "Organisation",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Code",
+        "Name",
+        "Permissions",
+      ]);
+
+  static const SubTabInfoModel agreement = SubTabInfoModel(
+      title: "Agreement",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Description",
+      ]);
+
+  static const SubTabInfoModel policy = SubTabInfoModel(
+      title: "Policy",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Description",
       ]);
 }

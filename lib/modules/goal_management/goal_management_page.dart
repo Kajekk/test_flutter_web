@@ -231,6 +231,18 @@ class GoalManagementPage extends StatelessWidget {
               : EditGoalRelationshipDialog(),
         );
       }
+
+      if (controller.isCurrent &&
+          controller.subTabInfoModel.title ==
+              SubTabInfo.goalTracking.title) {
+        var editController = Get.find<EditGoalTrackingController>();
+        return ItemDetail(
+          itemDetailInfo: GoalTrackingItemDetailInfo(),
+          // customDialog: editController.itemDetail == null
+          //     ? null
+          //     : EditGoalRelationshipDialog(),
+        );
+      }
     }
     return Container();
   }

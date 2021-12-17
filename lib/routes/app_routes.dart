@@ -12,4 +12,6 @@ abstract class Routes {
   static const SUPPORT_MANAGEMENT = '/support-management';
   static const GOAL_MANAGEMENT = '/goal-management';
   static const HOME_MANAGEMENT = '/home-management';
+  static const ACCOUNT_MANAGEMENT = '/account-management';
+  static const TERM_SERVICE_PRIVACY_POLICY = '/term-service-privacy-policy';
 }
