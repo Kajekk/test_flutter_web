@@ -42,6 +42,7 @@ class EmploymentDetailController extends SubTabController {
     isCurrent = true;
     Get.find<WorkplaceDetailController>().isCurrent = false;
     Get.find<ProWorkScheduleController>().isCurrent = false;
+    Get.find<ContactFormController>().isCurrent = false;
   }
 
   void selectItemDetail(BaseModel? item) {

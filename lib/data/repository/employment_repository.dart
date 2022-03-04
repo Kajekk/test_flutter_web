@@ -15,6 +15,9 @@ abstract class IEmploymentRepository {
   Future<BaseResponse> createProSchedule(ProWorkSchedule data);
   Future<BaseResponse> updateProSchedule(ProWorkSchedule data);
   Future<BaseResponse> deleteProSchedules(QueryModel queryModel);
+
+  Future<BaseResponse<ContactForm>> getContactForms(QueryModel queryModel);
+  Future<BaseResponse> deleteContactForms(QueryModel queryModel);
 }
 
 class EmploymentRepository implements IEmploymentRepository {
@@ -35,4 +38,7 @@ class EmploymentRepository implements IEmploymentRepository {
   Future<BaseResponse> createProSchedule(ProWorkSchedule data) => provider.createProSchedule(data);
   Future<BaseResponse> updateProSchedule(ProWorkSchedule data) => provider.updateProSchedule(data);
   Future<BaseResponse> deleteProSchedules(QueryModel queryModel) => provider.deleteProSchedules(queryModel);
+
+  Future<BaseResponse<ContactForm>> getContactForms(QueryModel queryModel) => provider.getContactForms(queryModel);
+  Future<BaseResponse> deleteContactForms(QueryModel queryModel) => provider.deleteContactForms(queryModel);
 }

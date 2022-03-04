@@ -81,6 +81,15 @@ class SubTabInfo {
         "Employment Email",
       ]);
 
+  static const SubTabInfoModel contactForm = SubTabInfoModel(
+      title: "Contact Form",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Name",
+        "Email",
+        "Phone",
+      ]);
+
   static const SubTabInfoModel checkInOut = SubTabInfoModel(
       title: "Check in/out",
       svgSource: "assets/icons/menu_dashboard.svg",

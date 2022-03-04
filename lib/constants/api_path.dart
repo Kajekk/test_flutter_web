@@ -1,6 +1,6 @@
 abstract class ApiPath {
-  static const String BaseUrl = 'https://inclus-mapi.tihub.net';
-  // static const String BaseUrl = 'http://localhost';
+  // static const String BaseUrl = 'https://inclus-mapi.tihub.net';
+  static const String BaseUrl = 'http://localhost';
   static const String Login = '/admin/v1/login';
   static const String GetMe = '/admin/v1/me';
 
@@ -30,6 +30,7 @@ abstract class ApiPath {
   static const String UpdateWorkplace = '/admin/v1/workplace-detail';
   static const String DeleteWorkplaces = '/admin/v1/workplace-detail';
   static const String ProScheduleUri = '/admin/v1/pro-schedule';
+  static const String ContactFormUri = '/admin/v1/contact-form';
 
   static const String GetAttendanceList = '/admin/v1/attendance';
   static const String CreateAttendance = '/admin/v1/attendance';

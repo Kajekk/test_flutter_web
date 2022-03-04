@@ -44,6 +44,7 @@ class WorkplaceDetailController extends SubTabController {
       isCurrent = true;
       Get.find<EmploymentDetailController>().isCurrent = false;
       Get.find<ProWorkScheduleController>().isCurrent = false;
+      Get.find<ContactFormController>().isCurrent = false;
     }
   }
 

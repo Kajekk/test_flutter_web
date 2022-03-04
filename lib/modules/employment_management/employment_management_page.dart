@@ -10,6 +10,7 @@ class EmploymentManagementPage extends StatelessWidget {
   final EmploymentDetailController empController = Get.find();
   final WorkplaceDetailController wpdController = Get.find();
   final ProWorkScheduleController proScheduleController = Get.find();
+  final ContactFormController contactFormController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class EmploymentManagementPage extends StatelessWidget {
                             height: defaultPadding,
                           ),
                           SubTabs(
-                            listController: [empController, proScheduleController, wpdController],
+                            listController: [empController, proScheduleController, wpdController, contactFormController],
                           ),
                           SizedBox(
                             height: defaultPadding,
@@ -58,14 +59,15 @@ class EmploymentManagementPage extends StatelessWidget {
                                         buildListItem([
                                           empController,
                                           proScheduleController,
-                                          wpdController
+                                          wpdController,
+                                          contactFormController
                                         ]),
                                         if (Responsive.isMobile(context))
                                           SizedBox(
                                             height: defaultPadding,
                                           ),
                                         if (Responsive.isMobile(context))
-                                          buildItemDetail([empController, proScheduleController, wpdController])
+                                          buildItemDetail([empController, proScheduleController, wpdController, contactFormController])
                                       ],
                                     )),
                                 if (!Responsive.isMobile(context))
@@ -75,7 +77,7 @@ class EmploymentManagementPage extends StatelessWidget {
                                 if (!Responsive.isMobile(context))
                                   Expanded(
                                     flex: 2,
-                                    child: buildItemDetail([empController, proScheduleController, wpdController])
+                                    child: buildItemDetail([empController, proScheduleController, wpdController, contactFormController])
                                   )
                               ],
                             );
@@ -138,7 +140,24 @@ class EmploymentManagementPage extends StatelessWidget {
         return ListItem(
           controller: controller,
           dataTableSource: ProScheduleDetailData(context: _scaffoldKey.currentContext!, controller: proScheduleController),
-          // customDialog: WorkplaceDetailDialog(),
+          customDialog: AddProWorkDialog(),
+        );
+      }
+
+      if (controller.isCurrent &&
+          controller.subTabInfoModel.title == SubTabInfo.contactForm.title) {
+        var state = contactFormController.state;
+        if (state is ContactFormLoading || state is ContactFormFailure) {
+          return ListItem(
+            controller: controller,
+            dataTableSource: EmptyDataSource(numCol: contactFormController.info.dataColumn!.length),
+            isLoading: (state is ContactFormLoading) ? true : false,
+          );
+        }
+        return ListItem(
+          controller: controller,
+          dataTableSource: ContactFormDataSource(context: _scaffoldKey.currentContext!, controller: contactFormController),
+          // customDialog: EmploymentDetailDialog(),
         );
       }
     }
@@ -161,6 +180,14 @@ class EmploymentManagementPage extends StatelessWidget {
         return ItemDetail(
           itemDetailInfo: WorkplaceItemDetailInfo(),
           customDialog: editController.itemDetail == null ? null : EditWorkplaceDetailDialog(),
+        );
+      }
+      if (controller.isCurrent &&
+          controller.subTabInfoModel.title == SubTabInfo.proWorkSchedule.title) {
+        var editController = Get.find<EditProScheduleController>();
+        return ItemDetail(
+          itemDetailInfo: ProWorkItemDetailInfo(),
+          customDialog: editController.itemDetail == null ? null : EditProWorkDialog(),
         );
       }
     }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -5,6 +7,7 @@ import 'package:test_flutter_web/constants/barrel.dart';
 import 'package:test_flutter_web/data/barrel.dart';
 import 'package:test_flutter_web/global_widgets/controllers/barrel.dart';
 import 'package:test_flutter_web/modules/employment_management/barrel.dart';
+import 'package:test_flutter_web/utils/barrel.dart';
 
 class ProWorkScheduleController extends SubTabController {
   ProWorkScheduleController({required repository, required this.info}) : _repository = repository;
@@ -36,6 +39,7 @@ class ProWorkScheduleController extends SubTabController {
     isCurrent = true;
     Get.find<EmploymentDetailController>().isCurrent = false;
     Get.find<WorkplaceDetailController>().isCurrent = false;
+    Get.find<ContactFormController>().isCurrent = false;
   }
 
   void selectItemDetail(BaseModel? item) {
@@ -107,7 +111,10 @@ class AddNewProScheduleController extends GetxController {
 
   AddProWorkScheduleState get state => _stateStream.value;
   final emailController = TextEditingController();
-  final pwdEmailController = TextEditingController();
+  final employmentEmailController = TextEditingController();
+  final workingDays = <WorkingDay>[].obs;
+  final workingTimeStartControllers = List<TextEditingController>.generate(7, (i) => TextEditingController());
+  final workingTimeEndControllers = List<TextEditingController>.generate(7, (i) => TextEditingController());
 
   @override
   void onInit() {
@@ -131,10 +138,24 @@ class AddNewProScheduleController extends GetxController {
   }
 
   void addNewItem() async {
+    for (var i=0; i<workingDays.length; i++) {
+      var format = DateFormat.jm();
+      var wkf = format.parse(workingTimeStartControllers[workingDays[i].weekday!].text);
+      var wkt = format.parse(workingTimeEndControllers[workingDays[i].weekday!].text);
+      var workingTimeFrom = wkf.hour * 60 + wkf.minute;
+      var workingTimeTo = wkt.hour * 60 + wkt.minute;
+
+      workingDays[i] = WorkingDay(
+        weekday: workingDays[i].weekday,
+        workingTimeFrom: workingTimeFrom,
+        workingTimeTo: workingTimeTo,
+      );
+    }
 
     var data = ProWorkSchedule(
       email: emailController.text,
-      employmentEmail: pwdEmailController.text,
+      employmentEmail: employmentEmailController.text,
+      workingDays: workingDays,
     );
 
     _stateStream.value = AddProWorkScheduleLoading();
@@ -146,9 +167,11 @@ class AddNewProScheduleController extends GetxController {
     }
     _stateStream.value = AddProWorkScheduleSuccess();
   }
+
   void clear() async {
     emailController.text = "";
-    pwdEmailController.text = "";
+    employmentEmailController.text = "";
+    workingDays.value = [];
   }
 }
 
@@ -169,20 +192,35 @@ class EditProScheduleController extends GetxController {
 
   //fields
   final emailController = TextEditingController();
-  final pwdEmailController = TextEditingController();
+  final employmentEmailController = TextEditingController();
+  final workingDays = <WorkingDay>[].obs;
+  final workingTimeStartControllers = List<TextEditingController>.generate(7, (i) => TextEditingController()).obs;
+  final workingTimeEndControllers = List<TextEditingController>.generate(7, (i) => TextEditingController()).obs;
 
   void changeEditItem(ProWorkSchedule? data) {
     if (data != null) {
-      pwdEmailController.text = data.employmentEmail!;
+      employmentEmailController.text = data.employmentEmail!;
       emailController.text = data.email!;
+      workingDays.value = [...data.workingDays!];
+
+      workingTimeStartControllers.value = List<TextEditingController>.generate(7, (i) => TextEditingController());
+      workingTimeEndControllers.value = List<TextEditingController>.generate(7, (i) => TextEditingController());
+      data.workingDays!.forEach((day) {
+        var startingTime = toTimeStringC(day.workingTimeFrom!);
+        var endingTime = toTimeStringC(day.workingTimeTo!);
+
+        workingTimeStartControllers[day.weekday!].text = startingTime;
+        workingTimeEndControllers[day.weekday!].text = endingTime;
+      });
 
       itemDetail = data;
     }
   }
 
   void clearEdit() {
-    pwdEmailController.text = itemDetail!.employmentEmail!;
+    employmentEmailController.text = itemDetail!.employmentEmail!;
     emailController.text = itemDetail!.email!;
+    workingDays.value = [...itemDetail!.workingDays!];
   }
 
   @override
@@ -207,10 +245,25 @@ class EditProScheduleController extends GetxController {
   }
 
   void editItem() async {
+    for (var i=0; i<workingDays.length; i++) {
+      var format = DateFormat.jm();
+      var wkf = format.parse(workingTimeStartControllers[workingDays[i].weekday!].text);
+      var wkt = format.parse(workingTimeEndControllers[workingDays[i].weekday!].text);
+      var workingTimeFrom = wkf.hour * 60 + wkf.minute;
+      var workingTimeTo = wkt.hour * 60 + wkt.minute;
+
+      workingDays[i] = WorkingDay(
+        weekday: workingDays[i].weekday,
+        workingTimeFrom: workingTimeFrom,
+        workingTimeTo: workingTimeTo,
+      );
+    }
+
     var data = ProWorkSchedule(
       id: itemDetail!.id,
       email: emailController.text,
-      employmentEmail: pwdEmailController.text,
+      employmentEmail: employmentEmailController.text,
+      workingDays: workingDays,
     );
 
     _stateStream.value = EditProWorkScheduleLoading();

@@ -18,6 +18,9 @@ abstract class IEmploymentProvider {
   Future<BaseResponse> createProSchedule(ProWorkSchedule data);
   Future<BaseResponse> updateProSchedule(ProWorkSchedule data);
   Future<BaseResponse> deleteProSchedules(QueryModel queryModel);
+
+  Future<BaseResponse<ContactForm>> getContactForms(QueryModel queryModel);
+  Future<BaseResponse> deleteContactForms(QueryModel queryModel);
 }
 
 class EmploymentProvider extends BaseProvider with IEmploymentProvider {
@@ -116,6 +119,24 @@ class EmploymentProvider extends BaseProvider with IEmploymentProvider {
       "q": jsonEncode(queryModel.toJson()),
     };
     var rs = await delete(ApiPath.ProScheduleUri, query: query);
+    BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
+    return baseResponse;
+  }
+
+  Future<BaseResponse<ContactForm>> getContactForms(QueryModel queryModel) async {
+    var query = parsedQuery(queryModel.toJson())!;
+    var rs = await get(ApiPath.ContactFormUri, query: query);
+    BaseResponse<ContactForm> baseResponse = BaseResponse.fromJson(
+        rs.body,
+            (json) => ContactForm.fromJson(json as Map<String, dynamic>));
+    return baseResponse;
+  }
+
+  Future<BaseResponse> deleteContactForms(QueryModel queryModel) async {
+    var query = {
+      "q": jsonEncode(queryModel.toJson()),
+    };
+    var rs = await delete(ApiPath.ContactFormUri, query: query);
     BaseResponse baseResponse = BaseResponse.fromJson(rs.body, (json) => null);
     return baseResponse;
   }
