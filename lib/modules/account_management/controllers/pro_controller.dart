@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -128,7 +127,7 @@ class AddNewProAccountController extends GetxController {
     Get.find<RoleController>().fetchAll();
 
     ever(_stateStream, (state) {
-      if (state is AddPwdAccountSuccess) {
+      if (state is AddProAccountSuccess) {
         Get.back();
 
         var gController = Get.find<ProController>();
