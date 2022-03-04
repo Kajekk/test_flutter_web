@@ -83080,7 +83080,7 @@ Z.YM.prototype={}
 B.OE.prototype={
 ad(){var s=this
 s.fx=!0
-s.go1().b="http://localhost"
+s.go1().b="https://inclus-mapi.tihub.net"
 s.go1().ch.a.push(t.x9.a(new B.aav()))
 s.go1().ch.b.push(t.LF.a(new B.aaw()))}}
 B.aav.prototype={
