@@ -4,6 +4,7 @@ import 'package:test_flutter_web/data/barrel.dart';
 import 'package:test_flutter_web/main.dart';
 import 'package:test_flutter_web/modules/account_management/barrel.dart';
 import 'package:test_flutter_web/modules/authentication/login/login.dart';
+import 'package:test_flutter_web/modules/community_management/barrel.dart';
 import 'package:test_flutter_web/modules/dashboard/barrel.dart';
 import 'package:test_flutter_web/modules/emotional_management/barrel.dart';
 import 'package:test_flutter_web/modules/employment_management/barrel.dart';
@@ -64,6 +65,11 @@ class AppPages {
         name: Routes.USER_ACCESS_MANAGEMENT,
         page: () => UserAccessManagementPage(),
         binding: UserAccessManagementBinding(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: Routes.COMMUNITY_MANAGEMENT,
+        page: () => CommunityManagementPage(),
+        binding: CommunityManagementBinding(),
         middlewares: [AuthMiddleware()]),
     GetPage(
         name: Routes.TERM_SERVICE_PRIVACY_POLICY,

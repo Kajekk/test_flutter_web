@@ -63,5 +63,7 @@ abstract class ApiPath {
 
   static const String GoalTrackingUri = '/admin/v1/goal-tracking';
 
+  static const String CommunityTopicUri = '/admin/v1/community-topic';
+
   static const String FcmSaveDeviceTokenUri = '/admin/v1/firebase/register';
 }

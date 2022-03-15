@@ -25,24 +25,13 @@ class AccountManagementBinding extends Bindings {
     Get.lazyPut<IAccountRepository>(
             () => AccountRepository(provider: Get.find()));
     Get.lazyPut(
-          () => PwdController(
+          () => AccountController(
           accountRepository: Get.find<IAccountRepository>(),
-          info: SubTabInfo.pwdAccount),
+          info: SubTabInfo.account),
     );
     Get.lazyPut(
-              () => AddNewPwdAccountController(repository: Get.find<IAccountRepository>()));
+              () => AddNewAccountController(repository: Get.find<IAccountRepository>()));
     Get.lazyPut(
-            () => EditPwdAccountController(repository: Get.find<IAccountRepository>()));
-
-    Get.lazyPut(
-          () => ProController(
-          accountRepository: Get.find<IAccountRepository>(),
-          info: SubTabInfo.proAccount),
-    );
-    Get.lazyPut(
-            () => AddNewProAccountController(repository: Get.find<IAccountRepository>()));
-    Get.lazyPut(
-            () => EditProAccountController(repository: Get.find<IAccountRepository>()));
-
+            () => EditAccountController(repository: Get.find<IAccountRepository>()));
   }
 }

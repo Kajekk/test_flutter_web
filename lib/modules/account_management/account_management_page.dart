@@ -9,8 +9,7 @@ import 'package:test_flutter_web/modules/account_management/states/barrel.dart';
 
 class AccountManagementPage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final PwdController pwdController = Get.find();
-  final ProController proController = Get.find();
+  final AccountController accountController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +39,7 @@ class AccountManagementPage extends StatelessWidget {
                             height: defaultPadding,
                           ),
                           SubTabs(
-                            listController: [proController, pwdController, ],
+                            listController: [accountController,],
                           ),
                           SizedBox(
                             height: defaultPadding,
@@ -56,15 +55,14 @@ class AccountManagementPage extends StatelessWidget {
                                       CrossAxisAlignment.stretch,
                                       children: [
                                         buildListItem([
-                                          proController,
-                                          pwdController,
+                                          accountController,
                                         ]),
                                         if (Responsive.isMobile(context))
                                           SizedBox(
                                             height: defaultPadding,
                                           ),
                                         if (Responsive.isMobile(context))
-                                          buildItemDetail([proController, pwdController])
+                                          buildItemDetail([accountController,])
                                       ],
                                     )),
                                 if (!Responsive.isMobile(context))
@@ -74,7 +72,7 @@ class AccountManagementPage extends StatelessWidget {
                                 if (!Responsive.isMobile(context))
                                   Expanded(
                                       flex: 2,
-                                      child: buildItemDetail([proController, pwdController])
+                                      child: buildItemDetail([accountController,])
                                   )
                               ],
                             );
@@ -91,36 +89,19 @@ class AccountManagementPage extends StatelessWidget {
   Widget buildListItem(List<SubTabController> listController) {
     for (var controller in listController) {
       if (controller.isCurrent &&
-          controller.subTabInfoModel.title == SubTabInfo.pwdAccount.title) {
-        var state = pwdController.state;
-        if (state is PwdAccountLoading || state is PwdAccountFailure) {
+          controller.subTabInfoModel.title == SubTabInfo.account.title) {
+        var state = accountController.state;
+        if (state is AccountLoading || state is AccountFailure) {
           return ListItem(
             controller: controller,
-            dataTableSource: EmptyDataSource(numCol: pwdController.info.dataColumn!.length),
-            isLoading: (state is PwdAccountLoading) ? true : false,
+            dataTableSource: EmptyDataSource(numCol: accountController.info.dataColumn!.length),
+            isLoading: (state is AccountLoading) ? true : false,
           );
         }
         return ListItem(
           controller: controller,
-          dataTableSource: PwdAccountDataSource(controller: pwdController),
-          customDialog: AddPwdDialog(),
-        );
-      }
-
-      if (controller.isCurrent &&
-          controller.subTabInfoModel.title == SubTabInfo.proAccount.title) {
-        var state = proController.state;
-        if (state is ProAccountLoading || state is ProAccountFailure) {
-          return ListItem(
-            controller: controller,
-            dataTableSource: EmptyDataSource(numCol: proController.info.dataColumn!.length),
-            isLoading: (state is ProAccountLoading) ? true : false,
-          );
-        }
-        return ListItem(
-          controller: controller,
-          dataTableSource: ProAccountDataSource(controller: proController),
-          customDialog: AddProDialog(),
+          dataTableSource: AccountDataSource(controller: accountController),
+          customDialog: AddAccountDialog(),
         );
       }
     }
@@ -130,20 +111,11 @@ class AccountManagementPage extends StatelessWidget {
   Widget buildItemDetail(List<SubTabController> listController) {
     for (var controller in listController) {
       if (controller.isCurrent &&
-          controller.subTabInfoModel.title == SubTabInfo.pwdAccount.title) {
-        var editController = Get.find<EditPwdAccountController>();
+          controller.subTabInfoModel.title == SubTabInfo.account.title) {
+        var editController = Get.find<EditAccountController>();
         return ItemDetail(
-          itemDetailInfo: PwdAccountItemDetailInfo(),
-          customDialog: editController.itemDetail == null ? null : EditPwdDialog(),
-        );
-      }
-
-      if (controller.isCurrent &&
-          controller.subTabInfoModel.title == SubTabInfo.proAccount.title) {
-        var editController = Get.find<EditProAccountController>();
-        return ItemDetail(
-          itemDetailInfo: ProAccountItemDetailInfo(),
-          customDialog: editController.itemDetail == null ? null : EditProDialog(),
+          itemDetailInfo: AccountItemDetailInfo(),
+          customDialog: editController.itemDetail == null ? null : EditAccountDialog(),
         );
       }
     }

@@ -24,3 +24,4 @@ export 'organisation.dart';
 export 'agreement_and_policy_model.dart';
 export 'pro_work_schedule.dart';
 export 'contact_form.dart';
+export 'community_topic.dart';

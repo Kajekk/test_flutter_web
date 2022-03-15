@@ -7,3 +7,4 @@ export 'home_provider.dart';
 export 'account_provider.dart';
 export 'user_access_provider.dart';
 export 'agreement_policy_provider.dart';
+export 'community_provider.dart';

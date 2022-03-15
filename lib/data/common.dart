@@ -181,18 +181,7 @@ class SubTabInfo {
         "Created Time"
       ]);
 
-  static const SubTabInfoModel pwdAccount = SubTabInfoModel(
-      title: "Pwd Account",
-      svgSource: "assets/icons/menu_dashboard.svg",
-      dataColumn: [
-        "Organization",
-        "Type",
-        "Role",
-        "Name",
-        "Email",
-      ]);
-
-  static const SubTabInfoModel proAccount = SubTabInfoModel(
+  static const SubTabInfoModel account = SubTabInfoModel(
       title: "Account",
       svgSource: "assets/icons/menu_dashboard.svg",
       dataColumn: [
@@ -237,6 +226,16 @@ class SubTabInfo {
         "Code",
         "Name",
         "Permissions",
+      ]);
+
+  static const SubTabInfoModel communityTopic = SubTabInfoModel(
+      title: "Community Topic",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Organisation",
+        "Topic",
+        "Start Date",
+        "End Date",
       ]);
 
   static const SubTabInfoModel agreement = SubTabInfoModel(
