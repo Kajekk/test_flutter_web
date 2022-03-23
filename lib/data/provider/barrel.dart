@@ -8,3 +8,4 @@ export 'account_provider.dart';
 export 'user_access_provider.dart';
 export 'agreement_policy_provider.dart';
 export 'community_provider.dart';
+export 'inclus_form_provider.dart';

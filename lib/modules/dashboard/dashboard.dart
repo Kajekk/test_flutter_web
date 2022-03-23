@@ -118,7 +118,7 @@ class Dashboard extends StatelessWidget {
                               // runAlignment: WrapAlignment.center,
                               children: [
                                 RouteButton(title: "Community Management", route: Routes.COMMUNITY_MANAGEMENT, icon: Icon(
-                                  Icons.mood_outlined,
+                                  Icons.forum_outlined,
                                 ),),
                                 RouteButton(title: "Emotional Management", route: Routes.EMOTIONAL_MANAGEMENT, icon: Icon(
                                   Icons.mood_outlined,
@@ -131,6 +131,9 @@ class Dashboard extends StatelessWidget {
                             Wrap(
                               spacing: defaultPadding,
                               children: [
+                                RouteButton(title: "Inclus Forms", route: Routes.INCLUS_FORMS, icon: Icon(
+                                  Icons.list_alt_outlined,
+                                ),),
                                 RouteButton(title: "Term of Service & Privacy Policy", route: Routes.TERM_SERVICE_PRIVACY_POLICY, icon: Icon(
                                   Icons.privacy_tip_outlined,
                                 ),),

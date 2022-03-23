@@ -66,4 +66,7 @@ abstract class ApiPath {
   static const String CommunityTopicUri = '/admin/v1/community-topic';
 
   static const String FcmSaveDeviceTokenUri = '/admin/v1/firebase/register';
+
+  static const String InclusiveEmploymentFormUri = '/admin/v1/inclusive-employment-form';
+  static const String ContactUsFormUri = '/admin/v1/contact-us-form';
 }

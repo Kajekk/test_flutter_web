@@ -251,4 +251,25 @@ class SubTabInfo {
       dataColumn: [
         "Description",
       ]);
+
+  static const SubTabInfoModel inclusiveEmployment = SubTabInfoModel(
+      title: "Inclusive Employment",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Name",
+        "Email",
+        "Number",
+        "Created Time"
+      ]);
+
+  static const SubTabInfoModel contactUs = SubTabInfoModel(
+      title: "Contact Us",
+      svgSource: "assets/icons/menu_dashboard.svg",
+      dataColumn: [
+        "Name",
+        "Email",
+        "Number",
+        "Message",
+        "Created Time"
+      ]);
 }

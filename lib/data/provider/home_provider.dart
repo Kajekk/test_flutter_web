@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:test_flutter_web/constants/barrel.dart';
 import 'package:test_flutter_web/data/models/barrel.dart';
 import 'package:test_flutter_web/utils/barrel.dart';

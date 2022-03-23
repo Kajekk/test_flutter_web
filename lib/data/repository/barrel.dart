@@ -7,3 +7,4 @@ export 'account_repository.dart';
 export 'user_access_repository.dart';
 export 'agreement_policy_repository.dart';
 export 'community_repository.dart';
+export 'inclus_form_repository.dart';

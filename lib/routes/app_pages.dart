@@ -10,6 +10,7 @@ import 'package:test_flutter_web/modules/emotional_management/barrel.dart';
 import 'package:test_flutter_web/modules/employment_management/barrel.dart';
 import 'package:test_flutter_web/modules/goal_management/barrel.dart';
 import 'package:test_flutter_web/modules/home_management/barrel.dart';
+import 'package:test_flutter_web/modules/inclus_form/barrel.dart';
 import 'package:test_flutter_web/modules/support_management/barrel.dart';
 import 'package:test_flutter_web/modules/term_service_privacy_policy/barrel.dart';
 import 'package:test_flutter_web/modules/user_access_management/barrel.dart';
@@ -70,6 +71,11 @@ class AppPages {
         name: Routes.COMMUNITY_MANAGEMENT,
         page: () => CommunityManagementPage(),
         binding: CommunityManagementBinding(),
+        middlewares: [AuthMiddleware()]),
+    GetPage(
+        name: Routes.INCLUS_FORMS,
+        page: () => InclusFormPage(),
+        binding: InclusFormBinding(),
         middlewares: [AuthMiddleware()]),
     GetPage(
         name: Routes.TERM_SERVICE_PRIVACY_POLICY,
